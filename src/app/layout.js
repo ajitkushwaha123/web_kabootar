@@ -3,6 +3,8 @@ import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/global/sidebar/app-sidebar";
 import ReduxProvider from "@/components/providers/ReduxProviders";
+import { ClerkProvider } from "@clerk/nextjs";
+import DashboardHeader from "@/components/global/DashboardHeader/DashboardHeader";
 
 const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
@@ -18,17 +20,20 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} antialiased`}>
-        <ReduxProvider>
-          <SidebarProvider>
-            <AppSidebar />
-            <main className="w-[100%]">
-              {/* <SidebarTrigger /> */}
-              {children}
-            </main>
-          </SidebarProvider>
-        </ReduxProvider>
-      </body>
+      <ClerkProvider>
+        {" "}
+        <body className={`${poppins.variable} antialiased`}>
+          <ReduxProvider>
+            <SidebarProvider>
+              <AppSidebar />
+              <main className="w-[100%]">
+                <DashboardHeader />
+                {children}
+              </main>
+            </SidebarProvider>
+          </ReduxProvider>
+        </body>
+      </ClerkProvider>
     </html>
   );
 }
