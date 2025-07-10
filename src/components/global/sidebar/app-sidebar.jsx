@@ -33,6 +33,11 @@ const items = [
     icon: Calendar,
     children: [
       {
+        title: "All Template",
+        url: "/template",
+        icon: Inbox,
+      },
+      {
         title: "Template Library",
         url: "/template/template-library",
         icon: Search,
@@ -41,11 +46,6 @@ const items = [
         title: "Template Builder",
         url: "/template/template-builder",
         icon: Settings,
-      },
-      {
-        title: "My Template",
-        url: "/template/my-template",
-        icon: Inbox,
       },
     ],
   },

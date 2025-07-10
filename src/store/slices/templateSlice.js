@@ -3,9 +3,9 @@ import axios from "axios";
 
 export const fetchTemplates = createAsyncThunk(
   "template/fetchTemplates",
-  async (_, { rejectWithValue }) => {
+  async ({ status }, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`/api/template/get-all-template`);
+      const response = await axios.get(`/api/template/get-all-template?status=${status}`);
 
       console.log("Response from template API:", response.data);
 

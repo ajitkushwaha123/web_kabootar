@@ -98,7 +98,7 @@ const Utility = ({ getPayload }) => {
         )}
       </div>
 
-      <Card>
+      {/* <Card>
         <CardHeader>
           <CardTitle className="text-sm font-semibold">
             Generated Payload
@@ -107,7 +107,7 @@ const Utility = ({ getPayload }) => {
         <CardContent className="bg-muted rounded-md text-xs font-mono text-muted-foreground p-4 max-h-[400px] overflow-auto">
           <pre>{JSON.stringify(generatePayload(), null, 2)}</pre>
         </CardContent>
-      </Card>
+      </Card> */}
     </div>
   );
 };

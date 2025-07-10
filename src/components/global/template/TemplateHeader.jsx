@@ -8,12 +8,20 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Filter, Plus } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
-const statusOptions = ["All", "Approved", "Pending", "Rejected"];
+const statusOptions = ["All", "APPROVED", "PENDING", "REJECTED"];
 
-export default function TemplateHeader() {
+export default function TemplateHeader({ onChangeStatus }) {
   const [selectedStatus, setSelectedStatus] = useState("All");
+
+  const handleStatusChange = (status) => {
+    setSelectedStatus(status);
+    if (onChangeStatus) {
+      onChangeStatus(status);
+    }
+  };
 
   return (
     <div className="bg-green-50 border border-green-100 rounded-xl px-6 py-5 mb-6 shadow-sm">
@@ -42,7 +50,7 @@ export default function TemplateHeader() {
               {statusOptions.map((status) => (
                 <DropdownMenuItem
                   key={status}
-                  onClick={() => setSelectedStatus(status)}
+                  onClick={() => handleStatusChange(status)}
                 >
                   {status}
                 </DropdownMenuItem>
@@ -50,10 +58,12 @@ export default function TemplateHeader() {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Button className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white shadow-md">
-            <Plus className="w-4 h-4" />
-            Create New Template
-          </Button>
+          <Link href={"/template/template-builder"}>
+            <Button className="flex cursor-pointer items-center gap-2 bg-green-500 hover:bg-green-600 text-white shadow-md">
+              <Plus className="w-4 h-4" />
+              Create New Template
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

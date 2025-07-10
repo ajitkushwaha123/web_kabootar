@@ -32,11 +32,10 @@ const TemplateHeaderComponent = ({ setData }) => {
     if (type === "none") {
       setData(null);
     } else {
-      // Send status as soon as type changes
       setData({
         type: "HEADER",
         format: type.toUpperCase(),
-        status: "awaiting content", // optional status message
+        status: "awaiting content", 
       });
     }
   };

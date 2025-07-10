@@ -3,8 +3,19 @@ import { NextResponse } from "next/server";
 
 export const GET = async (req) => {
   try {
+    const { searchParams } = new URL(req.url);
+
+    const status = searchParams.get("status");
+
+    const queryParams = new URLSearchParams({});
+    if (status && status !== "ALL") {
+      queryParams.append("status", status);
+    }
+
     const response = await axios.get(
-      `${process.env.META_WA_API_URL}/${process.env.META_WA_BA_ID}/message_templates`,
+      `${process.env.META_WA_API_URL}/${
+        process.env.META_WA_BA_ID
+      }/message_templates?${queryParams.toString()}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.META_WA_TOKEN}`,

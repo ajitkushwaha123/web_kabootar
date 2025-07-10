@@ -22,8 +22,8 @@ export const useTemplate = () => {
     createError,
   } = useSelector((state) => state.template);
 
-  const getTemplates = () => {
-    dispatch(fetchTemplates());
+  const getTemplates = ({ status }) => {
+    dispatch(fetchTemplates({ status }));
   };
 
   const getTemplateLibrary = (filters) => {

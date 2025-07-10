@@ -1,6 +1,14 @@
 "use client";
 
+import React, { useState } from "react";
 import { cn } from "@/lib/utils";
+import { PlayCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export default function TemplateCardPreview({ template = {} }) {
   const {
@@ -16,9 +24,19 @@ export default function TemplateCardPreview({ template = {} }) {
   const buttons = components?.find((c) => c.type === "BUTTONS");
 
   const headerText = header?.format === "TEXT" ? header?.text : null;
-  const previewUrl = header?.example?.previewUrl || null;
+  const previewUrl =
+    header?.example?.previewUrl ||
+    (Array.isArray(header?.example?.header_handle)
+      ? header.example.header_handle[0]
+      : null) ||
+    null;
+
   const bodyText = body?.text || "";
+  const bodyParams = body?.example?.body_text[0] || [];
   const footerText = footer?.text || "";
+
+
+  const [showExample, setShowExample] = useState(false);
 
   const textFormatter = (text) =>
     text
@@ -40,8 +58,66 @@ export default function TemplateCardPreview({ template = {} }) {
     AUTHENTICATION: "bg-rose-100 text-rose-700",
   };
 
+  const renderBodyContent = () => {
+    if (!body) return null;
+
+    const parts = bodyText.split(/({{\d+}})/g);
+
+    console.log("Body Params:", parts);
+
+    if (showExample) {
+      return (
+        <div className="text-sm text-gray-800 whitespace-pre-wrap leading-relaxed">
+          {parts.map((part, idx) => {
+            const match = part.match(/{{(\d+)}}/);
+            if (match) {
+              const index = Number(match[1]);
+
+              console.log("index:", index);
+
+              console.log("Body Params:", bodyParams);
+
+              const example = bodyParams?.[index - 1];
+              return (
+                <span key={idx} className="text-green-600 font-medium">
+                  {example || `{{${index}}}`}
+                </span>
+              );
+            }
+            return <span key={idx}>{part}</span>;
+          })}
+        </div>
+      );
+    }
+
+    return (
+      <div className="text-sm text-gray-800 whitespace-pre-wrap leading-relaxed">
+        {parts.map((part, idx) => {
+          const match = part.match(/{{(\d+)}}/);
+          if (match) {
+            const index = Number(match[1]);
+
+            // console.log("Index:", index);
+            // const param = bodyParams?.[index - 1];
+            return (
+              <Tooltip key={idx}>
+                <TooltipTrigger asChild>
+                  <span className="text-green-600 font-medium cursor-help">
+                    {`{{${index}}}`}
+                  </span>
+                </TooltipTrigger>
+              </Tooltip>
+            );
+          }
+          return <span key={idx}>{part}</span>;
+        })}
+      </div>
+    );
+  };
+
   return (
     <div className="flex flex-col h-full rounded-2xl overflow-hidden shadow-sm bg-white">
+      {/* Header */}
       <div className="p-4 bg-white flex items-center justify-between">
         <h2 className="font-semibold text-gray-500 text-md truncate">
           {textFormatter(name || "Template Name")}
@@ -56,18 +132,21 @@ export default function TemplateCardPreview({ template = {} }) {
         </span>
       </div>
 
+      {/* Main Content */}
       <div className="flex-1 bg-chat p-4 overflow-auto">
         <div className="bg-white rounded-lg p-4 shadow-sm text-sm text-gray-800 whitespace-pre-wrap leading-relaxed flex flex-col gap-3">
+          {/* Header Text */}
           {headerText && (
             <p className="font-semibold text-[15px] text-black">{headerText}</p>
           )}
 
+          {/* Media Types */}
           {header?.format === "IMAGE" && (
             <div className="overflow-hidden rounded-md">
               <img
                 src={
                   previewUrl ||
-                  "https://i.pinimg.com/originals/63/8b/cd/638bcd252d51340cb0d645adbf19eac3.gif"
+                  "https://i.pinimg.com/1200x/21/7f/0a/217f0a878b0fb41f5560651ebed1cc1a.jpg"
                 }
                 alt="Header Image"
                 className="w-full h-full object-contain rounded-md"
@@ -76,14 +155,18 @@ export default function TemplateCardPreview({ template = {} }) {
           )}
 
           {header?.format === "VIDEO" && (
-            <div className="w-full max-h-[260px] overflow-hidden rounded-md">
-              <video
-                src={previewUrl}
-                controls
-                className="w-full h-full object-cover aspect-video rounded-md"
-              >
-                Your browser does not support the video tag.
-              </video>
+            <div className="w-full overflow-hidden rounded-md">
+              {previewUrl ? (
+                <video
+                  src={previewUrl}
+                  controls
+                  className="w-full h-full object-cover aspect-video rounded-md"
+                />
+              ) : (
+                <div className="flex items-center justify-center h-[180px] bg-gray-500">
+                  <PlayCircle size={"70px"} />
+                </div>
+              )}
             </div>
           )}
 
@@ -106,14 +189,7 @@ export default function TemplateCardPreview({ template = {} }) {
           )}
 
           {bodyText ? (
-            <p
-              dangerouslySetInnerHTML={{
-                __html: bodyText.replace(
-                  /{{\d+}}/g,
-                  "<span class='text-green-600 font-medium'>$&</span>"
-                ),
-              }}
-            />
+            renderBodyContent()
           ) : (
             <p className="text-gray-400 italic">No body content provided.</p>
           )}
@@ -141,8 +217,17 @@ export default function TemplateCardPreview({ template = {} }) {
           )}
         </div>
       </div>
-
-      <div className="p-4 bg-white flex justify-end text-xs text-gray-500">
+      <div className="p-4 bg-white flex justify-between items-center text-xs text-gray-500">
+        {bodyParams.length > 0 && (
+          <Button
+            variant="outline"
+            size="sm"
+            className="text-xs"
+            onClick={() => setShowExample((prev) => !prev)}
+          >
+            {showExample ? "Show Params" : "Show Example"}
+          </Button>
+        )}
         <span
           className={cn(
             "text-xs font-medium px-2 py-0.5 rounded",

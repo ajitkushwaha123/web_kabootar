@@ -4,6 +4,7 @@ import TemplateCardPreview from "./TemplateCardPreview";
 import { AlertTriangle } from "lucide-react";
 import TemplateCardLibraryPreview from "./TemplateLibraryCardPreview";
 import Loader from "@/components/ui/loader";
+import EmptyState from "@/components/EmptyState/EmptyState";
 
 export default function TemplateGallery({
   templates,
@@ -25,8 +26,16 @@ export default function TemplateGallery({
     </div>
   );
 
+  if (templates.length === 0) {
+    return <EmptyState url="/template/template-builder" />;
+  }
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5 p-4">
+    <div
+      className={`grid grid-cols-1 sm:grid-cols-2 ${
+        library ? "lg:grid-cols-2" : "lg:grid-cols-3"
+      } gap-5 p-4`}
+    >
       {loading && renderLoader()}
       {!loading && error && renderError()}
       {!loading &&

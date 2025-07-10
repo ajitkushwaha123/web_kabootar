@@ -75,9 +75,9 @@ const Authentication = ({ onChange }) => {
         />
       </div>
 
-      <div className="mt-6 p-4 border rounded-md bg-gray-50 text-sm font-mono whitespace-pre-wrap max-h-[300px] overflow-auto">
+      {/* <div className="mt-6 p-4 border rounded-md bg-gray-50 text-sm font-mono whitespace-pre-wrap max-h-[300px] overflow-auto">
         {JSON.stringify(payload, null, 2)}
-      </div>
+      </div> */}
     </div>
   );
 };
