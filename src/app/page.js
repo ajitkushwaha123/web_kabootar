@@ -1,5 +1,4 @@
 import WhatsAppSignupButton from "@/components/global/embedded-signup/WhatsappSignupButton";
-import Image from "next/image";
 
 export default function Home() {
   return (

@@ -28,6 +28,11 @@ const items = [
     icon: Home,
   },
   {
+    title: "Inbox",
+    url: "/inbox",
+    icon: Inbox,
+  },
+  {
     title: "Template",
     url: "/template",
     icon: Calendar,
