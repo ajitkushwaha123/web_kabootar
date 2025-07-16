@@ -8,7 +8,7 @@ const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET || "";
 
 export async function POST(req) {
   const payload = await req.text();
-  const headerList = await headers();
+  const headerList = headers();
 
   const svixHeaders = {
     "svix-id": headerList.get("svix-id") || "",
@@ -31,7 +31,7 @@ export async function POST(req) {
 
   console.log("✅ Clerk Webhook Event Received:", {
     eventType,
-    userId: user.id,
+    clerkId: user.id,
     email: user.email_addresses?.[0]?.email_address || "",
   });
 
@@ -42,34 +42,34 @@ export async function POST(req) {
       const email = user.email_addresses?.[0]?.email_address || "";
       const phone = user.phone_numbers?.[0]?.phone_number || "";
       const username = user.username || `user_${user.id}`;
+      const name = `${user.first_name || ""} ${user.last_name || ""}`.trim();
 
       const updatePayload = {
         email,
-        firstName: user.first_name,
-        lastName: user.last_name,
-        fullName: `${user.first_name || ""} ${user.last_name || ""}`.trim(),
+        username,
+        name,
         profileImageUrl: user.image_url,
         phoneNumber: phone,
-        username,
       };
 
       const existingUser = await User.findOne({ clerkId: user.id });
 
       if (existingUser) {
-        await User.updateOne({ userId: user.id }, updatePayload);
+        await User.updateOne({ clerkId: user.id }, updatePayload);
+        console.log("👤 User updated:", user.id);
       } else {
         await User.create({
           ...updatePayload,
-          userId: user.id,
-          role: "user",
-          isOnboarded: false,
-          settings: {},
+          clerkId: user.id,
+          isActive: false, 
         });
+        console.log("🎉 New user created:", user.id);
       }
     }
 
     if (eventType === "user.deleted") {
-      await User.deleteOne({ userId: user.id });
+      await User.deleteOne({ clerkId: user.id });
+      console.log("🗑️ User deleted:", user.id);
     }
 
     return NextResponse.json({ message: "Webhook received and processed" });
