@@ -1,6 +1,7 @@
-import { withAgent } from "@/lib/api/withAgent";
+
 import Conversation from "@/Models/coversation.model";
 import dbConnect from "@/lib/dbConnect";
+import { withAgent } from "@/lib/with-agent/withAgent";
 import { NextResponse } from "next/server";
 
 const handler = async (req, agentMongoId) => {
