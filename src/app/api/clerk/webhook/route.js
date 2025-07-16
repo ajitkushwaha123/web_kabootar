@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
-import User from "@/Models/user.model";
 import { Webhook } from "svix";
 import { headers } from "next/headers";
+import User from "@/Models/user.model";
 
 const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET || "";
 
