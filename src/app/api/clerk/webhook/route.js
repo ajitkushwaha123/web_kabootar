@@ -11,10 +11,23 @@ export async function POST(req) {
   const headerList = headers();
 
   const svixHeaders = {
-    "svix-id": headerList.get("svix-id") || "",
-    "svix-timestamp": headerList.get("svix-timestamp") || "",
-    "svix-signature": headerList.get("svix-signature") || "",
+    "svix-id": headerList.get("svix-id") ?? "",
+    "svix-timestamp": headerList.get("svix-timestamp") ?? "",
+    "svix-signature": headerList.get("svix-signature") ?? "",
   };
+
+  // Validate headers
+  if (
+    !svixHeaders["svix-id"] ||
+    !svixHeaders["svix-timestamp"] ||
+    !svixHeaders["svix-signature"]
+  ) {
+    console.error("❌ Missing Svix headers");
+    return NextResponse.json(
+      { error: "Missing Svix headers" },
+      { status: 400 }
+    );
+  }
 
   const webhook = new Webhook(WEBHOOK_SECRET);
 
@@ -29,10 +42,10 @@ export async function POST(req) {
   const eventType = evt.type;
   const user = evt.data;
 
-  console.log("✅ Clerk Webhook Event Received:", {
-    eventType,
-    clerkId: user.id,
-    email: user.email_addresses?.[0]?.email_address || "",
+  console.log("✅ Clerk Webhook Event:", {
+    type: eventType,
+    id: user.id,
+    email: user.email_addresses?.[0]?.email_address,
   });
 
   await dbConnect();
@@ -42,13 +55,18 @@ export async function POST(req) {
       const email = user.email_addresses?.[0]?.email_address || "";
       const phone = user.phone_numbers?.[0]?.phone_number || "";
       const username = user.username || `user_${user.id}`;
-      const name = `${user.first_name || ""} ${user.last_name || ""}`.trim();
+      const name =
+        `${user.first_name || ""} ${user.last_name || ""}`.trim() || null;
+      const profileImageUrl =
+        user.image_url ||
+        user.profile_image_url ||
+        "https://www.gravatar.com/avatar?d=mp";
 
       const updatePayload = {
         email,
         username,
         name,
-        profileImageUrl: user.image_url,
+        profileImageUrl,
         phoneNumber: phone,
       };
 
@@ -61,7 +79,7 @@ export async function POST(req) {
         await User.create({
           ...updatePayload,
           clerkId: user.id,
-          isActive: false, 
+          isActive: false,
         });
         console.log("🎉 New user created:", user.id);
       }
@@ -72,11 +90,11 @@ export async function POST(req) {
       console.log("🗑️ User deleted:", user.id);
     }
 
-    return NextResponse.json({ message: "Webhook received and processed" });
-  } catch (error) {
-    console.error("❌ Error handling webhook event:", error);
+    return NextResponse.json({ message: "Webhook handled" });
+  } catch (err) {
+    console.error("❌ Webhook DB error:", err);
     return NextResponse.json(
-      { error: "Internal server error", details: error.message },
+      { error: "Database error", details: err.message },
       { status: 500 }
     );
   }
