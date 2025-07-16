@@ -58,5 +58,8 @@ const conversationSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.models.Conversation ||
+const Conversation =
+  mongoose.models.Conversation ||
   mongoose.model("Conversation", conversationSchema);
+
+export default Conversation;
