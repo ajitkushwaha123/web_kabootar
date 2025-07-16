@@ -4,6 +4,7 @@ import templateFilterReducer from "./slices/templateFilterSlice";
 import mediaUploadReducer from "./slices/mediaUploadSlice";
 import chatReducer from "./slices/chatSlice";
 import messageReducer from "./slices/messageSlice";
+import contactReducer from "./slices/contactSlice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     mediaUpload: mediaUploadReducer,
     chat: chatReducer,
     messages: messageReducer,
+    contacts: contactReducer,
   },
 });
 

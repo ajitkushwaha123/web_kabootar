@@ -8,6 +8,8 @@ import {
   Search,
   Settings,
   ChevronDown,
+  Contact,
+  Phone,
 } from "lucide-react";
 
 import {
@@ -51,6 +53,25 @@ const items = [
         title: "Template Builder",
         url: "/template/template-builder",
         icon: Settings,
+      },
+    ],
+  },
+  {
+    title: "Contacts",
+    url: "/contacts",
+    icon: Phone,
+    children: [
+      {
+        title: "All Contacts",
+        url: "/contacts",
+      },
+      {
+        title: "Import Contacts",
+        url: "/contacts/import-contacts",
+      },
+      {
+        title: "Export Contacts",
+        url: "/contacts/export-contacts",
       },
     ],
   },

@@ -5,7 +5,18 @@ export function withAgent(handler) {
   return async (req) => {
     try {
       const agentMongoId = await getAgentMongoId();
-      return await handler(req, agentMongoId);
+
+      const url = new URL(req.url);
+      const searchParams = url.searchParams;
+      const limit = parseInt(searchParams.get("limit") || "20", 10);
+      const cursor = searchParams.get("cursor");
+
+      const pagination = {
+        limit,
+        cursor: cursor ? new Date(cursor) : null,
+      };
+
+      return await handler(req, agentMongoId, pagination);
     } catch (error) {
       return handleApiError(error);
     }
