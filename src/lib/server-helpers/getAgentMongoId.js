@@ -9,7 +9,7 @@ export async function getAgentMongoId() {
   if (!clerkId) throw new Error("UNAUTHORIZED");
 
   const user = await User.findOne({ clerkId }, "_id");
-  // if (!user) throw new Error("NOT_FOUND");
+  if (!user) throw new Error("NOT_FOUND");
 
-  return "68774ed33d3f25c05b9dfab9";
+  return user._id;
 }
