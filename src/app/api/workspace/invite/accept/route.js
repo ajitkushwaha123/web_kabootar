@@ -8,13 +8,14 @@ import User from "@/Models/user.model";
 const handler = async (req, agentMongoId) => {
   try {
     await dbConnect();
-
     const { token } = await req.json();
+
     if (!token) {
       return NextResponse.json({ error: "Token is required" }, { status: 400 });
     }
 
     const invitation = await Invitation.findOne({ token });
+
     if (!invitation || invitation.status !== "pending") {
       return NextResponse.json(
         { error: "Invalid or expired token" },
@@ -22,19 +23,13 @@ const handler = async (req, agentMongoId) => {
       );
     }
 
-    console.log("invitation:", invitation.email);
-
     const user = await User.findById(agentMongoId);
-
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    console.log("user:", user.email);
-
     if (
-      invitation.email?.toLowerCase().trim() !==
-      user.email?.toLowerCase().trim()
+      invitation.email.trim().toLowerCase() !== user.email.trim().toLowerCase()
     ) {
       return NextResponse.json(
         {
@@ -47,7 +42,6 @@ const handler = async (req, agentMongoId) => {
     }
 
     const workspace = await Workspace.findById(invitation.workspaceId);
-
     if (!workspace) {
       return NextResponse.json(
         { error: "Workspace not found" },
@@ -56,14 +50,15 @@ const handler = async (req, agentMongoId) => {
     }
 
     const alreadyMember = workspace.members.some(
-      (member) => member.userId === agentMongoId._id.toString()
+      (member) => member.user.toString() === agentMongoId.toString()
     );
 
     if (!alreadyMember) {
       workspace.members.push({
-        email: invitation.email,
+        user: agentMongoId,
+        email: user.email,
         role: invitation.role,
-        userId: agentMongoId._id.toString(),
+        joinedAt: new Date(),
       });
       await workspace.save();
     }
@@ -79,7 +74,7 @@ const handler = async (req, agentMongoId) => {
   } catch (err) {
     console.error("Error accepting invitation:", err);
     return NextResponse.json(
-      { error: "Something went wrong. Please try again later." },
+      { error: "Something went wrong." },
       { status: 500 }
     );
   }
