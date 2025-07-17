@@ -22,23 +22,32 @@ const handler = async (req, agentMongoId) => {
       );
     }
 
+    console.log("invitation:", invitation.email);
+
     const user = await User.findById(agentMongoId);
 
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
+    console.log("user:", user.email);
+
     if (
       invitation.email?.toLowerCase().trim() !==
       user.email?.toLowerCase().trim()
     ) {
       return NextResponse.json(
-        { error: "Logged-in email does not match invitation" },
+        {
+          error: "Logged-in email does not match invitation",
+          invitationEmail: invitation.email,
+          userEmail: user.email,
+        },
         { status: 403 }
       );
     }
 
     const workspace = await Workspace.findById(invitation.workspaceId);
+
     if (!workspace) {
       return NextResponse.json(
         { error: "Workspace not found" },
