@@ -40,7 +40,10 @@ export default function InvitationHandler() {
         setMessage("🎉 Invitation accepted successfully!");
         setStatus("success");
 
-        setTimeout(() => router.push("/"), 3000);
+        setTimeout(() => {
+          router.refresh();
+          router.push("/");
+        }, 3000);
       } catch (err) {
         console.error(err);
         setMessage(err?.message || "Failed to accept invitation.");
