@@ -5,6 +5,8 @@ import mediaUploadReducer from "./slices/mediaUploadSlice";
 import chatReducer from "./slices/chatSlice";
 import messageReducer from "./slices/messageSlice";
 import contactReducer from "./slices/contactSlice";
+import workspaceReducer from "./slices/workspaceSlice";
+import invitationReducer from "./slices/invitationSlice";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +16,8 @@ const store = configureStore({
     chat: chatReducer,
     messages: messageReducer,
     contacts: contactReducer,
+    workspace: workspaceReducer,
+    invitation: invitationReducer,
   },
 });
 

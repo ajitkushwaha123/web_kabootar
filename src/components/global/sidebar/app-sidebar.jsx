@@ -10,6 +10,7 @@ import {
   ChevronDown,
   Contact,
   Phone,
+  Space,
 } from "lucide-react";
 
 import {
@@ -73,6 +74,18 @@ const items = [
         title: "Export Contacts",
         url: "/contacts/export-contacts",
       },
+    ],
+  },
+  {
+    title: "Workspace",
+    url: "/workspace",
+    icon: Space,
+    children: [
+      {
+        title: "Members",
+        url: "/workspace/members",
+      },
+     
     ],
   },
 ];

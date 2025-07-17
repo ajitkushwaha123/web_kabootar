@@ -3,6 +3,8 @@
 import React from "react";
 import { Bell, Plus } from "lucide-react";
 import { UserButton } from "@clerk/nextjs";
+import WorkspaceSwitcher from "../workspace/WorkspaceSwitcher";
+
 export default function DashboardHeader() {
   return (
     <header className="flex items-center justify-between px-6 py-3 bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-800">
@@ -22,6 +24,8 @@ export default function DashboardHeader() {
           </button>
           <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full ring-2 ring-white dark:ring-gray-900" />
         </div>
+
+        <WorkspaceSwitcher />
 
         <div className="w-9 h-9 flex items-center justify-center bg-indigo-500 rounded-full overflow-hidden">
           <UserButton />

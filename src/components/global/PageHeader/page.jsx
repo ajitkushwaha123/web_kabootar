@@ -19,14 +19,22 @@ export default function PageHeader({
   defaultFilter = "All",
   buttonText = "",
   buttonLink = "",
-  showButton = true,
-  showFilter = true,
+  showButton = false,
+  showFilter = false,
+  clickBtn = false,
+  onOpenChange = () => {},
 }) {
   const [selected, setSelected] = useState(defaultFilter);
 
   const handleChange = (value) => {
     setSelected(value);
     onFilterChange?.(value);
+  };
+
+  const [open, setOpen] = useState(false);
+  const handleOpenChange = (isOpen) => {
+    setOpen(isOpen);
+    onOpenChange(isOpen);
   };
 
   return (
@@ -69,6 +77,16 @@ export default function PageHeader({
                 {buttonText}
               </Button>
             </Link>
+          )}
+
+          {showButton && clickBtn && (
+            <Button
+              onClick={() => handleOpenChange(true)}
+              className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white shadow-md"
+            >
+              <Plus className="w-4 h-4" />
+              {buttonText}
+            </Button>
           )}
         </div>
       </div>

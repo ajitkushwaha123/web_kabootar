@@ -2,7 +2,7 @@ import { handleApiError } from "../api-error-handler/handleApiError";
 import { getAgentMongoId } from "../server-helpers/getAgentMongoId";
 
 export function withAgent(handler) {
-  return async (req) => {
+  return async (req, context = {}) => {
     try {
       const agentMongoId = await getAgentMongoId();
 
@@ -16,7 +16,7 @@ export function withAgent(handler) {
         cursor: cursor ? new Date(cursor) : null,
       };
 
-      return await handler(req, agentMongoId, pagination);
+      return await handler(req, agentMongoId, pagination, context);
     } catch (error) {
       return handleApiError(error);
     }
