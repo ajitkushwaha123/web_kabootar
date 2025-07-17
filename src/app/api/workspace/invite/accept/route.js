@@ -3,6 +3,7 @@ import dbConnect from "@/lib/dbConnect";
 import Workspace from "@/Models/workspace.model";
 import Invitation from "@/Models/invitation.model";
 import { withAgent } from "@/lib/with-agent/withAgent";
+import User from "@/Models/user.model";
 
 const handler = async (req, agentMongoId) => {
   try {
@@ -21,9 +22,15 @@ const handler = async (req, agentMongoId) => {
       );
     }
 
+    const user = await User.findById(agentMongoId);
+
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
     if (
       invitation.email?.toLowerCase().trim() !==
-      agentMongoId.email?.toLowerCase().trim()
+      user.email?.toLowerCase().trim()
     ) {
       return NextResponse.json(
         { error: "Logged-in email does not match invitation" },
