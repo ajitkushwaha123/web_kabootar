@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import TemplateGallery from "@/components/global/template/TemplateGallery";
 import { useTemplate } from "@/hooks/useTemplate";
 import { useTemplateFilter } from "@/hooks/useTemplateFilter";

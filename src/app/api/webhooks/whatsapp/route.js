@@ -2,6 +2,8 @@ import { addWhatsappEventToQueue } from "@/lib/bullmq/job/addWhatsappEventToQueu
 import crypto from "crypto";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 /**
  * ✅ Verify Meta Webhook Setup (GET)
  */

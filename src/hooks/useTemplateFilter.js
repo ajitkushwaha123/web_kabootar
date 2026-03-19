@@ -10,7 +10,7 @@ import {
 export function useTemplateFilter() {
   const dispatch = useDispatch();
 
-  const filters = useSelector((state) => state.templateFilters);
+  const filters = useSelector((state) => state.templateFilters) || {};
 
   const updateFilter = (key, value) => {
     dispatch(setFilter({ key, value }));

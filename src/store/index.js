@@ -10,7 +10,7 @@ export const store = configureStore({
     chat: chatReducer,
     conversation: conversationReducer,
     template: templateReducer,
-    templateFilter: templateFilterReducer,
+    templateFilters: templateFilterReducer, // Matched with hooks expectation in useTemplateFilter
     mediaUpload: mediaUploadReducer,
   },
 });
