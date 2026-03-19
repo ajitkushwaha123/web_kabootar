@@ -1,0 +1,4469 @@
+[{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Recommended",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "151953716",
+              "name": "Kaati Zone Combo for 2 - Veg",
+              "category": "Kaati Zone Combos",
+              "description": "Choice of  2 Veg Kaati Rolls + Fries + Pepsi",
+              "imageId": "FOOD_CATALOG/IMAGES/CMS/2024/9/30/a9d72204-e9ce-461d-bebc-9d5708a2d2ab_f3c91dd1-3af3-4b24-b7e0-14dbc9338905.jpg",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 46900,
+              "variants": {},
+              "variantsV2": {},
+              "addons": [
+                {
+                  "groupId": "178248620",
+                  "groupName": "Choice of Veg Rolls",
+                  "choices": [
+                    {
+                      "id": "126983991",
+                      "name": "Batata Vada Roll",
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983986",
+                      "name": "Veg Finger Roll",
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983988",
+                      "name": "Chilli Paneer Roll",
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983995",
+                      "name": "Paneer Tikka Roll",
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983998",
+                      "name": "Mixed Veg Roll",
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    }
+                  ],
+                  "maxAddons": 2,
+                  "maxFreeAddons": -1,
+                  "minAddons": 2
+                }
+              ],
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "showImage": true,
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "3.0",
+                  "ratingCount": "1 rating",
+                  "ratingCountV2": "1"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#D9EFEC",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_medium",
+                  "ratingTextColor": "rating_medium",
+                  "ratingCountTextColor": "rating_medium",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "90389914"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "type": "CATEGORY_TYPE_RECOMMENDED",
+        "subtitleSuffix": {},
+        "categoryId": "-1"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Recommended",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "151953717",
+              "name": "Kaati Zone Combo for 4 - Veg",
+              "category": "Kaati Zone Combos",
+              "description": "Choice of  4 Veg Kaati Rolls + 2 French Fries + 2 Pepsi",
+              "imageId": "FOOD_CATALOG/IMAGES/CMS/2024/9/30/177d1234-6826-4358-969f-161b87b037f7_db15f8a0-2345-408f-a206-e2ed21944f75.jpg",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 76900,
+              "variants": {},
+              "variantsV2": {},
+              "addons": [
+                {
+                  "groupId": "178248621",
+                  "groupName": "Choice of Veg Rolls",
+                  "choices": [
+                    {
+                      "id": "126983993",
+                      "name": "Batata Vada Roll",
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983982",
+                      "name": "Veg Finger Roll",
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983984",
+                      "name": "Chilli Paneer Roll",
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983979",
+                      "name": "Paneer Tikka Roll",
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983981",
+                      "name": "Mixed Veg Roll",
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    }
+                  ],
+                  "maxAddons": 4,
+                  "maxFreeAddons": -1,
+                  "minAddons": 4
+                }
+              ],
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "showImage": true,
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {}
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "90389916"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "type": "CATEGORY_TYPE_RECOMMENDED",
+        "subtitleSuffix": {},
+        "categoryId": "-1"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Recommended",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "151953718",
+              "name": "Kaati Zone Combo for 2 - Non Veg",
+              "category": "Kaati Zone Combos",
+              "description": "Choice of  2 Non - Veg Kaati Rolls + Fries + Pepsi",
+              "imageId": "FOOD_CATALOG/IMAGES/CMS/2024/9/30/a9d72204-e9ce-461d-bebc-9d5708a2d2ab_f3c91dd1-3af3-4b24-b7e0-14dbc9338905.jpg",
+              "inStock": 1,
+              "price": 51900,
+              "variants": {},
+              "variantsV2": {},
+              "addons": [
+                {
+                  "groupId": "178248622",
+                  "groupName": "Choice of Non Veg Rolls",
+                  "choices": [
+                    {
+                      "id": "126983990",
+                      "name": "Bhuna Chicken Roll",
+                      "inStock": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983992",
+                      "name": "Chicken Tikka Roll",
+                      "inStock": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983987",
+                      "name": "Schezwan Chicken Roll",
+                      "inStock": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983989",
+                      "name": "Chicken Shami Roll",
+                      "inStock": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983996",
+                      "name": "Egg and Cheese Roll",
+                      "inStock": 1,
+                      "isEnabled": 1
+                    }
+                  ],
+                  "maxAddons": 2,
+                  "maxFreeAddons": -1,
+                  "minAddons": 2
+                }
+              ],
+              "itemAttribute": {
+                "vegClassifier": "NONVEG"
+              },
+              "ribbon": {},
+              "showImage": true,
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {}
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "90389913"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "type": "CATEGORY_TYPE_RECOMMENDED",
+        "subtitleSuffix": {},
+        "categoryId": "-1"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Recommended",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "151953719",
+              "name": "Kaati Zone Combo for 4 - Non Veg",
+              "category": "Kaati Zone Combos",
+              "description": "Choice of  4 Non - Veg Kaati Rolls + 2 French Fries + 2 Pepsi",
+              "imageId": "FOOD_CATALOG/IMAGES/CMS/2024/9/30/177d1234-6826-4358-969f-161b87b037f7_db15f8a0-2345-408f-a206-e2ed21944f75.jpg",
+              "inStock": 1,
+              "price": 81900,
+              "variants": {},
+              "variantsV2": {},
+              "addons": [
+                {
+                  "groupId": "178248623",
+                  "groupName": "Choice of Non Veg Rolls",
+                  "choices": [
+                    {
+                      "id": "126983999",
+                      "name": "Bhuna Chicken Roll",
+                      "inStock": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983978",
+                      "name": "Chicken Tikka Roll",
+                      "inStock": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983983",
+                      "name": "Schezwan Chicken Roll",
+                      "inStock": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983985",
+                      "name": "Chicken Shami Roll",
+                      "inStock": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983980",
+                      "name": "Egg and Cheese Roll",
+                      "inStock": 1,
+                      "isEnabled": 1
+                    }
+                  ],
+                  "maxAddons": 4,
+                  "maxFreeAddons": -1,
+                  "minAddons": 4
+                }
+              ],
+              "itemAttribute": {
+                "vegClassifier": "NONVEG"
+              },
+              "ribbon": {},
+              "showImage": true,
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "4.0",
+                  "ratingCount": "1 rating",
+                  "ratingCountV2": "1"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#C8F9E5",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_very_good",
+                  "ratingTextColor": "rating_very_good",
+                  "ratingCountTextColor": "rating_very_good",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "90389915"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "type": "CATEGORY_TYPE_RECOMMENDED",
+        "subtitleSuffix": {},
+        "categoryId": "-1"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Recommended",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "52009418",
+              "name": "French Fries",
+              "category": "Quick Bites",
+              "description": "Serves 1 | Be it a side dish to a meal or just a snack, these crisp fried French Fries are so satisfying! (440 Calories)",
+              "imageId": "p7g01vrjsxqgn1tm3fp6",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 14900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG",
+                "portionSize": "Serves 1"
+              },
+              "ribbon": {},
+              "showImage": true,
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "4.4",
+                  "ratingCount": "150 ratings",
+                  "ratingCountV2": "150"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#C8F9E5",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_very_good",
+                  "ratingTextColor": "rating_very_good",
+                  "ratingCountTextColor": "rating_very_good",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "38318600"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "type": "CATEGORY_TYPE_RECOMMENDED",
+        "subtitleSuffix": {},
+        "categoryId": "-1"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Recommended",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "73473179",
+              "name": "Peri Peri French Fries",
+              "category": "Quick Bites",
+              "description": "Serves 1 | Humble fries that are fried to a crisp and spiced with the zingy flavour of Peri Peri. These are sure to turn the heat on! (450 Calories)",
+              "imageId": "45c52feffeb0168a10ebb04f1fe25b89",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 15800,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG",
+                "portionSize": "Serves 1"
+              },
+              "ribbon": {},
+              "showImage": true,
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "3.3",
+                  "ratingCount": "96 ratings",
+                  "ratingCountV2": "96"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#D9EFEC",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_medium",
+                  "ratingTextColor": "rating_medium",
+                  "ratingCountTextColor": "rating_medium",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "48779678"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "type": "CATEGORY_TYPE_RECOMMENDED",
+        "subtitleSuffix": {},
+        "categoryId": "-1"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Recommended",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "73473182",
+              "name": "Lemon Pepper French Fries",
+              "category": "Quick Bites",
+              "description": "Serves 1 | A unique seasoning of lemony tang with freshly ground pepper dusted on top of crispy fried french fries. Worthy of the finger lick! (440 Calories)",
+              "imageId": "g2hmn4w8c4wyjtmfwtnm",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 15800,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG",
+                "portionSize": "Serves 1"
+              },
+              "ribbon": {},
+              "showImage": true,
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "3.2",
+                  "ratingCount": "34 ratings",
+                  "ratingCountV2": "34"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#D9EFEC",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_medium",
+                  "ratingTextColor": "rating_medium",
+                  "ratingCountTextColor": "rating_medium",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "48779673"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "type": "CATEGORY_TYPE_RECOMMENDED",
+        "subtitleSuffix": {},
+        "categoryId": "-1"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Recommended",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "73473185",
+              "name": "Chilli Garlic French Fries",
+              "category": "Quick Bites",
+              "description": "Serves 1 | French fries sprinkled generously with our in-house punchy seasoning of Chilli Garlic. Warning - these get over in a jiffy! (440 Calories)",
+              "imageId": "uinimjjge8xp2m9jw0cp",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 15800,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG",
+                "portionSize": "Serves 1"
+              },
+              "ribbon": {},
+              "showImage": true,
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "4.7",
+                  "ratingCount": "22 ratings",
+                  "ratingCountV2": "22"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#C8F9E5",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_very_good",
+                  "ratingTextColor": "rating_very_good",
+                  "ratingCountTextColor": "rating_very_good",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "48779666"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "type": "CATEGORY_TYPE_RECOMMENDED",
+        "subtitleSuffix": {},
+        "categoryId": "-1"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Recommended",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "52009420",
+              "name": "Veg Fingers",
+              "category": "Quick Bites",
+              "description": "Serves 1 | Long pieces of crumb coated veg fingers that are a great accompaniment to a Kaati roll! (400 Calories)",
+              "imageId": "od5hcjocgwovgjaz5npd",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 23900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG",
+                "portionSize": "Serves 1"
+              },
+              "ribbon": {},
+              "showImage": true,
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "4.6",
+                  "ratingCount": "55 ratings",
+                  "ratingCountV2": "55"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#C8F9E5",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_very_good",
+                  "ratingTextColor": "rating_very_good",
+                  "ratingCountTextColor": "rating_very_good",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "38590498"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "type": "CATEGORY_TYPE_RECOMMENDED",
+        "subtitleSuffix": {},
+        "categoryId": "-1"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Recommended",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "66551769",
+              "name": "Chicken Fingers",
+              "category": "Quick Bites",
+              "description": "Serves 1 | A crunchy, mouth-watering appetizer of spicy, batter-fried chicken fingers. (340 Calories)",
+              "imageId": "FOOD_CATALOG/IMAGES/CMS/2024/3/18/20a8adb0-60d4-4225-b238-d941577c8321_537bff31-60a6-49ab-8644-e1748d4c48ac.jpg_compressed",
+              "inStock": 1,
+              "price": 29900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "NONVEG",
+                "portionSize": "Serves 1"
+              },
+              "ribbon": {},
+              "showImage": true,
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "4.7",
+                  "ratingCount": "10 ratings",
+                  "ratingCountV2": "10"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#C8F9E5",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_very_good",
+                  "ratingTextColor": "rating_very_good",
+                  "ratingCountTextColor": "rating_very_good",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "38721047"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "type": "CATEGORY_TYPE_RECOMMENDED",
+        "subtitleSuffix": {},
+        "categoryId": "-1"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Recommended",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "66551773",
+              "name": "Chicken Popcorn",
+              "category": "Quick Bites",
+              "description": "Serves 1 | Crispy, golden fried chicken bits perfect as anytime snacks. (470 Calories)",
+              "imageId": "atmty8cieohlrk5nvyxy",
+              "inStock": 1,
+              "price": 26900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "NONVEG",
+                "portionSize": "Serves 1"
+              },
+              "ribbon": {},
+              "showImage": true,
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "4.3",
+                  "ratingCount": "37 ratings",
+                  "ratingCountV2": "37"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#C8F9E5",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_very_good",
+                  "ratingTextColor": "rating_very_good",
+                  "ratingCountTextColor": "rating_very_good",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "38408140"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "type": "CATEGORY_TYPE_RECOMMENDED",
+        "subtitleSuffix": {},
+        "categoryId": "-1"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Recommended",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "175779136",
+              "name": "Red Velvet Jar",
+              "category": "Desserts & Jar Cakes",
+              "imageId": "FOOD_CATALOG/IMAGES/CMS/2025/7/1/6beff1f9-b30f-40b1-bafc-2640d40a6146_c641df59-4ee0-467d-8605-14f947db833d.jpg",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 22000,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "showImage": true,
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {}
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "106174658"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "type": "CATEGORY_TYPE_RECOMMENDED",
+        "subtitleSuffix": {},
+        "categoryId": "-1"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Recommended",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "175779137",
+              "name": "Trio of Chocolate Jar",
+              "category": "Desserts & Jar Cakes",
+              "imageId": "FOOD_CATALOG/IMAGES/CMS/2025/7/1/31fa110e-300a-4ced-9f45-b7e9af77e292_540a8b7d-cc85-44f4-8d1d-bc633cd499e5.jpg",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 24000,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "showImage": true,
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {}
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "106174660"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "type": "CATEGORY_TYPE_RECOMMENDED",
+        "subtitleSuffix": {},
+        "categoryId": "-1"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Recommended",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "175779138",
+              "name": "Tiramisu Jar",
+              "category": "Desserts & Jar Cakes",
+              "imageId": "FOOD_CATALOG/IMAGES/CMS/2025/7/1/86949ba9-cf8f-4cda-ad39-ead2ede83727_61dd6cc1-8adb-4e35-91b4-e567848e75e9.jpg",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 26000,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "showImage": true,
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {}
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "106174659"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "type": "CATEGORY_TYPE_RECOMMENDED",
+        "subtitleSuffix": {},
+        "categoryId": "-1"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Match Day Combos",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "169779398",
+              "name": "Choice of Kaati Rolls + Fries",
+              "category": "Match Day Combos",
+              "inStock": 1,
+              "variants": {},
+              "variantsV2": {
+                "variantGroups": [
+                  {
+                    "groupId": "58818878",
+                    "name": "Option KZ",
+                    "variations": [
+                      {
+                        "name": "Chicken Tikka Roll",
+                        "price": 479,
+                        "default": 1,
+                        "id": "182537647",
+                        "inStock": 1,
+                        "isEnabled": 1
+                      },
+                      {
+                        "name": "Schezwan Chicken Roll",
+                        "price": 479,
+                        "id": "182537648",
+                        "inStock": 1,
+                        "isEnabled": 1
+                      },
+                      {
+                        "name": "Egg & Cheese Roll",
+                        "price": 479,
+                        "id": "182537649",
+                        "inStock": 1,
+                        "isEnabled": 1
+                      },
+                      {
+                        "name": "Batata Vada Roll",
+                        "price": 479,
+                        "id": "182537650",
+                        "inStock": 1,
+                        "isVeg": 1,
+                        "isEnabled": 1
+                      },
+                      {
+                        "name": "Mixed Veg Roll",
+                        "price": 479,
+                        "id": "182537651",
+                        "inStock": 1,
+                        "isVeg": 1,
+                        "isEnabled": 1
+                      },
+                      {
+                        "name": "Paneer Tikka Roll",
+                        "price": 479,
+                        "id": "182537652",
+                        "inStock": 1,
+                        "isVeg": 1,
+                        "isEnabled": 1
+                      }
+                    ]
+                  }
+                ],
+                "pricingModels": [
+                  {
+                    "variations": [
+                      {
+                        "groupId": "58818878",
+                        "variationId": "182537647"
+                      }
+                    ],
+                    "price": 47900,
+                    "addonCombinations": [
+                      {
+                        "groupId": "216517476",
+                        "addonId": "135994054"
+                      },
+                      {
+                        "groupId": "216517476",
+                        "addonId": "135994053"
+                      }
+                    ]
+                  },
+                  {
+                    "variations": [
+                      {
+                        "groupId": "58818878",
+                        "variationId": "182537648"
+                      }
+                    ],
+                    "price": 47900,
+                    "addonCombinations": [
+                      {
+                        "groupId": "216517476",
+                        "addonId": "135994054"
+                      },
+                      {
+                        "groupId": "216517476",
+                        "addonId": "135994053"
+                      }
+                    ]
+                  },
+                  {
+                    "variations": [
+                      {
+                        "groupId": "58818878",
+                        "variationId": "182537649"
+                      }
+                    ],
+                    "price": 47900,
+                    "addonCombinations": [
+                      {
+                        "groupId": "216517476",
+                        "addonId": "135994054"
+                      },
+                      {
+                        "groupId": "216517476",
+                        "addonId": "135994053"
+                      }
+                    ]
+                  },
+                  {
+                    "variations": [
+                      {
+                        "groupId": "58818878",
+                        "variationId": "182537650"
+                      }
+                    ],
+                    "price": 47900,
+                    "addonCombinations": [
+                      {
+                        "groupId": "216517476",
+                        "addonId": "135994054"
+                      },
+                      {
+                        "groupId": "216517476",
+                        "addonId": "135994053"
+                      }
+                    ]
+                  },
+                  {
+                    "variations": [
+                      {
+                        "groupId": "58818878",
+                        "variationId": "182537651"
+                      }
+                    ],
+                    "price": 47900,
+                    "addonCombinations": [
+                      {
+                        "groupId": "216517476",
+                        "addonId": "135994054"
+                      },
+                      {
+                        "groupId": "216517476",
+                        "addonId": "135994053"
+                      }
+                    ]
+                  },
+                  {
+                    "variations": [
+                      {
+                        "groupId": "58818878",
+                        "variationId": "182537652"
+                      }
+                    ],
+                    "price": 47900,
+                    "addonCombinations": [
+                      {
+                        "groupId": "216517476",
+                        "addonId": "135994054"
+                      },
+                      {
+                        "groupId": "216517476",
+                        "addonId": "135994053"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "addons": [
+                {
+                  "groupId": "216517476",
+                  "groupName": "Add on",
+                  "choices": [
+                    {
+                      "id": "135994054",
+                      "name": "Peri Peri",
+                      "price": 1000,
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "135994053",
+                      "name": "Pepsi",
+                      "price": 6000,
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    }
+                  ],
+                  "maxAddons": 2,
+                  "maxFreeAddons": -1
+                }
+              ],
+              "itemAttribute": {
+                "vegClassifier": "NONVEG"
+              },
+              "defaultPrice": 47900,
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {}
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "102405446"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "categoryId": "61252891"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Match Day Combos",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "169779399",
+              "name": "Choice of Wheat Rolls + Fries  ",
+              "category": "Match Day Combos",
+              "inStock": 1,
+              "variants": {},
+              "variantsV2": {
+                "variantGroups": [
+                  {
+                    "groupId": "58818879",
+                    "name": "Option KZ",
+                    "variations": [
+                      {
+                        "name": "Bhuna Chicken Wheat Roll",
+                        "price": 449,
+                        "default": 1,
+                        "id": "182537653",
+                        "inStock": 1,
+                        "isEnabled": 1
+                      },
+                      {
+                        "name": "Schezwan Chicken Wheat Roll",
+                        "price": 449,
+                        "id": "182537654",
+                        "inStock": 1,
+                        "isEnabled": 1
+                      },
+                      {
+                        "name": "Chicken Tikka Wheat Roll",
+                        "price": 449,
+                        "id": "182537655",
+                        "inStock": 1,
+                        "isEnabled": 1
+                      },
+                      {
+                        "name": "Chilli Paneer Wheat Roll",
+                        "price": 449,
+                        "id": "182537656",
+                        "inStock": 1,
+                        "isVeg": 1,
+                        "isEnabled": 1
+                      },
+                      {
+                        "name": "Paneer Tikka Wheat Roll",
+                        "price": 449,
+                        "id": "182537657",
+                        "inStock": 1,
+                        "isVeg": 1,
+                        "isEnabled": 1
+                      },
+                      {
+                        "name": "Batata Vada Wheat Roll",
+                        "price": 449,
+                        "id": "182537658",
+                        "inStock": 1,
+                        "isVeg": 1,
+                        "isEnabled": 1
+                      }
+                    ]
+                  }
+                ],
+                "pricingModels": [
+                  {
+                    "variations": [
+                      {
+                        "groupId": "58818879",
+                        "variationId": "182537653"
+                      }
+                    ],
+                    "price": 44900,
+                    "addonCombinations": [
+                      {
+                        "groupId": "216517477",
+                        "addonId": "135994054"
+                      },
+                      {
+                        "groupId": "216517477",
+                        "addonId": "135994053"
+                      }
+                    ]
+                  },
+                  {
+                    "variations": [
+                      {
+                        "groupId": "58818879",
+                        "variationId": "182537654"
+                      }
+                    ],
+                    "price": 44900,
+                    "addonCombinations": [
+                      {
+                        "groupId": "216517477",
+                        "addonId": "135994054"
+                      },
+                      {
+                        "groupId": "216517477",
+                        "addonId": "135994053"
+                      }
+                    ]
+                  },
+                  {
+                    "variations": [
+                      {
+                        "groupId": "58818879",
+                        "variationId": "182537655"
+                      }
+                    ],
+                    "price": 44900,
+                    "addonCombinations": [
+                      {
+                        "groupId": "216517477",
+                        "addonId": "135994054"
+                      },
+                      {
+                        "groupId": "216517477",
+                        "addonId": "135994053"
+                      }
+                    ]
+                  },
+                  {
+                    "variations": [
+                      {
+                        "groupId": "58818879",
+                        "variationId": "182537656"
+                      }
+                    ],
+                    "price": 44900,
+                    "addonCombinations": [
+                      {
+                        "groupId": "216517477",
+                        "addonId": "135994054"
+                      },
+                      {
+                        "groupId": "216517477",
+                        "addonId": "135994053"
+                      }
+                    ]
+                  },
+                  {
+                    "variations": [
+                      {
+                        "groupId": "58818879",
+                        "variationId": "182537657"
+                      }
+                    ],
+                    "price": 44900,
+                    "addonCombinations": [
+                      {
+                        "groupId": "216517477",
+                        "addonId": "135994054"
+                      },
+                      {
+                        "groupId": "216517477",
+                        "addonId": "135994053"
+                      }
+                    ]
+                  },
+                  {
+                    "variations": [
+                      {
+                        "groupId": "58818879",
+                        "variationId": "182537658"
+                      }
+                    ],
+                    "price": 44900,
+                    "addonCombinations": [
+                      {
+                        "groupId": "216517477",
+                        "addonId": "135994054"
+                      },
+                      {
+                        "groupId": "216517477",
+                        "addonId": "135994053"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "addons": [
+                {
+                  "groupId": "216517477",
+                  "groupName": "Add on",
+                  "choices": [
+                    {
+                      "id": "135994054",
+                      "name": "Peri Peri",
+                      "price": 1000,
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "135994053",
+                      "name": "Pepsi",
+                      "price": 6000,
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    }
+                  ],
+                  "maxAddons": 2,
+                  "maxFreeAddons": -1
+                }
+              ],
+              "itemAttribute": {
+                "vegClassifier": "NONVEG"
+              },
+              "defaultPrice": 44900,
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {}
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "102405448"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "categoryId": "61252891"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Match Day Combos",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "169779400",
+              "name": "Choice of Mini Kaati Rolls + Fries",
+              "category": "Match Day Combos",
+              "inStock": 1,
+              "variants": {},
+              "variantsV2": {
+                "variantGroups": [
+                  {
+                    "groupId": "58818880",
+                    "name": "Option KZ",
+                    "variations": [
+                      {
+                        "name": "Bhuna Chicken Mini Roll",
+                        "price": 299,
+                        "default": 1,
+                        "id": "182537659",
+                        "inStock": 1,
+                        "isEnabled": 1
+                      },
+                      {
+                        "name": "Schezwan Chicken Mini Roll",
+                        "price": 299,
+                        "id": "182537660",
+                        "inStock": 1,
+                        "isEnabled": 1
+                      },
+                      {
+                        "name": "Egg & Cheese Mini Roll",
+                        "price": 299,
+                        "id": "182537661",
+                        "inStock": 1,
+                        "isEnabled": 1
+                      },
+                      {
+                        "name": "Mixed Veg Mini Roll",
+                        "price": 299,
+                        "id": "182537662",
+                        "inStock": 1,
+                        "isVeg": 1,
+                        "isEnabled": 1
+                      },
+                      {
+                        "name": "Paneer Tikka Mini Roll",
+                        "price": 299,
+                        "id": "182537663",
+                        "inStock": 1,
+                        "isVeg": 1,
+                        "isEnabled": 1
+                      },
+                      {
+                        "name": "Batata Vada Mini Roll",
+                        "price": 299,
+                        "id": "182537664",
+                        "inStock": 1,
+                        "isVeg": 1,
+                        "isEnabled": 1
+                      }
+                    ]
+                  }
+                ],
+                "pricingModels": [
+                  {
+                    "variations": [
+                      {
+                        "groupId": "58818880",
+                        "variationId": "182537659"
+                      }
+                    ],
+                    "price": 29900,
+                    "addonCombinations": [
+                      {
+                        "groupId": "216517478",
+                        "addonId": "135994054"
+                      },
+                      {
+                        "groupId": "216517478",
+                        "addonId": "135994053"
+                      }
+                    ]
+                  },
+                  {
+                    "variations": [
+                      {
+                        "groupId": "58818880",
+                        "variationId": "182537660"
+                      }
+                    ],
+                    "price": 29900,
+                    "addonCombinations": [
+                      {
+                        "groupId": "216517478",
+                        "addonId": "135994054"
+                      },
+                      {
+                        "groupId": "216517478",
+                        "addonId": "135994053"
+                      }
+                    ]
+                  },
+                  {
+                    "variations": [
+                      {
+                        "groupId": "58818880",
+                        "variationId": "182537661"
+                      }
+                    ],
+                    "price": 29900,
+                    "addonCombinations": [
+                      {
+                        "groupId": "216517478",
+                        "addonId": "135994054"
+                      },
+                      {
+                        "groupId": "216517478",
+                        "addonId": "135994053"
+                      }
+                    ]
+                  },
+                  {
+                    "variations": [
+                      {
+                        "groupId": "58818880",
+                        "variationId": "182537662"
+                      }
+                    ],
+                    "price": 29900,
+                    "addonCombinations": [
+                      {
+                        "groupId": "216517478",
+                        "addonId": "135994054"
+                      },
+                      {
+                        "groupId": "216517478",
+                        "addonId": "135994053"
+                      }
+                    ]
+                  },
+                  {
+                    "variations": [
+                      {
+                        "groupId": "58818880",
+                        "variationId": "182537663"
+                      }
+                    ],
+                    "price": 29900,
+                    "addonCombinations": [
+                      {
+                        "groupId": "216517478",
+                        "addonId": "135994054"
+                      },
+                      {
+                        "groupId": "216517478",
+                        "addonId": "135994053"
+                      }
+                    ]
+                  },
+                  {
+                    "variations": [
+                      {
+                        "groupId": "58818880",
+                        "variationId": "182537664"
+                      }
+                    ],
+                    "price": 29900,
+                    "addonCombinations": [
+                      {
+                        "groupId": "216517478",
+                        "addonId": "135994054"
+                      },
+                      {
+                        "groupId": "216517478",
+                        "addonId": "135994053"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "addons": [
+                {
+                  "groupId": "216517478",
+                  "groupName": "Add on",
+                  "choices": [
+                    {
+                      "id": "135994054",
+                      "name": "Peri Peri",
+                      "price": 1000,
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "135994053",
+                      "name": "Pepsi",
+                      "price": 6000,
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    }
+                  ],
+                  "maxAddons": 2,
+                  "maxFreeAddons": -1
+                }
+              ],
+              "itemAttribute": {
+                "vegClassifier": "NONVEG"
+              },
+              "defaultPrice": 29900,
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {}
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "102405447"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "categoryId": "61252891"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Kaati Zone Combos",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "151953716",
+              "name": "Kaati Zone Combo for 2 - Veg",
+              "category": "Kaati Zone Combos",
+              "description": "Choice of  2 Veg Kaati Rolls + Fries + Pepsi",
+              "imageId": "FOOD_CATALOG/IMAGES/CMS/2024/9/30/a9d72204-e9ce-461d-bebc-9d5708a2d2ab_f3c91dd1-3af3-4b24-b7e0-14dbc9338905.jpg",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 46900,
+              "variants": {},
+              "variantsV2": {},
+              "addons": [
+                {
+                  "groupId": "178248620",
+                  "groupName": "Choice of Veg Rolls",
+                  "choices": [
+                    {
+                      "id": "126983991",
+                      "name": "Batata Vada Roll",
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983986",
+                      "name": "Veg Finger Roll",
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983988",
+                      "name": "Chilli Paneer Roll",
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983995",
+                      "name": "Paneer Tikka Roll",
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983998",
+                      "name": "Mixed Veg Roll",
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    }
+                  ],
+                  "maxAddons": 2,
+                  "maxFreeAddons": -1,
+                  "minAddons": 2
+                }
+              ],
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "3.0",
+                  "ratingCount": "1 rating",
+                  "ratingCountV2": "1"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#D9EFEC",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_medium",
+                  "ratingTextColor": "rating_medium",
+                  "ratingCountTextColor": "rating_medium",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "90389914"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "FOOD_CATALOG/IMAGES/CMS/2024/9/30/a9d72204-e9ce-461d-bebc-9d5708a2d2ab_f3c91dd1-3af3-4b24-b7e0-14dbc9338905.jpg",
+        "categoryId": "53546722"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Kaati Zone Combos",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "151953717",
+              "name": "Kaati Zone Combo for 4 - Veg",
+              "category": "Kaati Zone Combos",
+              "description": "Choice of  4 Veg Kaati Rolls + 2 French Fries + 2 Pepsi",
+              "imageId": "FOOD_CATALOG/IMAGES/CMS/2024/9/30/177d1234-6826-4358-969f-161b87b037f7_db15f8a0-2345-408f-a206-e2ed21944f75.jpg",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 76900,
+              "variants": {},
+              "variantsV2": {},
+              "addons": [
+                {
+                  "groupId": "178248621",
+                  "groupName": "Choice of Veg Rolls",
+                  "choices": [
+                    {
+                      "id": "126983993",
+                      "name": "Batata Vada Roll",
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983982",
+                      "name": "Veg Finger Roll",
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983984",
+                      "name": "Chilli Paneer Roll",
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983979",
+                      "name": "Paneer Tikka Roll",
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983981",
+                      "name": "Mixed Veg Roll",
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    }
+                  ],
+                  "maxAddons": 4,
+                  "maxFreeAddons": -1,
+                  "minAddons": 4
+                }
+              ],
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {}
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "90389916"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "FOOD_CATALOG/IMAGES/CMS/2024/9/30/a9d72204-e9ce-461d-bebc-9d5708a2d2ab_f3c91dd1-3af3-4b24-b7e0-14dbc9338905.jpg",
+        "categoryId": "53546722"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Kaati Zone Combos",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "151953718",
+              "name": "Kaati Zone Combo for 2 - Non Veg",
+              "category": "Kaati Zone Combos",
+              "description": "Choice of  2 Non - Veg Kaati Rolls + Fries + Pepsi",
+              "imageId": "FOOD_CATALOG/IMAGES/CMS/2024/9/30/a9d72204-e9ce-461d-bebc-9d5708a2d2ab_f3c91dd1-3af3-4b24-b7e0-14dbc9338905.jpg",
+              "inStock": 1,
+              "price": 51900,
+              "variants": {},
+              "variantsV2": {},
+              "addons": [
+                {
+                  "groupId": "178248622",
+                  "groupName": "Choice of Non Veg Rolls",
+                  "choices": [
+                    {
+                      "id": "126983990",
+                      "name": "Bhuna Chicken Roll",
+                      "inStock": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983992",
+                      "name": "Chicken Tikka Roll",
+                      "inStock": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983987",
+                      "name": "Schezwan Chicken Roll",
+                      "inStock": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983989",
+                      "name": "Chicken Shami Roll",
+                      "inStock": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983996",
+                      "name": "Egg and Cheese Roll",
+                      "inStock": 1,
+                      "isEnabled": 1
+                    }
+                  ],
+                  "maxAddons": 2,
+                  "maxFreeAddons": -1,
+                  "minAddons": 2
+                }
+              ],
+              "itemAttribute": {
+                "vegClassifier": "NONVEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {}
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "90389913"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "FOOD_CATALOG/IMAGES/CMS/2024/9/30/a9d72204-e9ce-461d-bebc-9d5708a2d2ab_f3c91dd1-3af3-4b24-b7e0-14dbc9338905.jpg",
+        "categoryId": "53546722"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Kaati Zone Combos",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "151953719",
+              "name": "Kaati Zone Combo for 4 - Non Veg",
+              "category": "Kaati Zone Combos",
+              "description": "Choice of  4 Non - Veg Kaati Rolls + 2 French Fries + 2 Pepsi",
+              "imageId": "FOOD_CATALOG/IMAGES/CMS/2024/9/30/177d1234-6826-4358-969f-161b87b037f7_db15f8a0-2345-408f-a206-e2ed21944f75.jpg",
+              "inStock": 1,
+              "price": 81900,
+              "variants": {},
+              "variantsV2": {},
+              "addons": [
+                {
+                  "groupId": "178248623",
+                  "groupName": "Choice of Non Veg Rolls",
+                  "choices": [
+                    {
+                      "id": "126983999",
+                      "name": "Bhuna Chicken Roll",
+                      "inStock": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983978",
+                      "name": "Chicken Tikka Roll",
+                      "inStock": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983983",
+                      "name": "Schezwan Chicken Roll",
+                      "inStock": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983985",
+                      "name": "Chicken Shami Roll",
+                      "inStock": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983980",
+                      "name": "Egg and Cheese Roll",
+                      "inStock": 1,
+                      "isEnabled": 1
+                    }
+                  ],
+                  "maxAddons": 4,
+                  "maxFreeAddons": -1,
+                  "minAddons": 4
+                }
+              ],
+              "itemAttribute": {
+                "vegClassifier": "NONVEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "4.0",
+                  "ratingCount": "1 rating",
+                  "ratingCountV2": "1"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#C8F9E5",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_very_good",
+                  "ratingTextColor": "rating_very_good",
+                  "ratingCountTextColor": "rating_very_good",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "90389915"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "FOOD_CATALOG/IMAGES/CMS/2024/9/30/a9d72204-e9ce-461d-bebc-9d5708a2d2ab_f3c91dd1-3af3-4b24-b7e0-14dbc9338905.jpg",
+        "categoryId": "53546722"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Mowraps",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "85593418",
+              "name": "Veg Mowrap",
+              "category": "Mowraps",
+              "description": "Serves 1 | A unique roll of a paratha layered with delicious veg fried momos and fresh vegetables, all tied together with our signature sauce. (400 Calories)",
+              "imageId": "d43nrhxtytxjlvoevti1",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 20900,
+              "variants": {},
+              "variantsV2": {},
+              "addons": [
+                {
+                  "groupId": "178248606",
+                  "groupName": "Make a meal",
+                  "choices": [
+                    {
+                      "id": "126983997",
+                      "name": "Fries",
+                      "price": 8900,
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983994",
+                      "name": "Fries + Pepsi",
+                      "price": 10900,
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    }
+                  ],
+                  "maxAddons": 2,
+                  "maxFreeAddons": -1
+                }
+              ],
+              "itemAttribute": {
+                "vegClassifier": "VEG",
+                "portionSize": "Serves 1"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "3.4",
+                  "ratingCount": "3 ratings",
+                  "ratingCountV2": "3"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#D9EFEC",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_medium",
+                  "ratingTextColor": "rating_medium",
+                  "ratingCountTextColor": "rating_medium",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "48112641"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "d43nrhxtytxjlvoevti1",
+        "categoryId": "53546715"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Mowraps",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "85593419",
+              "name": "Corn & Cheese Mowrap",
+              "category": "Mowraps",
+              "description": "Serves 1 | Delightful parcels of happiness packed with cheese, crunchy corn, fried to perfection and layered inside a healthy paratha. Enjoy as an anytime snack or a meal by itself. (420 Calories)",
+              "imageId": "d43nrhxtytxjlvoevti1",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 22900,
+              "variants": {},
+              "variantsV2": {},
+              "addons": [
+                {
+                  "groupId": "178248608",
+                  "groupName": "Make a meal",
+                  "choices": [
+                    {
+                      "id": "126983997",
+                      "name": "Fries",
+                      "price": 8900,
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983994",
+                      "name": "Fries + Pepsi",
+                      "price": 10900,
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    }
+                  ],
+                  "maxAddons": 2,
+                  "maxFreeAddons": -1
+                }
+              ],
+              "itemAttribute": {
+                "vegClassifier": "VEG",
+                "portionSize": "Serves 1"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "4.9",
+                  "ratingCount": "9 ratings",
+                  "ratingCountV2": "9"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#C8F9E5",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_very_good",
+                  "ratingTextColor": "rating_very_good",
+                  "ratingCountTextColor": "rating_very_good",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "48112639"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "d43nrhxtytxjlvoevti1",
+        "categoryId": "53546715"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Mowraps",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "85593421",
+              "name": "Paneer Mowrap",
+              "category": "Mowraps",
+              "description": "Serves 1 | Momos stuffed with a delicious filling of minced paneer are fried and placed inside a freshly rolled paratha with crunchy fresh vegetables. (410 Calories)",
+              "imageId": "d43nrhxtytxjlvoevti1",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 21900,
+              "variants": {},
+              "variantsV2": {},
+              "addons": [
+                {
+                  "groupId": "178248610",
+                  "groupName": "Make a meal",
+                  "choices": [
+                    {
+                      "id": "126983997",
+                      "name": "Fries",
+                      "price": 8900,
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983994",
+                      "name": "Fries + Pepsi",
+                      "price": 10900,
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    }
+                  ],
+                  "maxAddons": 2,
+                  "maxFreeAddons": -1
+                }
+              ],
+              "itemAttribute": {
+                "vegClassifier": "VEG",
+                "portionSize": "Serves 1"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "3.6",
+                  "ratingCount": "7 ratings",
+                  "ratingCountV2": "7"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#D9EFEC",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_medium",
+                  "ratingTextColor": "rating_medium",
+                  "ratingCountTextColor": "rating_medium",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "48112640"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "d43nrhxtytxjlvoevti1",
+        "categoryId": "53546715"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Mowraps",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "85593423",
+              "name": "Chicken Mowrap",
+              "category": "Mowraps",
+              "description": "Serves 1 | Most popular street food of delicious fried chicken momos layered inside a warm paratha with fresh veggies. (440 Calories)",
+              "imageId": "lfi3or4qy96n0w4syh4x",
+              "inStock": 1,
+              "price": 20900,
+              "variants": {},
+              "variantsV2": {},
+              "addons": [
+                {
+                  "groupId": "178248612",
+                  "groupName": "Make a meal",
+                  "choices": [
+                    {
+                      "id": "126983997",
+                      "name": "Fries",
+                      "price": 8900,
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983994",
+                      "name": "Fries + Pepsi",
+                      "price": 10900,
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    }
+                  ],
+                  "maxAddons": 2,
+                  "maxFreeAddons": -1
+                }
+              ],
+              "itemAttribute": {
+                "vegClassifier": "NONVEG",
+                "portionSize": "Serves 1"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "3.2",
+                  "ratingCount": "6 ratings",
+                  "ratingCountV2": "6"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#D9EFEC",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_medium",
+                  "ratingTextColor": "rating_medium",
+                  "ratingCountTextColor": "rating_medium",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "48112638"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "d43nrhxtytxjlvoevti1",
+        "categoryId": "53546715"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Mowraps",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "85593426",
+              "name": "Chicken Cheese Mowrap",
+              "category": "Mowraps",
+              "description": "Serves 1 | These piping hot fried momos are filled with delicious chicken & gooey cheese and placed inside a hot paratha along with crunchy vegetables. Great party snack for the weekend. (440 Calories)",
+              "imageId": "lfi3or4qy96n0w4syh4x",
+              "inStock": 1,
+              "price": 22900,
+              "variants": {},
+              "variantsV2": {},
+              "addons": [
+                {
+                  "groupId": "178248614",
+                  "groupName": "Make a meal",
+                  "choices": [
+                    {
+                      "id": "126983997",
+                      "name": "Fries",
+                      "price": 8900,
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983994",
+                      "name": "Fries + Pepsi",
+                      "price": 10900,
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    }
+                  ],
+                  "maxAddons": 2,
+                  "maxFreeAddons": -1
+                }
+              ],
+              "itemAttribute": {
+                "vegClassifier": "NONVEG",
+                "portionSize": "Serves 1"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "3.6",
+                  "ratingCount": "16 ratings",
+                  "ratingCountV2": "16"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#D9EFEC",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_medium",
+                  "ratingTextColor": "rating_medium",
+                  "ratingCountTextColor": "rating_medium",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "48112637"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "d43nrhxtytxjlvoevti1",
+        "categoryId": "53546715"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Quick Bites",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "52009418",
+              "name": "French Fries",
+              "category": "Quick Bites",
+              "description": "Serves 1 | Be it a side dish to a meal or just a snack, these crisp fried French Fries are so satisfying! (440 Calories)",
+              "imageId": "p7g01vrjsxqgn1tm3fp6",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 14900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG",
+                "portionSize": "Serves 1"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "4.4",
+                  "ratingCount": "150 ratings",
+                  "ratingCountV2": "150"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#C8F9E5",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_very_good",
+                  "ratingTextColor": "rating_very_good",
+                  "ratingCountTextColor": "rating_very_good",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "38318600"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "p7g01vrjsxqgn1tm3fp6",
+        "categoryId": "53546714"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Quick Bites",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "73473179",
+              "name": "Peri Peri French Fries",
+              "category": "Quick Bites",
+              "description": "Serves 1 | Humble fries that are fried to a crisp and spiced with the zingy flavour of Peri Peri. These are sure to turn the heat on! (450 Calories)",
+              "imageId": "45c52feffeb0168a10ebb04f1fe25b89",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 15800,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG",
+                "portionSize": "Serves 1"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "3.3",
+                  "ratingCount": "96 ratings",
+                  "ratingCountV2": "96"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#D9EFEC",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_medium",
+                  "ratingTextColor": "rating_medium",
+                  "ratingCountTextColor": "rating_medium",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "48779678"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "p7g01vrjsxqgn1tm3fp6",
+        "categoryId": "53546714"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Quick Bites",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "73473182",
+              "name": "Lemon Pepper French Fries",
+              "category": "Quick Bites",
+              "description": "Serves 1 | A unique seasoning of lemony tang with freshly ground pepper dusted on top of crispy fried french fries. Worthy of the finger lick! (440 Calories)",
+              "imageId": "g2hmn4w8c4wyjtmfwtnm",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 15800,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG",
+                "portionSize": "Serves 1"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "3.2",
+                  "ratingCount": "34 ratings",
+                  "ratingCountV2": "34"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#D9EFEC",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_medium",
+                  "ratingTextColor": "rating_medium",
+                  "ratingCountTextColor": "rating_medium",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "48779673"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "p7g01vrjsxqgn1tm3fp6",
+        "categoryId": "53546714"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Quick Bites",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "73473185",
+              "name": "Chilli Garlic French Fries",
+              "category": "Quick Bites",
+              "description": "Serves 1 | French fries sprinkled generously with our in-house punchy seasoning of Chilli Garlic. Warning - these get over in a jiffy! (440 Calories)",
+              "imageId": "uinimjjge8xp2m9jw0cp",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 15800,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG",
+                "portionSize": "Serves 1"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "4.7",
+                  "ratingCount": "22 ratings",
+                  "ratingCountV2": "22"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#C8F9E5",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_very_good",
+                  "ratingTextColor": "rating_very_good",
+                  "ratingCountTextColor": "rating_very_good",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "48779666"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "p7g01vrjsxqgn1tm3fp6",
+        "categoryId": "53546714"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Quick Bites",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "52009420",
+              "name": "Veg Fingers",
+              "category": "Quick Bites",
+              "description": "Serves 1 | Long pieces of crumb coated veg fingers that are a great accompaniment to a Kaati roll! (400 Calories)",
+              "imageId": "od5hcjocgwovgjaz5npd",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 23900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG",
+                "portionSize": "Serves 1"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "4.6",
+                  "ratingCount": "55 ratings",
+                  "ratingCountV2": "55"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#C8F9E5",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_very_good",
+                  "ratingTextColor": "rating_very_good",
+                  "ratingCountTextColor": "rating_very_good",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "38590498"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "p7g01vrjsxqgn1tm3fp6",
+        "categoryId": "53546714"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Quick Bites",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "66551769",
+              "name": "Chicken Fingers",
+              "category": "Quick Bites",
+              "description": "Serves 1 | A crunchy, mouth-watering appetizer of spicy, batter-fried chicken fingers. (340 Calories)",
+              "imageId": "FOOD_CATALOG/IMAGES/CMS/2024/3/18/20a8adb0-60d4-4225-b238-d941577c8321_537bff31-60a6-49ab-8644-e1748d4c48ac.jpg_compressed",
+              "inStock": 1,
+              "price": 29900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "NONVEG",
+                "portionSize": "Serves 1"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "4.7",
+                  "ratingCount": "10 ratings",
+                  "ratingCountV2": "10"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#C8F9E5",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_very_good",
+                  "ratingTextColor": "rating_very_good",
+                  "ratingCountTextColor": "rating_very_good",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "38721047"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "p7g01vrjsxqgn1tm3fp6",
+        "categoryId": "53546714"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Quick Bites",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "66551773",
+              "name": "Chicken Popcorn",
+              "category": "Quick Bites",
+              "description": "Serves 1 | Crispy, golden fried chicken bits perfect as anytime snacks. (470 Calories)",
+              "imageId": "atmty8cieohlrk5nvyxy",
+              "inStock": 1,
+              "price": 26900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "NONVEG",
+                "portionSize": "Serves 1"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "4.3",
+                  "ratingCount": "37 ratings",
+                  "ratingCountV2": "37"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#C8F9E5",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_very_good",
+                  "ratingTextColor": "rating_very_good",
+                  "ratingCountTextColor": "rating_very_good",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "38408140"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "p7g01vrjsxqgn1tm3fp6",
+        "categoryId": "53546714"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Bun & Omelette",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "51887754",
+              "name": "Bun Omelette",
+              "category": "Bun & Omelette",
+              "description": "Fresh and fluffy omelette perfectly cooked with chili sauce and mayonnaise stuffed in a tender bun. (340 Calories)",
+              "imageId": "wkrxycx5bopkae8npzg5",
+              "inStock": 1,
+              "price": 14900,
+              "variants": {},
+              "variantsV2": {},
+              "addons": [
+                {
+                  "groupId": "178248604",
+                  "groupName": "Make a meal",
+                  "choices": [
+                    {
+                      "id": "126983997",
+                      "name": "Fries",
+                      "price": 8900,
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983994",
+                      "name": "Fries + Pepsi",
+                      "price": 10900,
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    }
+                  ],
+                  "maxAddons": 2,
+                  "maxFreeAddons": -1
+                }
+              ],
+              "itemAttribute": {
+                "vegClassifier": "NONVEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "3.9",
+                  "ratingCount": "26 ratings",
+                  "ratingCountV2": "26"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#D9EFEC",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_medium",
+                  "ratingTextColor": "rating_medium",
+                  "ratingCountTextColor": "rating_medium",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "38590487"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "wkrxycx5bopkae8npzg5",
+        "categoryId": "35543044"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Bun & Omelette",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "52616994",
+              "name": "Cheesy Masala Bun Omelette",
+              "category": "Bun & Omelette",
+              "description": "A warm toasted bun loaded with cheese, eggs & spices! Comfort food done right! (390 Calories)",
+              "imageId": "wkrxycx5bopkae8npzg5",
+              "inStock": 1,
+              "price": 17500,
+              "variants": {},
+              "variantsV2": {},
+              "addons": [
+                {
+                  "groupId": "178248595",
+                  "groupName": "Make a meal",
+                  "choices": [
+                    {
+                      "id": "126983997",
+                      "name": "Fries",
+                      "price": 8900,
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983994",
+                      "name": "Fries + Pepsi",
+                      "price": 10900,
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    }
+                  ],
+                  "maxAddons": 2,
+                  "maxFreeAddons": -1
+                }
+              ],
+              "itemAttribute": {
+                "vegClassifier": "NONVEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "1.9",
+                  "ratingCount": "19 ratings",
+                  "ratingCountV2": "19"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#FFF0CD",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_low",
+                  "ratingTextColor": "rating_low",
+                  "ratingCountTextColor": "rating_low",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "38590488"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "wkrxycx5bopkae8npzg5",
+        "categoryId": "35543044"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Bun & Omelette",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "52617602",
+              "name": "Schezwan Masala Bun Omelette",
+              "category": "Bun & Omelette",
+              "description": "Golden fried omelette inside a well toasted bun with a chinese twist of our inhouse Schezwan sauce. A thoroughly satisfying meal! (420 Calories)",
+              "imageId": "wkrxycx5bopkae8npzg5",
+              "inStock": 1,
+              "price": 16900,
+              "variants": {},
+              "variantsV2": {},
+              "addons": [
+                {
+                  "groupId": "178248590",
+                  "groupName": "Make a meal",
+                  "choices": [
+                    {
+                      "id": "126983997",
+                      "name": "Fries",
+                      "price": 8900,
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    },
+                    {
+                      "id": "126983994",
+                      "name": "Fries + Pepsi",
+                      "price": 10900,
+                      "inStock": 1,
+                      "isVeg": 1,
+                      "isEnabled": 1
+                    }
+                  ],
+                  "maxAddons": 2,
+                  "maxFreeAddons": -1
+                }
+              ],
+              "itemAttribute": {
+                "vegClassifier": "NONVEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "2.0",
+                  "ratingCount": "16 ratings",
+                  "ratingCountV2": "16"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#FFF0CD",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_low",
+                  "ratingTextColor": "rating_low",
+                  "ratingCountTextColor": "rating_low",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "38590495"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "wkrxycx5bopkae8npzg5",
+        "categoryId": "35543044"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Milkshakes",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "56235048",
+              "name": "Butterscotch Milkshake",
+              "category": "Milkshakes",
+              "description": "For all those Butterscotch lovers, what else can quench your cravings better than a butterscotch?milkshake. (360 Calories)",
+              "imageId": "FOOD_CATALOG/IMAGES/CMS/2024/3/6/f9ee346d-a3e1-499b-93d8-7311024c43bd_4214cd6b-d46f-4cb7-99f9-925e77c2c81b_compressed",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 18800,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "4.4",
+                  "ratingCount": "9 ratings",
+                  "ratingCountV2": "9"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#C8F9E5",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_very_good",
+                  "ratingTextColor": "rating_very_good",
+                  "ratingCountTextColor": "rating_very_good",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "38318588"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "FOOD_CATALOG/IMAGES/CMS/2024/3/6/f9ee346d-a3e1-499b-93d8-7311024c43bd_4214cd6b-d46f-4cb7-99f9-925e77c2c81b_compressed",
+        "categoryId": "53247553"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Milkshakes",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "56235058",
+              "name": "Chocolate Milkshake",
+              "category": "Milkshakes",
+              "description": "This baby doesn't need to be described. You all know you crave this everyday! (330 Calories)",
+              "imageId": "ynbndrj5khwlox0hhpaw",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 17900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "3.7",
+                  "ratingCount": "21 ratings",
+                  "ratingCountV2": "21"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#D9EFEC",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_medium",
+                  "ratingTextColor": "rating_medium",
+                  "ratingCountTextColor": "rating_medium",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "38318596"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "FOOD_CATALOG/IMAGES/CMS/2024/3/6/f9ee346d-a3e1-499b-93d8-7311024c43bd_4214cd6b-d46f-4cb7-99f9-925e77c2c81b_compressed",
+        "categoryId": "53247553"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Milkshakes",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "56235066",
+              "name": "Chocolate Truffle Thick Shake",
+              "category": "Milkshakes",
+              "description": "A dessert so creamy & delicious. The perfect blend of Chocolate Truffle pastry with ice cream! Dessert perfection in a bottle! (620 Calories)",
+              "imageId": "ynbndrj5khwlox0hhpaw",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 21900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "3.8",
+                  "ratingCount": "14 ratings",
+                  "ratingCountV2": "14"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#D9EFEC",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_medium",
+                  "ratingTextColor": "rating_medium",
+                  "ratingCountTextColor": "rating_medium",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "38318597"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "FOOD_CATALOG/IMAGES/CMS/2024/3/6/f9ee346d-a3e1-499b-93d8-7311024c43bd_4214cd6b-d46f-4cb7-99f9-925e77c2c81b_compressed",
+        "categoryId": "53247553"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Milkshakes",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "56235071",
+              "name": "Death By Chocolate Thick Shake",
+              "category": "Milkshakes",
+              "description": "A must try for those who love an overdose of chocolate. Loaded with the richness of chocolate & goodness of milk, this bottle screams with flavour! So tempting that you will have hard time resisting. (620 Calories)",
+              "imageId": "ynbndrj5khwlox0hhpaw",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 21900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "3.9",
+                  "ratingCount": "8 ratings",
+                  "ratingCountV2": "8"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#D9EFEC",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_medium",
+                  "ratingTextColor": "rating_medium",
+                  "ratingCountTextColor": "rating_medium",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "38318598"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "FOOD_CATALOG/IMAGES/CMS/2024/3/6/f9ee346d-a3e1-499b-93d8-7311024c43bd_4214cd6b-d46f-4cb7-99f9-925e77c2c81b_compressed",
+        "categoryId": "53247553"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Milkshakes",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "56235053",
+              "name": "Mango Milkshake",
+              "category": "Milkshakes",
+              "description": "We present you the king of all fruits, the refreshing mango. Now imagine how delicious it will be when you add a full scoop of fresh ice cream and make a drink out of it. (110 Calories)",
+              "imageId": "9f7238abbd686d1b8b6d4ed6bf47ecf4",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 16900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "4.0",
+                  "ratingCount": "31 ratings",
+                  "ratingCountV2": "31"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#C8F9E5",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_very_good",
+                  "ratingTextColor": "rating_very_good",
+                  "ratingCountTextColor": "rating_very_good",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "38318601"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "FOOD_CATALOG/IMAGES/CMS/2024/3/6/f9ee346d-a3e1-499b-93d8-7311024c43bd_4214cd6b-d46f-4cb7-99f9-925e77c2c81b_compressed",
+        "categoryId": "53247553"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Milkshakes",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "56235068",
+              "name": "Oreo Brownie Thick Shake",
+              "category": "Milkshakes",
+              "description": "The perfect snack to drink! This?milkshake?has the goodness of Oreo cookies, decadent brownie & smooth vanilla ice cream! Drink your way to chocolatey happiness! (910 Calories)",
+              "imageId": "FOOD_CATALOG/IMAGES/CMS/2024/3/11/a9fd2cb4-224b-4bf2-ab4c-9c5985d3693f_e705ceb0-0555-4b33-af5e-1ad73287f3bb.jpg_compressed",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 24900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "4.6",
+                  "ratingCount": "12 ratings",
+                  "ratingCountV2": "12"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#C8F9E5",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_very_good",
+                  "ratingTextColor": "rating_very_good",
+                  "ratingCountTextColor": "rating_very_good",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "38318606"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "FOOD_CATALOG/IMAGES/CMS/2024/3/6/f9ee346d-a3e1-499b-93d8-7311024c43bd_4214cd6b-d46f-4cb7-99f9-925e77c2c81b_compressed",
+        "categoryId": "53247553"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Milkshakes",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "56235075",
+              "name": "Red Velvet Thick Shake",
+              "category": "Milkshakes",
+              "description": "An indulgent milkshake that looks just as pretty as it tastes! A blend of Red Velvet pastry with Vanilla ice cream makes this such an irresistible milk shake perfect to share with your loved one! (430 Calories)",
+              "imageId": "adxpdj3vyjeevg3wbfe3",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 18900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "5.0",
+                  "ratingCount": "12 ratings",
+                  "ratingCountV2": "12"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#C8F9E5",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_very_good",
+                  "ratingTextColor": "rating_very_good",
+                  "ratingCountTextColor": "rating_very_good",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "38318612"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "FOOD_CATALOG/IMAGES/CMS/2024/3/6/f9ee346d-a3e1-499b-93d8-7311024c43bd_4214cd6b-d46f-4cb7-99f9-925e77c2c81b_compressed",
+        "categoryId": "53247553"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Milkshakes",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "56235063",
+              "name": "Rose Milkshake",
+              "category": "Milkshakes",
+              "description": "We bring you the vintage rose?milkshake?which will bring back all the beautiful childhood memories you made while drinking it. (360 Calories)",
+              "imageId": "na7uizkzyxqx6fa9yzp2",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 16900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "5.0",
+                  "ratingCount": "6 ratings",
+                  "ratingCountV2": "6"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#C8F9E5",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_very_good",
+                  "ratingTextColor": "rating_very_good",
+                  "ratingCountTextColor": "rating_very_good",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "38318613"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "FOOD_CATALOG/IMAGES/CMS/2024/3/6/f9ee346d-a3e1-499b-93d8-7311024c43bd_4214cd6b-d46f-4cb7-99f9-925e77c2c81b_compressed",
+        "categoryId": "53247553"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Desserts & Jar Cakes",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "136886443",
+              "name": "Blackforest Jar Cake",
+              "category": "Desserts & Jar Cakes",
+              "description": "A classic chocolate cake, freshly whipped cream topped with cherries and chocolate shavings giving the jar its rightful glory. The Blackforest Jar cake adds cheer to any day! (330 Calories)",
+              "imageId": "zwsyg0wlakiv0eopjowh",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 20900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {}
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "80147341"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "zwsyg0wlakiv0eopjowh",
+        "categoryId": "35543043"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Desserts & Jar Cakes",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "151275188",
+              "name": "Blueberry Jar Cake",
+              "category": "Desserts & Jar Cakes",
+              "description": "A fruity combination of light cake & whipped cream finished off with a delicious Blueberry topping! This super moist jar cake bursts with the distinct Blueberry flavour! (310 Calories)",
+              "imageId": "j4pzckib3pl10oidpch5",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 20900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {}
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "80147342"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "zwsyg0wlakiv0eopjowh",
+        "categoryId": "35543043"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Desserts & Jar Cakes",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "49141072",
+              "name": "Choco Lava Cake",
+              "category": "Desserts & Jar Cakes",
+              "description": "A small chocolate cake with a soft, gooey center of rich chocolate. This cake is best enjoyed warm with a scoop of vanilla ice cream, creating a perfect balance of rich chocolate and creamy sweetness.",
+              "imageId": "i9bqwq2ivx9ews0fkmz3",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 11900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "4.2",
+                  "ratingCount": "88 ratings",
+                  "ratingCountV2": "88"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#C8F9E5",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_very_good",
+                  "ratingTextColor": "rating_very_good",
+                  "ratingCountTextColor": "rating_very_good",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "38408145"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "zwsyg0wlakiv0eopjowh",
+        "categoryId": "35543043"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Desserts & Jar Cakes",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "151275189",
+              "name": "Chocolate Chip Jar Cake",
+              "category": "Desserts & Jar Cakes",
+              "description": "Who can resist the combination of a moist chocolate cake & crunchy choco chips? Putting these two irresistible delights together in a jar makes a chocolate-lovers dessert complete! (520 Calories)",
+              "imageId": "irenqqoaqgusias8p2xh",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 20900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {}
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "80147343"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "zwsyg0wlakiv0eopjowh",
+        "categoryId": "35543043"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Desserts & Jar Cakes",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "151275190",
+              "name": "Chocolate Oreo Jar Cake",
+              "category": "Desserts & Jar Cakes",
+              "description": "Happiness in a jar with the sound of the oreo crunch! The delicious combination of a Chocolate Cake with Oreo cookies is irresistible. A must try for Oreo lovers and others too! (400 Calories)",
+              "imageId": "cqjvyipxtncifutzwd58",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 20900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {}
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "80147344"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "zwsyg0wlakiv0eopjowh",
+        "categoryId": "35543043"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Desserts & Jar Cakes",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "49141092",
+              "name": "Gooey Brownie",
+              "category": "Desserts & Jar Cakes",
+              "description": "Gooey yet crisp chocolate brownie is a much loved dessert. The perfectly balanced flavours are ideal  for those looking to grab a bite sized dessert after a great meal. (530 Calories)",
+              "imageId": "ttapy8rcpkts4vfurjbd",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 11900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "4.2",
+                  "ratingCount": "17 ratings",
+                  "ratingCountV2": "17"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#C8F9E5",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_very_good",
+                  "ratingTextColor": "rating_very_good",
+                  "ratingCountTextColor": "rating_very_good",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "38780542"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "zwsyg0wlakiv0eopjowh",
+        "categoryId": "35543043"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Desserts & Jar Cakes",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "136886448",
+              "name": "Pineapple Jar Cake",
+              "category": "Desserts & Jar Cakes",
+              "description": "A melt-in-the-mouth cake and slightly tart pineapple make this jar a sure winner. Vanilla sponge, topped with whipped cream and finished with pineapple garnish, this jar will have you asking for more! (330 Calories)",
+              "imageId": "zworzpo5hmyclamswy5a",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 20900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "4.0",
+                  "ratingCount": "1 rating",
+                  "ratingCountV2": "1"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#C8F9E5",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_very_good",
+                  "ratingTextColor": "rating_very_good",
+                  "ratingCountTextColor": "rating_very_good",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "80147346"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "zwsyg0wlakiv0eopjowh",
+        "categoryId": "35543043"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Desserts & Jar Cakes",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "151275191",
+              "name": "Red Velvet Jar Cake",
+              "category": "Desserts & Jar Cakes",
+              "description": "This jar has Red Velvet cake layered with silken whipped cream and a topping of Red Velvet crumbs. A perfect dessert to gift to friends or eat by yourself. (140 Calories)",
+              "imageId": "z4fozzqpwqjnwqqvipfu",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 20900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "3.0",
+                  "ratingCount": "1 rating",
+                  "ratingCountV2": "1"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#D9EFEC",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_medium",
+                  "ratingTextColor": "rating_medium",
+                  "ratingCountTextColor": "rating_medium",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "80147347"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "zwsyg0wlakiv0eopjowh",
+        "categoryId": "35543043"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Desserts & Jar Cakes",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "56235082",
+              "name": "Walnut Brownie",
+              "category": "Desserts & Jar Cakes",
+              "description": "A dense & moist pastry that combines a rich, chocolatey flavor with the nutty crunch of walnut and baked until it has a crispy top and a fudgy center. It is an indulgent treat for chocolate lovers.",
+              "imageId": "cbc6f7cbc9887de2e8c270c48b4d1996",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 13900,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {
+                  "rating": "1.6",
+                  "ratingCount": "13 ratings",
+                  "ratingCountV2": "13"
+                },
+                "ratingsPresentationConfig": {
+                  "bgGradient": {
+                    "colours": [
+                      "#FFF0CD",
+                      "#FFFFFF"
+                    ],
+                    "gradientDirection": "GRADIENT_DIRECTION_LEFT_TO_RIGHT"
+                  },
+                  "ratingIconColor": "rating_low",
+                  "ratingTextColor": "rating_low",
+                  "ratingCountTextColor": "rating_low",
+                  "ratingFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD",
+                  "ratingCountFontName": "FONT_NAME_V2_OVERLINE_NEUTRAL_BOLD"
+                }
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "38780554"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "zwsyg0wlakiv0eopjowh",
+        "categoryId": "35543043"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Desserts & Jar Cakes",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "175779136",
+              "name": "Red Velvet Jar",
+              "category": "Desserts & Jar Cakes",
+              "imageId": "FOOD_CATALOG/IMAGES/CMS/2025/7/1/6beff1f9-b30f-40b1-bafc-2640d40a6146_c641df59-4ee0-467d-8605-14f947db833d.jpg",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 22000,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {}
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "106174658"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "zwsyg0wlakiv0eopjowh",
+        "categoryId": "35543043"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Desserts & Jar Cakes",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "175779137",
+              "name": "Trio of Chocolate Jar",
+              "category": "Desserts & Jar Cakes",
+              "imageId": "FOOD_CATALOG/IMAGES/CMS/2025/7/1/31fa110e-300a-4ced-9f45-b7e9af77e292_540a8b7d-cc85-44f4-8d1d-bc633cd499e5.jpg",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 24000,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {}
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "106174660"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "zwsyg0wlakiv0eopjowh",
+        "categoryId": "35543043"
+      }
+    }
+  }
+},
+{
+  "_id": {
+    "$oid": "68ecbc23a373677db3ecafdc"
+  },
+  "cards": {
+    "card": {
+      "card": {
+        "@type": "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory",
+        "title": "Desserts & Jar Cakes",
+        "itemCards": {
+          "card": {
+            "@type": "type.googleapis.com/swiggy.presentation.food.v2.Dish",
+            "info": {
+              "id": "175779138",
+              "name": "Tiramisu Jar",
+              "category": "Desserts & Jar Cakes",
+              "imageId": "FOOD_CATALOG/IMAGES/CMS/2025/7/1/86949ba9-cf8f-4cda-ad39-ead2ede83727_61dd6cc1-8adb-4e35-91b4-e567848e75e9.jpg",
+              "inStock": 1,
+              "isVeg": 1,
+              "price": 26000,
+              "variants": {},
+              "variantsV2": {},
+              "itemAttribute": {
+                "vegClassifier": "VEG"
+              },
+              "ribbon": {},
+              "type": "ITEM",
+              "itemBadge": {},
+              "badgesV2": {},
+              "ratings": {
+                "aggregatedRating": {}
+              },
+              "itemPriceStrikeOff": true,
+              "parentId": "106174659"
+            },
+            "analytics": {},
+            "hideRestaurantDetails": true
+          }
+        },
+        "subtitleSuffix": {},
+        "image": "zwsyg0wlakiv0eopjowh",
+        "categoryId": "35543043"
+      }
+    }
+  }
+}]

@@ -1,102 +1,92 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fetchChatList = createAsyncThunk(
-  "chat/fetchChatList",
-  async (_, thunkAPI) => {
+const initialState = {
+  messages: [],
+  loading: false,
+  error: null,
+};
+
+// --- Send a message ---
+export const sendMessage = createAsyncThunk(
+  "chat/sendMessage",
+  async (messageData, { rejectWithValue }) => {
     try {
-      const res = await axios.get("/api/inbox/chat-list");
-      return res.data;
-    } catch (error) {
-      console.error("❌ Failed to fetch chat list:", error);
-      return thunkAPI.rejectWithValue(error.response?.data || error.message);
+      const response = await axios.post(
+        "/api/organization/inbox/message/send-message",
+        messageData
+      );
+      return response.data; // assume { success, data, message }
+    } catch (err) {
+      return rejectWithValue(err.response?.data || { message: err.message });
     }
   }
 );
 
-export const sendMessage = createAsyncThunk(
-  "chat/sendMessage",
-  async ({ to, type, message, context }, thunkAPI) => {
+// --- Fetch all messages for a conversation ---
+export const fetchMessages = createAsyncThunk(
+  "chat/fetchMessages",
+  async ({ chatId }, { rejectWithValue }) => {
     try {
-      const res = await axios.post("/api/inbox/send-message", {
-        to,
-        type,
-        message,
-        ...(context ? { context } : {}),
-      });
-      return { to, message: res.data };
-    } catch (error) {
-      console.error("❌ Failed to send message:", error);
-      return thunkAPI.rejectWithValue(error.response?.data || error.message);
+      const response = await axios.get(
+        `/api/organization/inbox/conversation/chat/${chatId}`
+      );
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || { message: err.message });
     }
   }
 );
 
 const chatSlice = createSlice({
   name: "chat",
-  initialState: {
-    chatList: [],
-    conversations: {},
-    loadingChatList: false,
-    loadingMessages: {},
-    sendingMessage: false,
-    error: null,
-  },
+  initialState,
   reducers: {
     addMessage: (state, action) => {
-      const msg = action.payload;
-      const { chatWith } = msg;
-
-      if (!state.conversations[chatWith]) {
-        state.conversations[chatWith] = [];
-      }
-
-      state.conversations[chatWith].push(msg);
+      state.messages.push(action.payload);
     },
-    setMessages: (state, action) => {
-      const { chatWith, messages } = action.payload;
-      state.conversations[chatWith] = messages;
+    updateMessageStatus: (state, action) => {
+      const msg = state.messages.find((m) => m._id === action.payload._id);
+      if (msg) msg.status = action.payload.status;
     },
-    clearMessages: (state, action) => {
-      const { chatWith } = action.payload;
-      if (chatWith) {
-        delete state.conversations[chatWith];
-      } else {
-        state.conversations = {};
-      }
+    clearMessages: (state) => {
+      state.messages = [];
+      state.error = null;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchChatList.pending, (state) => {
-        state.loadingChatList = true;
+      // --- Fetch Messages ---
+      .addCase(fetchMessages.pending, (state) => {
+        state.loading = true;
         state.error = null;
       })
-      .addCase(fetchChatList.fulfilled, (state, action) => {
-        state.chatList = action.payload;
-        state.loadingChatList = false;
+      .addCase(fetchMessages.fulfilled, (state, action) => {
+        state.loading = false;
+        state.messages = action.payload?.data || [];
       })
-      .addCase(fetchChatList.rejected, (state, action) => {
-        state.error = action.payload || "Failed to fetch chat list";
-        state.loadingChatList = false;
+      .addCase(fetchMessages.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message || "Failed to fetch messages";
       })
 
+      // --- Send Message ---
       .addCase(sendMessage.pending, (state) => {
-        state.sendingMessage = true;
         state.error = null;
       })
       .addCase(sendMessage.fulfilled, (state, action) => {
-        const { to, message } = action.payload;
-        if (!state.conversations[to]) state.conversations[to] = [];
-        state.conversations[to].push(message);
-        state.sendingMessage = false;
+        const newMessage = action.payload?.data;
+        // if (newMessage) {
+        //   state.messages.push(newMessage);
+        // }
       })
       .addCase(sendMessage.rejected, (state, action) => {
-        state.error = action.payload || "Failed to send message";
-        state.sendingMessage = false;
+        state.error = action.payload?.message || "Failed to send message";
       });
   },
 });
 
-export const { addMessage, setMessages, clearMessages } = chatSlice.actions;
+export const { addMessage, updateMessageStatus, clearMessages } =
+  chatSlice.actions;
+
 export default chatSlice.reducer;
