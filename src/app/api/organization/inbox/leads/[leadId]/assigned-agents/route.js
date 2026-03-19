@@ -4,6 +4,8 @@ import Lead from "@/models/Lead";
 import Assignment from "@/models/Assignment";
 import { auth } from "@clerk/nextjs/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req, { params }) {
   try {
     await dbConnect();
