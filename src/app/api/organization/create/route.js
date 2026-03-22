@@ -12,7 +12,7 @@ export async function POST(req) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { name, slug, logo_url, display_phone_number, phone_number_id, wa_business_account_id } = await req.json();
+    const { name, slug, logo_url, display_phone_number, phone_number_id, wa_business_account_id, access_token } = await req.json();
 
     if (!name || !slug) {
       return NextResponse.json({ error: "Name and slug are required" }, { status: 400 });
@@ -32,6 +32,7 @@ export async function POST(req) {
       display_phone_number: display_phone_number || "",
       phone_number_id: phone_number_id || "",
       wa_business_account_id: wa_business_account_id || "",
+      access_token: access_token || "",
       admin_id: user.id,
       members: [
         {

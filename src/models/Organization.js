@@ -36,6 +36,10 @@ const organizationSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    access_token: {
+      type: String,
+      trim: true,
+    },
     admin_id: {
       type: String,
       required: true,

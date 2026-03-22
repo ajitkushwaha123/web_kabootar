@@ -70,14 +70,25 @@ export const POST = async (req) => {
 
     await dbConnect();
 
-    // Save message locally first
+    // 1. Get Conversation and Contact to find recipient phone number
+    const conversation = await Conversation.findById(conversationId).populate("contactId");
+    if (!conversation || !conversation.contactId) {
+      return NextResponse.json(
+        { message: "Conversation or Contact not found", success: false },
+        { status: 404 }
+      );
+    }
+
+    const recipientPhone = conversation.contactId.primaryPhone;
+
+    // 2. Save message locally first
     const newMessage = await Message.create({
       conversationId,
       senderId: userId,
       organizationId: orgId,
       senderType,
-      status,
-      direction,
+      status: "pending",
+      direction: "outgoing",
       messageType,
       ...messageContent,
       metadata,
@@ -87,26 +98,39 @@ export const POST = async (req) => {
     const payload = {
       messaging_product: "whatsapp",
       recipient_type: "individual",
-      to: 918178739633, // replace with dynamic number if needed
+      to: recipientPhone,
       type: messageType,
       [messageType]: messageContent[messageType],
     };
 
-    const phoneId = org.phone_number_id || process.env.META_PHONE_NUMBER_ID;
+    const phoneId = (org.phone_number_id || process.env.META_WA_PHONE_NUMBER_ID || "").trim();
+    const baseUrl = (process.env.META_WA_API_URL || "https://graph.facebook.com/v21.0").trim();
+
+    if (!phoneId) {
+      console.error("❌ WhatsApp Error: phone_number_id is missing");
+      newMessage.status = "failed";
+      await newMessage.save();
+      return NextResponse.json({ message: "WhatsApp Phone ID is missing for this organization", success: false }, { status: 400 });
+    }
+
+    const fullUrl = `${baseUrl}/${phoneId}/messages`;
+    console.log("🚀 Sending WhatsApp Message to:", recipientPhone, "URL:", fullUrl);
+
+    const token = (org.access_token || process.env.META_WA_TOKEN || "").trim();
 
     try {
       const waRes = await axios.post(
-        `${process.env.META_BASE_API_URL}/${phoneId}/messages`,
+        fullUrl,
         payload,
         {
           headers: {
-            Authorization: `Bearer ${process.env.META_ACCESS_TOKEN}`,
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         }
       );
 
-      console.log("WhatsApp API response:", waRes.data);
+      console.log("✅ WhatsApp API response:", waRes.data);
 
       if (waRes.data?.messages?.length > 0) {
         newMessage.status = "sent";
@@ -119,9 +143,9 @@ export const POST = async (req) => {
         });
       }
     } catch (waErr) {
-      console.error("WhatsApp API error:", waErr.message);
-      // Optionally mark message as 'failed' or leave as 'pending'
+      console.error("❌ WhatsApp API error:", waErr.response?.data || waErr.message);
       newMessage.status = "failed";
+      newMessage.metadata = { ...newMessage.metadata, error: waErr.message };
       await newMessage.save();
     }
 

@@ -32,7 +32,7 @@ async function handleEvent(job) {
   const { event, payload } = job.data;
   console.log(`🔄 [JOB:${job.id}] Routing event: ${event}`);
 
-  // Determine Base URL with more robust fallback
+  // Determine Base URL (Prioritizing the exact environment variable provided by user)
   let baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_APP_BASE_URL || "http://localhost:3000").trim();
   
   // Ensure the URL starts with http:// or https:// to avoid Axios "Invalid URL" errors

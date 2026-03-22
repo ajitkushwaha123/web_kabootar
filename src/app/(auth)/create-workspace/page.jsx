@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Loader2, Plus, LogOut, ArrowRight, Building2, Phone, Link2 } from "lucide-react";
+import { Loader2, Plus, LogOut, ArrowRight, Building2, Phone, Link2, Key } from "lucide-react";
 import { toast } from "sonner";
 
 export default function CreateWorkspacePage() {
@@ -22,6 +22,7 @@ export default function CreateWorkspacePage() {
     display_phone_number: "",
     phone_number_id: "",
     wa_business_account_id: "",
+    access_token: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -188,29 +189,58 @@ export default function CreateWorkspacePage() {
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="phone_number_id" className="text-xs font-semibold text-slate-500 uppercase tracking-tight">Meta Phone ID</Label>
-                    <Input 
-                      id="phone_number_id"
-                      name="phone_number_id"
-                      placeholder="123456789"
-                      value={formData.phone_number_id}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                  <div className="space-y-1.5">
+                    <Label htmlFor="phone_number_id" className="text-xs uppercase tracking-wider text-slate-500 font-bold ml-1">WhatsApp Phone ID</Label>
+                    <div className="relative">
+                      <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                        <Phone size={16} />
+                      </div>
+                      <Input
+                        id="phone_number_id"
+                        name="phone_number_id"
+                        value={formData.phone_number_id}
+                        onChange={handleChange}
+                        placeholder="Enter Meta Phone ID"
+                        className="pl-10 h-11 border-slate-200 focus:border-blue-500 focus:ring-blue-500 rounded-xl bg-white"
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="wa_business_account_id" className="text-xs uppercase tracking-wider text-slate-500 font-bold ml-1">Business ID</Label>
+                    <div className="relative">
+                      <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                        <Building2 size={16} />
+                      </div>
+                      <Input
+                        id="wa_business_account_id"
+                        name="wa_business_account_id"
+                        value={formData.wa_business_account_id}
+                        onChange={handleChange}
+                        placeholder="Enter Meta Business ID"
+                        className="pl-10 h-11 border-slate-200 focus:border-blue-500 focus:ring-blue-500 rounded-xl bg-white"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-1.5 pt-2">
+                  <Label htmlFor="access_token" className="text-xs uppercase tracking-wider text-slate-500 font-bold ml-1">Meta Access Token</Label>
+                  <div className="relative">
+                    <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                      <Key size={16} />
+                    </div>
+                    <Input
+                      id="access_token"
+                      name="access_token"
+                      type="password"
+                      value={formData.access_token}
                       onChange={handleChange}
-                      className="border-slate-200 focus:border-blue-500 focus:ring-blue-100 h-10 transition-all text-sm"
+                      placeholder="Paste your Permanent Access Token here"
+                      className="pl-10 h-11 border-slate-200 focus:border-blue-500 focus:ring-blue-500 rounded-xl bg-white"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="wa_business_account_id" className="text-xs font-semibold text-slate-500 uppercase tracking-tight">Business ID</Label>
-                    <Input 
-                      id="wa_business_account_id"
-                      name="wa_business_account_id"
-                      placeholder="987654321"
-                      value={formData.wa_business_account_id}
-                      onChange={handleChange}
-                      className="border-slate-200 focus:border-blue-500 focus:ring-blue-100 h-10 transition-all text-sm"
-                    />
-                  </div>
+                  <p className="text-[10px] text-slate-400 ml-1 italic">Note: Use a Permanent Access Token for sending messages.</p>
                 </div>
               </div>
             </CardContent>
