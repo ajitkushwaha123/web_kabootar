@@ -21,13 +21,18 @@ export const POST = async (req) => {
 
     await dbConnect();
     const org = await Organization.findOne({ org_id: organizationId });
-    if (!org || !org.autoAiReply) return NextResponse.json({ success: false });
+    console.log("🤖 AutoReply Check - Org ID:", organizationId, "Enabled:", org?.autoAiReply);
+    
+    if (!org) return NextResponse.json({ message: "Org not found", success: false });
+    if (!org.autoAiReply) return NextResponse.json({ message: "Auto Reply disabled for this org", success: false });
 
-    // 1. Double check: Did a human reply in the last 10 seconds?
+    // 1. Double check: Did a human reply recently?
     const lastMsg = await Message.findOne({ conversationId }).sort({ createdAt: -1 });
-    if (lastMsg && lastMsg.direction === "outgoing" && lastMsg.senderType === "agent") {
-      // Human already replied or AI already replied
-      return NextResponse.json({ message: "Replying already handled", success: false });
+    console.log("🤖 Last Msg Direction:", lastMsg?.direction, "Sender:", lastMsg?.senderId);
+
+    if (lastMsg && lastMsg.direction === "outgoing" && lastMsg.senderId !== "AI_BOT") {
+      console.log("🤖 Human already replied, skipping AI.");
+      return NextResponse.json({ message: "Human already handled", success: false });
     }
 
     // 2. Fetch context
@@ -42,59 +47,69 @@ export const POST = async (req) => {
       .join("\n");
 
     // 3. Generate Reply
-    const { text: replyText } = await generateText({
-      model: google("gemini-1.5-flash"),
-      system: `You are an AI auto-responder for "${org.name}". 
-      Reply to the customer on WhatsApp. 
-      RULES: Short (1-2 lines), helpful, friendly, Hinglish if needed.`,
-      prompt: `Conversation:\n${history}\n\nAuto-reply to customer:`,
-    });
+    console.log("🤖 Generating AI suggestion for history...");
+    let replyText = "";
+    try {
+      const { text } = await generateText({
+        model: google("gemini-1.5-flash"),
+        system: `You are an AI sales agent for "${org.name}". Rules: Short, hinglish, friendly. No prefixes.`,
+        prompt: `Conversation:\n${history}\n\nAuto-reply:`,
+      });
+      replyText = text.trim();
+    } catch (aiErr) {
+      console.error("🤖 AI Fail:", aiErr.message);
+    }
 
-    if (!replyText) return NextResponse.json({ success: false });
+    if (!replyText) return NextResponse.json({ success: false, message: "No reply text generated" });
+    console.log("🤖 AI Generated Reply:", replyText);
 
-    // 4. Send Message via internal API or direct Meta call
-    const baseUrl = process.env.NEXT_APP_BASE_URL || "http://localhost:3000";
-    
-    // We call the send-message API internally (or similar)
-    // Actually, calling send-message API needs auth. 
-    // It's better to just call the Meta API direct here and SAVE to DB.
-    
-    const wa_id = lastMessages[lastMessages.length - 1].senderId; // Assuming senderId is the phone for incoming
-    const conversation = await Conversation.findById(conversationId);
-    
-    // Call WhatsApp API
-    const response = await axios.post(
-      `${process.env.META_WA_API_URL}/${org.phone_number_id}/messages`,
-      {
-        messaging_product: "whatsapp",
-        to: wa_id,
-        type: "text",
+    // 4. Send Message
+    const recipientPhone = lastMessages.find(m => m.direction === "incoming")?.senderId; 
+    console.log("🤖 Sending to phone:", recipientPhone);
+
+    if (!recipientPhone) return NextResponse.json({ success: false, message: "No recipient phone found" });
+
+    try {
+      const waUrl = `${process.env.META_WA_API_URL || "https://graph.facebook.com/v21.0"}/${org.phone_number_id}/messages`;
+      console.log("🤖 Calling Meta API:", waUrl);
+
+      const response = await axios.post(
+        waUrl,
+        {
+          messaging_product: "whatsapp",
+          to: recipientPhone,
+          type: "text",
+          text: { body: replyText },
+        },
+        { headers: { Authorization: `Bearer ${org.access_token || process.env.META_WA_TOKEN}` } }
+      );
+
+      console.log("🤖 Meta Response Success:", response.data?.messages?.[0]?.id);
+      const whatsappMessageId = response.data?.messages?.[0]?.id;
+
+      // 5. Save to DB
+      const newMessage = await Message.create({
+        conversationId,
+        organizationId: org.org_id,
+        direction: "outgoing",
+        senderId: "AI_BOT",
+        senderType: "agent",
+        messageType: "text",
+        status: "sent",
+        whatsappMessageId,
         text: { body: replyText },
-      },
-      { headers: { Authorization: `Bearer ${org.access_token || process.env.META_WA_TOKEN}` } }
-    );
+      });
 
-    const whatsappMessageId = response.data?.messages?.[0]?.id;
+      await Conversation.findByIdAndUpdate(conversationId, {
+        lastMessageId: newMessage._id,
+        lastMessageAt: new Date(),
+      });
 
-    // 5. Save to DB
-    const newMessage = await Message.create({
-      conversationId: conversation._id,
-      organizationId: org.org_id,
-      direction: "outgoing",
-      senderId: "AI_BOT",
-      senderType: "agent",
-      messageType: "text",
-      status: "sent",
-      whatsappMessageId,
-      text: { body: replyText },
-    });
-
-    await Conversation.findByIdAndUpdate(conversationId, {
-      lastMessageId: newMessage._id,
-      lastMessageAt: new Date(),
-    });
-
-    return NextResponse.json({ success: true, message: "Auto reply sent" });
+      return NextResponse.json({ success: true, message: "Auto reply sent" });
+    } catch (metaErr) {
+      console.error("🤖 Meta Sending Error:", metaErr.response?.data || metaErr.message);
+      return NextResponse.json({ success: false, error: "Meta API rejection" });
+    }
   } catch (err) {
     console.error("Auto-AI error:", err);
     return NextResponse.json({ success: false, error: err.message });
