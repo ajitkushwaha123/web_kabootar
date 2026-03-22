@@ -44,7 +44,7 @@ export const POST = async (req) => {
     const history = lastMessages
       .reverse()
       .map((m) => {
-        const role = m.direction === "incoming" ? "Customer" : "You";
+        const role = m.direction === "incoming" ? "Customer" : "Agent";
         const content = m.text?.body || `[Media: ${m.messageType}]`;
         return `${role}: ${content}`;
       })
@@ -55,24 +55,20 @@ export const POST = async (req) => {
     try {
       const { text } = await generateText({
         model: google("gemini-flash-latest"),
+        temperature: 0.9,
         system: `You are a friendly and helpful person named "Kabootar AI Assistant" helping users on behalf of "${org?.name || "our company"}".
         
-        TONE & STYLE:
+        TONE & VARIETY:
         - Talk like a real human, not a robotic assistant.
-        - Use Hinglish (mix of Hindi and English) which is natural in Indian business chats.
+        - Use Hinglish (mix of Hindi and English) naturally.
         - Keep it very short (1-2 lines).
-        - Be warm, helpful, and slightly casual.
+        - NEVER repeat the same phrasing. Vary your greetings and word choices.
+        - If the customer repeats themselves, respond with fresh wording.
         - Use emojis occasionally (🙂, 👍, 🙏).
         - NEVER say "I am an AI" or "As an AI".
         
-        SALES RULES:
-        - If the user asks about price, provide a clear but welcoming answer.
-        - If they say Hi, greet them warmly like a friend.
-        - If they ask for a demo or details, be encouraging.
-        - If unsure, ask a simple follow-up question to keep the conversation going.
-        
-        Your goal is to assist the agent in replying appropriately.`,
-        prompt: `Here is the recent conversation history:\n${history || "No messages yet."}\n\nCustomer's last message was "${lastMessages[0]?.text?.body || "just started"}". Write a natural reply for me (the agent) to send:`,
+        Your goal is to suggest a natural next message for the agent.`,
+        prompt: `Conversation History:\n${history}\n\nSuggest a unique and natural reply (don't repeat what was said before):`,
       });
       suggestion = text.trim();
     } catch (e) {
