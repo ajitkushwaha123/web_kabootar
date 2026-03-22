@@ -19,8 +19,12 @@ import {
   FileQuestion,
   Check,
   CheckCheck,
-  Circle,
+  Mail,
+  Phone,
+  MoreVertical,
+  Users,
 } from "lucide-react";
+import Link from "next/link";
 
 import { NavUser } from "@/components/nav-user";
 import { Label } from "@/components/ui/label";
@@ -86,7 +90,8 @@ const SIDEBAR_DATA = {
     avatar: "/avatars/shadcn.jpg",
   },
   navMain: [
-    { title: "Inbox", icon: Inbox },
+    { title: "Inbox", icon: Inbox, url: "/inbox" },
+    { title: "Team", icon: Users, url: "/team" },
     { title: "Drafts", icon: File },
     { title: "Sent", icon: Send },
     { title: "Junk", icon: ArchiveX },
@@ -141,14 +146,27 @@ export function InboxSidebar(props) {
         <SidebarMenu className="flex flex-1 flex-col items-center space-y-2 py-4">
           {SIDEBAR_DATA.navMain.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton
-                onClick={() => handleNavClick(item)}
-                isActive={activeItem?.title === item.title}
-                className="flex h-10 w-10 items-center justify-center rounded-md transition-all hover:bg-accent"
-                aria-label={item.title}
-              >
-                <item.icon className="h-4 w-4" />
-              </SidebarMenuButton>
+              {item.url ? (
+                <Link href={item.url}>
+                  <SidebarMenuButton
+                    onClick={() => handleNavClick(item)}
+                    isActive={activeItem?.title === item.title}
+                    className="flex h-10 w-10 items-center justify-center rounded-md transition-all hover:bg-accent"
+                    aria-label={item.title}
+                  >
+                    <item.icon className="h-4 w-4" />
+                  </SidebarMenuButton>
+                </Link>
+              ) : (
+                <SidebarMenuButton
+                  onClick={() => handleNavClick(item)}
+                  isActive={activeItem?.title === item.title}
+                  className="flex h-10 w-10 items-center justify-center rounded-md transition-all hover:bg-accent"
+                  aria-label={item.title}
+                >
+                  <item.icon className="h-4 w-4" />
+                </SidebarMenuButton>
+              )}
             </SidebarMenuItem>
           ))}
         </SidebarMenu>
