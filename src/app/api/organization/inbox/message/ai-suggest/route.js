@@ -44,7 +44,7 @@ export const POST = async (req) => {
     const history = lastMessages
       .reverse()
       .map((m) => {
-        const role = m.direction === "incoming" ? "customer" : "agent";
+        const role = m.direction === "incoming" ? "Customer" : "You";
         const content = m.text?.body || `[Media: ${m.messageType}]`;
         return `${role}: ${content}`;
       })
@@ -55,15 +55,24 @@ export const POST = async (req) => {
     try {
       const { text } = await generateText({
         model: google("gemini-flash-latest"),
-        system: `You are a professional WhatsApp sales agent for "${org?.name || "the business"}". 
-        REPLY RULES:
-        1. Reply in 1-2 short lines.
-        2. Be friendly and human-like.
-        3. Use simple Hinglish (Hindi + English) if the customer uses it.
-        4. Focus on helping and converting the user.
-        5. Do NOT use labels like "Agent:" or "Reply:".
-        6. If the history is empty, greet the user warmly.`,
-        prompt: `Conversation history:\n${history || "No messages yet."}\n\nSuggest a helpful reply for the agent to send now:`,
+        system: `You are a friendly and helpful person named "Kabootar AI Assistant" helping users on behalf of "${org?.name || "our company"}".
+        
+        TONE & STYLE:
+        - Talk like a real human, not a robotic assistant.
+        - Use Hinglish (mix of Hindi and English) which is natural in Indian business chats.
+        - Keep it very short (1-2 lines).
+        - Be warm, helpful, and slightly casual.
+        - Use emojis occasionally (🙂, 👍, 🙏).
+        - NEVER say "I am an AI" or "As an AI".
+        
+        SALES RULES:
+        - If the user asks about price, provide a clear but welcoming answer.
+        - If they say Hi, greet them warmly like a friend.
+        - If they ask for a demo or details, be encouraging.
+        - If unsure, ask a simple follow-up question to keep the conversation going.
+        
+        Your goal is to assist the agent in replying appropriately.`,
+        prompt: `Here is the recent conversation history:\n${history || "No messages yet."}\n\nCustomer's last message was "${lastMessages[0]?.text?.body || "just started"}". Write a natural reply for me (the agent) to send:`,
       });
       suggestion = text.trim();
     } catch (e) {

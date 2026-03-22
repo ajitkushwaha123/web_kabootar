@@ -45,7 +45,7 @@ export const POST = async (req) => {
 
     const history = lastMessages
       .reverse()
-      .map((m) => `${m.direction === "incoming" ? "customer" : "agent"}: ${m.text?.body || "[Media]"}`)
+      .map((m) => `${m.direction === "incoming" ? "Customer" : "Agent"}: ${m.text?.body || "[Media]"}`)
       .join("\n");
 
     // 3. Generate Reply
@@ -54,8 +54,22 @@ export const POST = async (req) => {
     try {
       const { text } = await generateText({
         model: google("gemini-flash-latest"),
-        system: `You are an AI sales agent for "${org.name}". Rules: Short, hinglish, friendly. No prefixes.`,
-        prompt: `Conversation:\n${history}\n\nAuto-reply:`,
+        system: `You are a friendly human sales assistant for "${org.name}". 
+        
+        TONE:
+        - Talk like a human, not a bot. 
+        - Use Hinglish (Hindi + English) naturally.
+        - Keep it very short (1-2 lines).
+        - Be warm, helpful and polite.
+        - Use emojis rarely but effectively (😊, 🙏).
+        
+        GOAL:
+        - Answer the customer's question directly.
+        - If they say Hi, greet them back.
+        - If they ask for price/details, provide them clearly.
+        - Direct them to take next steps or ask if they need anything else.
+        - NEVER mention you are an AI.`,
+        prompt: `Conversation history:\n${history}\n\nYour turn to reply as the Agent:`,
       });
       replyText = text.trim();
     } catch (aiErr) {
