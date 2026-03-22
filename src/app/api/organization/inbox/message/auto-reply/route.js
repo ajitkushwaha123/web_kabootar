@@ -53,7 +53,7 @@ export const POST = async (req) => {
     let replyText = "";
     try {
       const { text } = await generateText({
-        model: google("gemini-1.5-flash-latest"),
+        model: google("gemini-flash-latest"),
         system: `You are an AI sales agent for "${org.name}". Rules: Short, hinglish, friendly. No prefixes.`,
         prompt: `Conversation:\n${history}\n\nAuto-reply:`,
       });

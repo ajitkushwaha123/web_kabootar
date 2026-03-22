@@ -54,7 +54,7 @@ export const POST = async (req) => {
     let suggestion = "";
     try {
       const { text } = await generateText({
-        model: google("gemini-1.5-flash-latest"),
+        model: google("gemini-flash-latest"),
         system: `You are a professional WhatsApp sales agent for "${org?.name || "the business"}". 
         REPLY RULES:
         1. Reply in 1-2 short lines.
