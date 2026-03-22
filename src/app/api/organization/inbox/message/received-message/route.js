@@ -7,6 +7,7 @@ import { handleMessageByType } from "@/helper/webhook-payload/message-handler";
 import { whatsappEventQueue } from "@/lib/bullmq/queue/whatsappEventQueue";
 
 export const POST = async (req) => {
+  console.log("🚀 [RECEIVED] API HIT");
   try {
     await dbConnect();
 
@@ -87,18 +88,23 @@ export const POST = async (req) => {
 
     // 🟢 NEW: Trigger Auto AI Reply if enabled (Direct Trigger)
     if (org.autoAiReply) {
-      console.log("🤖 Manual AI Trigger attempt. Org:", org.org_id);
+      console.log("🤖 Triggering Auto-Reply API...");
       const baseUrl = process.env.NEXT_APP_BASE_URL || "http://localhost:3000";
       
-      // Fire and forget (asynchronously)
-      fetch(`${baseUrl}/api/organization/inbox/message/auto-reply`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          conversationId: conversation._id,
-          organizationId: org.org_id,
-        }),
-      }).catch(err => console.error("🤖 AI Trigger Error:", err.message));
+      // Use await to ensure the trigger completes
+      try {
+        await fetch(`${baseUrl}/api/organization/inbox/message/auto-reply`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            conversationId: conversation._id,
+            organizationId: org.org_id,
+          }),
+        });
+        console.log("✅ Auto-Reply API triggered successfully");
+      } catch (fetchErr) {
+        console.error("❌ Failed to trigger Auto-Reply API:", fetchErr.message);
+      }
     }
 
     return NextResponse.json(
