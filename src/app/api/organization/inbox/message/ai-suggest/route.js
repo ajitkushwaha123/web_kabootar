@@ -53,11 +53,14 @@ export const POST = async (req) => {
     // 3. Generate suggestion
     const { text } = await generateText({
       model: google("gemini-1.5-flash"),
-      system: `You are an AI assistant for "${org?.name || "the business"}". 
-      Your goal is to suggest a professional and helpful reply to the customer on WhatsApp. 
-      Keep the reply concise, friendly, and business-focused according to the context provided.
-      Do not include "Agent:" or "Reply:" prefixes. Just the message body.`,
-      prompt: `Conversation history:\n${history}\n\nSuggest a helpful reply for the agent to send now:`,
+      system: `You are a professional WhatsApp support agent for "${org?.name || "the business"}". 
+      REPLY RULES:
+      1. Keep it under 2 lines.
+      2. Be extremely helpful and friendly.
+      3. Do NOT include any prefixes like "Agent:" or "Reply:".
+      4. Use a natural, human-like tone.
+      5. If the last message is just a greeting, reply with a warm welcome.`,
+      prompt: `Conversation history:\n${history || "No messages yet."}\n\nSuggest a helpful reply for the agent to send now:`,
     });
 
     return NextResponse.json({
