@@ -85,26 +85,20 @@ export const POST = async (req) => {
       { new: true }
     );
 
-    // 🟢 NEW: Trigger Auto AI Reply if enabled
+    // 🟢 NEW: Trigger Auto AI Reply if enabled (Direct Trigger)
     if (org.autoAiReply) {
-      try {
-        if (whatsappEventQueue) {
-          await whatsappEventQueue.add(
-            "auto-ai-reply",
-            {
-              event: "auto-ai-reply",
-              payload: {
-                conversationId: conversation._id,
-                organizationId: org.org_id,
-              },
-            },
-            { delay: 3000 }
-          );
-        }
-      } catch (queueErr) {
-        console.error("⚠️ Failed to enqueue Auto AI Reply:", queueErr.message);
-        // We don't throw here to avoid failing the whole webhook
-      }
+      console.log("🤖 Manual AI Trigger attempt. Org:", org.org_id);
+      const baseUrl = process.env.NEXT_APP_BASE_URL || "http://localhost:3000";
+      
+      // Fire and forget (asynchronously)
+      fetch(`${baseUrl}/api/organization/inbox/message/auto-reply`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          conversationId: conversation._id,
+          organizationId: org.org_id,
+        }),
+      }).catch(err => console.error("🤖 AI Trigger Error:", err.message));
     }
 
     return NextResponse.json(

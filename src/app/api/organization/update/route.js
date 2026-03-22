@@ -17,13 +17,18 @@ export const PATCH = async (req) => {
     await dbConnect();
 
     // 1. Update MongoDB
+    // We try both org_id and slug to be safe
     const updatedOrg = await Organization.findOneAndUpdate(
-      { org_id: orgId },
+      { $or: [{ org_id: orgId }, { slug: orgId }] },
       { $set: { autoAiReply: !!autoAiReply } },
       { new: true }
-    );
+    ).lean();
 
-    // 2. Sync with Clerk Public Metadata (for UI state)
+    console.log("🛠️ DB Update Result - Org:", updatedOrg?.org_id, "Status:", updatedOrg?.autoAiReply);
+
+    if (!updatedOrg) {
+      return NextResponse.json({ message: "Organization not found in DB", success: false }, { status: 404 });
+    }
     // Note: This requires the Clerk Secret Key to have org management permissions.
     // If we're using personal accounts or don't want to overcomplicate, we can skip.
     // However, the UI relies on organization?.publicMetadata?.autoAiReply.

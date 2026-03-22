@@ -12,8 +12,10 @@ const google = createGoogleGenerativeAI({
 });
 
 export const POST = async (req) => {
+  console.log("🚀 [AUTO-REPLY] API Route Hit");
   try {
     const { conversationId, organizationId } = await req.json();
+    console.log("📦 [AUTO-REPLY] Payload Received:", { conversationId, organizationId });
 
     if (!conversationId || !organizationId) {
       return NextResponse.json({ message: "Missing data", success: false });
