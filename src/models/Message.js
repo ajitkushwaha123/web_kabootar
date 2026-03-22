@@ -30,7 +30,6 @@ const messageSchema = new mongoose.Schema(
       type: String,
       trim: true,
       default: null,
-      index: true,
     },
 
     messageType: {
