@@ -63,6 +63,17 @@ const organizationSchema = new mongoose.Schema(
       type: [String],
       default: ["reply_suggestion"],
     },
+    leadDistributionSettings: {
+      rule: {
+        type: String,
+        enum: ["round_robin", "load_based", "manual"],
+        default: "round_robin",
+      },
+      roundRobinIndex: {
+        type: Number,
+        default: 0,
+      },
+    },
   },
   {
     timestamps: true,

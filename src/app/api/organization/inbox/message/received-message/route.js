@@ -5,6 +5,8 @@ import Organization from "@/models/Organization";
 import { NextResponse } from "next/server";
 import { handleMessageByType } from "@/helper/webhook-payload/message-handler";
 import { whatsappEventQueue } from "@/lib/bullmq/queue/whatsappEventQueue";
+import Lead from "@/models/Lead";
+import { assignLead } from "@/lib/distributor";
 
 export const POST = async (req) => {
   console.log("🚀 [RECEIVED] API HIT");
@@ -88,6 +90,31 @@ export const POST = async (req) => {
     );
 
     console.log("✅ Message saved:", message._id);
+
+    // 🏆 LEAD ASSIGNMENT (New Lead Logic)
+    try {
+      // Find or Create Lead for this contact
+      const lead = await Lead.findOneAndUpdate(
+        { contactId: senderContact._id, organizationId: org.org_id },
+        { 
+          $setOnInsert: { 
+            title: senderContact.name?.formatted_name || profile?.name || "New Lead",
+            source: messagePayload.referral ? "whatsapp_ad" : "whatsapp",
+            conversationId: conversation._id,
+            stage: "new",
+          } 
+        },
+        { new: true, upsert: true }
+      );
+
+      // If lead is new and not assigned, assign it
+      if (lead.stage === "new" && (!lead.assignedTo || lead.assignedTo.length === 0)) {
+        console.log("🎯 Triggering Auto Lead Assignment for lead:", lead._id);
+        await assignLead(lead._id, org.org_id);
+      }
+    } catch (leadErr) {
+      console.error("❌ Error in lead assignment:", leadErr.message);
+    }
 
     // 🟢 NEW: Trigger Auto AI Reply if enabled (Direct Trigger)
     if (org.autoAiReply) {

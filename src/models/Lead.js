@@ -40,10 +40,12 @@ const leadSchema = new mongoose.Schema(
 
     stage: {
       type: String,
-      enum: ["new", "in_progress", "won", "lost"],
+      enum: ["new", "assigned", "contacted", "scheduled", "rnr", "in_progress", "won", "lost"],
       default: "new",
       index: true,
     },
+    assignedAt: { type: Date, default: null },
+    distributionRule: { type: String, default: "manual" },
 
     value: {
       type: Number,
