@@ -34,11 +34,11 @@ export const POST = async (req) => {
     }
 
     const senderContact = await Contact.findOneAndUpdate(
-      { primaryPhone: wa_id, organizationId: org._id.toString() },
+      { primaryPhone: wa_id, organizationId: org.org_id },
       {
         $setOnInsert: {
           primaryName: profile?.name || "",
-          organizationId: org._id.toString(),
+          organizationId: org.org_id,
           source: messagePayload.referral
             ? "whatsapp_ad"
             : "direct_message_received",
@@ -53,7 +53,7 @@ export const POST = async (req) => {
     const conversation = await Conversation.findOneAndUpdate(
       {
         contactId: senderContact._id,
-        organizationId: org._id.toString(),
+        organizationId: org.org_id,
         isDeleted: false,
       },
       {

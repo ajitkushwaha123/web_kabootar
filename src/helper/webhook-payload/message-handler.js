@@ -30,7 +30,7 @@ export const handleMessageByType = async ({
   if (context?.id || type === "reaction") {
     repliedMessage = await Message.findOne({
       whatsappMessageId: context?.id || reaction?.message_id,
-      organizationId: org._id.toString(),
+      organizationId: org.org_id,
     }).select("_id");
   }
 
@@ -38,7 +38,7 @@ export const handleMessageByType = async ({
     conversationId: conversation._id,
     senderId: contact.primaryPhone,
     senderType: "user",
-    organizationId: org._id.toString(),
+    organizationId: org.org_id,
     direction: "incoming",
     status: type === "unsupported" ? "failed" : "received",
     messageType: type,
@@ -141,7 +141,7 @@ export const handleMessageByType = async ({
         // ✅ 1️⃣ Check if this contact already exists for the org
         let existing = await Contact.findOne({
           primaryPhone,
-          organizationId: org._id.toString(),
+          organizationId: org.org_id,
         });
 
         if (existing) {
@@ -151,7 +151,7 @@ export const handleMessageByType = async ({
 
         // ✅ 2️⃣ Create new contact if not found
         const newContact = await Contact.create({
-          organizationId: org._id.toString(),
+          organizationId: org.org_id,
           primaryName: name?.formatted_name || "Unnamed",
           primaryPhone,
           source: "whatsapp_contact_shared",
