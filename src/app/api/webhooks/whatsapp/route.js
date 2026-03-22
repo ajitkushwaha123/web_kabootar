@@ -12,10 +12,15 @@ export async function GET(req) {
   const mode = searchParams.get("hub.mode");
   const token = searchParams.get("hub.verify_token");
   const challenge = searchParams.get("hub.challenge");
+  console.log("subscribe", mode)
+  console.log("token", token)
 
   if (mode === "subscribe" && token === process.env.META_WEBHOOK_VERIFY_TOKEN) {
+    console.log("get success")
     return new NextResponse(challenge, { status: 200 });
   }
+
+  console.log("get failed")
 
   return new NextResponse("Forbidden", { status: 403 });
 }
@@ -49,7 +54,9 @@ export async function POST(req) {
   const signature = req.headers.get("x-hub-signature-256");
 
   // ⚠️ Verify webhook signature for authenticity
+  console.log("called")
   if (!verifySignature(rawBody, signature)) {
+    console.log("not verified")
     return new NextResponse("Invalid signature", { status: 403 });
   }
 
@@ -64,6 +71,7 @@ export async function POST(req) {
   }
 
   if (body.object === "whatsapp_business_account") {
+    console.log("message")
     const entry = body.entry?.[0];
     const changes = entry?.changes?.[0]?.value;
 
