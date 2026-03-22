@@ -8,7 +8,7 @@ export async function PATCH(req, { params }) {
     const { orgId } = await getAuthContext();
     if (!orgId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    const { isActive, name, phone, email } = await req.json();
+    const { isActive, name, phone, email, role } = await req.json();
     await dbConnect();
     
     const memberId = params.id;
@@ -18,6 +18,7 @@ export async function PATCH(req, { params }) {
     if (name) updateData.name = name;
     if (phone) updateData.phone = phone;
     if (email) updateData.email = email;
+    if (role) updateData.role = role;
 
     const member = await Member.findOneAndUpdate(
       { _id: memberId, organizationId: orgId },

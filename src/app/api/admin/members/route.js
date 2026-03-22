@@ -21,7 +21,7 @@ export async function POST(req) {
     const { orgId } = await getAuthContext();
     if (!orgId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    const { name, phone, email, user_id } = await req.json();
+    const { name, phone, email, user_id, role } = await req.json();
     await dbConnect();
     
     // Check if phone or email already in use for this org
@@ -35,7 +35,8 @@ export async function POST(req) {
       name, 
       phone, 
       email,
-      user_id 
+      user_id,
+      role
     });
     return NextResponse.json(member);
   } catch (error) {

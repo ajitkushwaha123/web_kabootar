@@ -21,6 +21,11 @@ const memberSchema = new mongoose.Schema(
     email: {
       type: String,
     },
+    role: {
+      type: String,
+      enum: ["ADMIN", "SALES", "SUPPORT"],
+      default: "SALES",
+    },
     isActive: {
       type: Boolean,
       default: true,

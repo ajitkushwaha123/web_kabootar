@@ -53,7 +53,7 @@ export default function TeamDashboard() {
   const [loading, setLoading] = useState(true);
   
   // States for 'Add Member' Form
-  const [newMember, setNewMember] = useState({ name: "", phone: "", email: "" });
+  const [newMember, setNewMember] = useState({ name: "", phone: "", email: "", role: "SALES" });
   const [isAddMemberOpen, setIsAddMemberOpen] = useState(false);
 
   const fetchData = async () => {
@@ -112,7 +112,7 @@ export default function TeamDashboard() {
       });
       if (res.ok) {
         toast.success("Member added successfully");
-        setNewMember({ name: "", phone: "", email: "" });
+        setNewMember({ name: "", phone: "", email: "", role: "SALES" });
         setIsAddMemberOpen(false);
         fetchData();
       } else {
@@ -124,20 +124,24 @@ export default function TeamDashboard() {
     }
   };
 
-  const handleToggleMember = async (id, currentStatus) => {
+  const handleUpdateMember = async (id, updateData) => {
     try {
       const res = await fetch(`/api/admin/members/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ isActive: !currentStatus })
+        body: JSON.stringify(updateData)
       });
       if (res.ok) {
-        toast.success("Member status updated");
+        toast.success("Member updated");
         fetchData();
       }
     } catch (error) {
       toast.error("Error updating member");
     }
+  };
+
+  const handleToggleMember = async (id, currentStatus) => {
+    handleUpdateMember(id, { isActive: !currentStatus });
   };
 
   const handleDeleteMember = async (id) => {
@@ -250,6 +254,19 @@ export default function TeamDashboard() {
                       <Label htmlFor="email">Email</Label>
                       <Input id="email" type="email" placeholder="yogesh@example.com" value={newMember.email} onChange={(e) => setNewMember({...newMember, email: e.target.value})} required />
                     </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="role">Role</Label>
+                      <Select value={newMember.role} onValueChange={(val) => setNewMember({...newMember, role: val})}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select Role" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="ADMIN">Admin</SelectItem>
+                          <SelectItem value="SALES">Sales</SelectItem>
+                          <SelectItem value="SUPPORT">Support</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
                   <DialogFooter>
                     <Button type="submit">Save Member</Button>
@@ -262,9 +279,9 @@ export default function TeamDashboard() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Contact</TableHead>
-                  <TableHead>Leads (Current/Total)</TableHead>
+                  <TableHead>Member</TableHead>
+                  <TableHead>Role</TableHead>
+                  <TableHead>Leads (Cur/Tot)</TableHead>
                   <TableHead>Active</TableHead>
                   <TableHead></TableHead>
                 </TableRow>
@@ -272,15 +289,31 @@ export default function TeamDashboard() {
               <TableBody>
                 {members.map((member) => (
                   <TableRow key={member._id}>
-                    <TableCell className="font-medium">{member.name}</TableCell>
                     <TableCell>
-                      <div className="flex flex-col text-xs text-muted-foreground">
-                        <span className="flex items-center gap-1"><Phone className="h-3 w-3" /> {member.phone}</span>
-                        <span className="flex items-center gap-1"><Mail className="h-3 w-3" /> {member.email}</span>
+                      <div className="flex flex-col">
+                        <span className="font-medium text-sm">{member.name}</span>
+                        <span className="text-[10px] text-muted-foreground">{member.phone}</span>
                       </div>
                     </TableCell>
                     <TableCell>
-                      <Badge variant="outline">{member.currentLeads || 0} / {member.totalLeads || 0}</Badge>
+                      <Select 
+                        value={member.role} 
+                        onValueChange={(val) => handleUpdateMember(member._id, { role: val })}
+                      >
+                        <SelectTrigger className="w-[100px] h-8 text-xs">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="ADMIN">Admin</SelectItem>
+                          <SelectItem value="SALES">Sales</SelectItem>
+                          <SelectItem value="SUPPORT">Support</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </TableCell>
+                    <TableCell>
+                      <span className="text-xs tabular-nums text-muted-foreground">
+                        {member.currentLeads || 0} / {member.totalLeads || 0}
+                      </span>
                     </TableCell>
                     <TableCell>
                       <Switch 
