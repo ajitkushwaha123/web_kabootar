@@ -87,18 +87,23 @@ export const POST = async (req) => {
 
     // 🟢 NEW: Trigger Auto AI Reply if enabled
     if (org.autoAiReply) {
-      if (whatsappEventQueue) {
-        await whatsappEventQueue.add(
-          "auto-ai-reply",
-          {
-            event: "auto-ai-reply",
-            payload: {
-              conversationId: conversation._id,
-              organizationId: org.org_id,
+      try {
+        if (whatsappEventQueue) {
+          await whatsappEventQueue.add(
+            "auto-ai-reply",
+            {
+              event: "auto-ai-reply",
+              payload: {
+                conversationId: conversation._id,
+                organizationId: org.org_id,
+              },
             },
-          },
-          { delay: 3000 } // Slight delay for realism
-        );
+            { delay: 3000 }
+          );
+        }
+      } catch (queueErr) {
+        console.error("⚠️ Failed to enqueue Auto AI Reply:", queueErr.message);
+        // We don't throw here to avoid failing the whole webhook
       }
     }
 
