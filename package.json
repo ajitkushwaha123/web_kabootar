@@ -11,6 +11,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@ai-sdk/google": "^3.0.52",
     "@bull-board/api": "^6.13.0",
     "@bull-board/express": "^6.13.0",
     "@bull-board/ui": "^6.13.0",
@@ -39,6 +40,7 @@
     "@reduxjs/toolkit": "^2.9.0",
     "@tabler/icons-react": "^3.35.0",
     "@tanstack/react-table": "^8.21.3",
+    "ai": "^6.0.134",
     "aws-sdk": "^2.1692.0",
     "axios": "^1.12.2",
     "bullmq": "^5.60.0",
@@ -68,7 +70,7 @@
     "wavesurfer.js": "^7.11.0",
     "yum": "^0.1.1",
     "yup": "^1.7.1",
-    "zod": "^4.1.11"
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

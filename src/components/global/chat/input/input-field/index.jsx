@@ -9,16 +9,46 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Mic, Send, SmilePlus } from "lucide-react";
+import { Mic, Send, SmilePlus, Sparkles, Loader2 } from "lucide-react";
 import { useChat } from "@/store/hooks/useChat";
 import { useConversation } from "@/store/hooks/useConversation";
+import { toast } from "sonner";
 
 const ChatInput = () => {
   const [message, setMessage] = React.useState("");
+  const [isAiLoading, setIsAiLoading] = React.useState(false);
 
   const { sendMessage } = useChat();
+  const { activeConversationId } = useConversation();
 
-  const {  } = useConversation()
+  const handleAISuggest = async () => {
+    if (!activeConversationId) {
+      toast.error("Select a conversation first");
+      return;
+    }
+
+    setIsAiLoading(true);
+    try {
+      const response = await fetch("/api/organization/inbox/message/ai-suggest", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ conversationId: activeConversationId }),
+      });
+
+      const data = await response.json();
+      if (data.success && data.suggestion) {
+        setMessage(data.suggestion);
+        toast.success("AI suggestion generated!");
+      } else {
+        toast.error(data.message || "AI failed to suggest a reply");
+      }
+    } catch (error) {
+      console.error("AI Error:", error);
+      toast.error("Failed to connect to AI");
+    } finally {
+      setIsAiLoading(false);
+    }
+  };
 
   const handleSend = () => {
     if (!message.trim()) return;
@@ -48,6 +78,27 @@ const ChatInput = () => {
             </Button>
           </TooltipTrigger>
           <TooltipContent>Emoji</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              onClick={handleAISuggest}
+              disabled={isAiLoading || !activeConversationId}
+              variant="ghost"
+              size="icon"
+              className="text-sky-600 dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-950/20 rounded-sm"
+            >
+              {isAiLoading ? (
+                <Loader2 size={20} className="animate-spin" />
+              ) : (
+                <Sparkles size={20} className="fill-sky-500/20" />
+              )}
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent className="bg-sky-600 text-white border-sky-600">AI Reply Suggestion</TooltipContent>
         </Tooltip>
       </TooltipProvider>
 
