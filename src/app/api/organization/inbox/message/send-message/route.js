@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs/server";
+import { getAuthContext } from "@/lib/auth/getAuth";
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import Message from "@/models/Message";
@@ -7,18 +7,19 @@ import axios from "axios";
 
 export const POST = async (req) => {
   try {
-    const { userId, orgId } = await auth();
+    const { userId, orgId, org } = await getAuthContext();
 
-    if (!orgId) {
-      return NextResponse.json(
-        { message: "Organization not found", success: false },
-        { status: 404 }
-      );
-    }
     if (!userId) {
       return NextResponse.json(
         { message: "Unauthorized", success: false },
         { status: 401 }
+      );
+    }
+
+    if (!orgId || !org) {
+      return NextResponse.json(
+        { message: "Organization not found", success: false },
+        { status: 404 }
       );
     }
 
@@ -91,9 +92,11 @@ export const POST = async (req) => {
       [messageType]: messageContent[messageType],
     };
 
+    const phoneId = org.phone_number_id || process.env.META_PHONE_NUMBER_ID;
+
     try {
       const waRes = await axios.post(
-        `${process.env.META_BASE_API_URL}/${process.env.META_PHONE_NUMBER_ID}/messages`,
+        `${process.env.META_BASE_API_URL}/${phoneId}/messages`,
         payload,
         {
           headers: {

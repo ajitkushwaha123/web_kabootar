@@ -15,10 +15,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <AppShell>
-      <html lang="en">
-        <body className={`${poppins.variable} antialiased`}>{children}</body>
-      </html>
-    </AppShell>
+    <html lang="en">
+      <body className={`${poppins.variable} antialiased`}>
+        <AppShell>{children}</AppShell>
+      </body>
+    </html>
   );
 }

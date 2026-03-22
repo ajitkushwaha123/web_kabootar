@@ -1,6 +1,4 @@
-import dotenv from "dotenv";
-dotenv.config();
-
+import 'dotenv/config';
 import express from "express";
 import { createBullBoard } from "@bull-board/api";
 import { ExpressAdapter } from "@bull-board/express";
@@ -10,8 +8,10 @@ import { whatsappEventQueue } from "../src/lib/bullmq/queue/whatsappEventQueue.j
 const serverAdapter = new ExpressAdapter();
 serverAdapter.setBasePath("/admin/queues");
 
+const queues = [whatsappEventQueue].filter(Boolean).map(q => new BullMQAdapter(q));
+
 createBullBoard({
-  queues: [new BullMQAdapter(whatsappEventQueue)],
+  queues,
   serverAdapter,
 });
 

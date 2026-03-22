@@ -2,10 +2,17 @@ import mongoose from "mongoose";
 
 const organizationSchema = new mongoose.Schema(
   {
-    display_phone_number: {
+    name: {
       type: String,
       required: true,
       trim: true,
+    },
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      lowercase: true,
     },
     org_id: {
       type: String,
@@ -13,11 +20,37 @@ const organizationSchema = new mongoose.Schema(
       unique: true,
       index: true,
     },
-    phone_number_id: {
+    logo_url: {
       type: String,
-      required: true,
+      default: "",
+    },
+    display_phone_number: {
+      type: String,
       trim: true,
     },
+    phone_number_id: {
+      type: String,
+      trim: true,
+    },
+    wa_business_account_id: {
+      type: String,
+      trim: true,
+    },
+    admin_id: {
+      type: String,
+      required: true,
+      index: true,
+    },
+    members: [
+      {
+        user_id: String, // Clerk User ID
+        role: {
+          type: String,
+          enum: ["ADMIN", "MEMBER"],
+          default: "MEMBER",
+        },
+      },
+    ],
   },
   {
     timestamps: true,

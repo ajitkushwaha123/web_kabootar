@@ -2,14 +2,14 @@ import dbConnect from "@/lib/dbConnect";
 import Lead from "@/models/Lead";
 import Conversation from "@/models/Conversation";
 import Contact from "@/models/Contact";
-import { auth } from "@clerk/nextjs/server";
+import { getAuthContext } from "@/lib/auth/getAuth";
 import { NextResponse } from "next/server";
 
 export const POST = async (req) => {
   try {
     await dbConnect();
 
-    const { userId } = await auth();
+    const { userId } = await getAuthContext();
     if (!userId) {
       return NextResponse.json(
         {

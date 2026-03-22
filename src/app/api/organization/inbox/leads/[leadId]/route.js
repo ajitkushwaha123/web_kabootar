@@ -1,7 +1,7 @@
 import Lead from "@/models/Lead";
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
-import { auth } from "@clerk/nextjs/server";
+import { getAuthContext } from "@/lib/auth/getAuth";
 
 export const GET = async (req, { params }) => {
   try {
@@ -13,7 +13,7 @@ export const GET = async (req, { params }) => {
       );
     }
 
-    const { orgId } = await auth();
+    const { orgId } = await getAuthContext();
     if (!orgId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -41,7 +41,7 @@ export const PUT = async (req, { params }) => {
       );
     }
 
-    const { orgId } = await auth();
+    const { orgId } = await getAuthContext();
     if (!orgId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }

@@ -20,6 +20,8 @@ export async function GET(req) {
     return new NextResponse(challenge, { status: 200 });
   }
 
+
+
   console.log("get failed")
 
   return new NextResponse("Forbidden", { status: 403 });

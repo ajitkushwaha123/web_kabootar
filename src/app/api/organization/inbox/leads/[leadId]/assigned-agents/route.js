@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import Lead from "@/models/Lead";
 import Assignment from "@/models/Assignment";
-import { auth } from "@clerk/nextjs/server";
+import { getAuthContext } from "@/lib/auth/getAuth";
 
 export const dynamic = "force-dynamic";
 
@@ -10,7 +10,7 @@ export async function GET(req, { params }) {
   try {
     await dbConnect();
     const { leadId } = await params;
-    const { orgId } = await auth();
+    const { orgId } = await getAuthContext();
 
     if (!orgId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

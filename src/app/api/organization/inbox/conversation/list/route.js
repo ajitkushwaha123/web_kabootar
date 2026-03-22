@@ -2,18 +2,21 @@ import dbConnect from "@/lib/dbConnect";
 import Conversation from "@/models/Conversation";
 import Contact from "@/models/Contact";
 import Message from "@/models/Message";
-import { auth } from "@clerk/nextjs/server";
+import { getAuthContext } from "@/lib/auth/getAuth";
 import { NextResponse } from "next/server";
 
 export const GET = async () => {
   try {
-    await dbConnect();
+    const { userId, orgId } = await getAuthContext();
 
-    const { orgId } = await auth();
+    if (!userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     if (!orgId) {
       return NextResponse.json(
-        { message: "Organization ID missing", success: false },
-        { status: 400 }
+        { message: "Organization not found", success: false },
+        { status: 404 }
       );
     }
 

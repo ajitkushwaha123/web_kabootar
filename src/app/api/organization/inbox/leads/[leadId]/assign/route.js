@@ -2,14 +2,14 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import Lead from "@/models/Lead";
 import Assignment from "@/models/Assignment";
-import { auth } from "@clerk/nextjs/server";
+import { getAuthContext } from "@/lib/auth/getAuth";
 
 export const POST = async (req, { params }) => {
   try {
     await dbConnect();
     const { leadId } = await params;
     const { agentId } = await req.json();
-    const { orgId, userId } = await auth();
+    const { orgId, userId } = await getAuthContext();
 
     if (!orgId || !userId)
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -67,7 +67,7 @@ export const DELETE = async (req, { params }) => {
     await dbConnect();
     const { leadId } = await params;
     const { agentId } = await req.json();
-    const { orgId, userId } = await auth();
+    const { orgId, userId } = await getAuthContext();
 
     if (!orgId || !userId)
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

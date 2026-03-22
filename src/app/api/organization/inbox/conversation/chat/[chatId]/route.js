@@ -1,7 +1,7 @@
 import dbConnect from "@/lib/dbConnect";
 import Message from "@/models/Message";
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
+import { getAuthContext } from "@/lib/auth/getAuth";
 
 export const GET = async (req, { params }) => {
   try {
@@ -15,7 +15,7 @@ export const GET = async (req, { params }) => {
       );
     }
 
-    const { orgId, userId } = await auth();
+    const { orgId, userId } = await getAuthContext();
 
     if (!userId || !orgId) {
       return NextResponse.json(
