@@ -19,6 +19,7 @@ export const POST = async (req) => {
     });
 
     if (!org) {
+      console.error("❌ [RECEIVED] Organization not found for phone_number_id:", metadata?.phone_number_id);
       return NextResponse.json(
         { message: "Organization not found", success: false },
         { status: 404 }
@@ -86,13 +87,15 @@ export const POST = async (req) => {
       { new: true }
     );
 
+    console.log("✅ Message saved:", message._id);
+
     // 🟢 NEW: Trigger Auto AI Reply if enabled (Direct Trigger)
     if (org.autoAiReply) {
       console.log("🤖 Triggering Auto-Reply API...");
       const baseUrl = process.env.NEXT_APP_BASE_URL || "http://localhost:3000";
       
-      // Use await to ensure the trigger completes
       try {
+        // Await the fetch to ensure it is sent before the response completes
         await fetch(`${baseUrl}/api/organization/inbox/message/auto-reply`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -101,7 +104,7 @@ export const POST = async (req) => {
             organizationId: org.org_id,
           }),
         });
-        console.log("✅ Auto-Reply API triggered successfully");
+        console.log("✅ Auto-Reply API call finished");
       } catch (fetchErr) {
         console.error("❌ Failed to trigger Auto-Reply API:", fetchErr.message);
       }
