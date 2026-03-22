@@ -4,6 +4,7 @@ import Conversation from "@/models/Conversation";
 import Organization from "@/models/Organization";
 import { NextResponse } from "next/server";
 import { handleMessageByType } from "@/helper/webhook-payload/message-handler";
+import { whatsappEventQueue } from "@/lib/bullmq/queue/whatsappEventQueue";
 
 export const POST = async (req) => {
   try {
@@ -86,7 +87,6 @@ export const POST = async (req) => {
 
     // 🟢 NEW: Trigger Auto AI Reply if enabled
     if (org.autoAiReply) {
-      const { whatsappEventQueue } = require("@/lib/bullmq/queue/whatsappEventQueue");
       if (whatsappEventQueue) {
         await whatsappEventQueue.add(
           "auto-ai-reply",

@@ -43,6 +43,7 @@ import { EmptyState } from "./empty-state";
 import { renderMessageStatus } from "@/helper/ui-helper";
 import { useOrganization } from "@clerk/nextjs";
 import { StartNewChat } from "./global/chat/start-new-chat";
+import { toast } from "sonner";
 
 const renderMessagePreview = (msg) => {
   const type = msg?.messageType;
