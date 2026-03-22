@@ -30,14 +30,14 @@ export const POST = async (req) => {
 
     await dbConnect();
 
-    // 1. Fetch last 10 messages for context
+    // 1. Fetch last 6 messages for context (Faster + Cheaper)
     const lastMessages = await Message.find({
       conversationId,
       organizationId: orgId,
       isDeleted: false,
     })
       .sort({ createdAt: -1 })
-      .limit(10)
+      .limit(6)
       .lean();
 
     // 2. Format history for AI
@@ -51,22 +51,35 @@ export const POST = async (req) => {
       .join("\n");
 
     // 3. Generate suggestion
-    const { text } = await generateText({
-      model: google("gemini-1.5-flash"),
-      system: `You are a professional WhatsApp support agent for "${org?.name || "the business"}". 
-      REPLY RULES:
-      1. Keep it under 2 lines.
-      2. Be extremely helpful and friendly.
-      3. Do NOT include any prefixes like "Agent:" or "Reply:".
-      4. Use a natural, human-like tone.
-      5. If the last message is just a greeting, reply with a warm welcome.`,
-      prompt: `Conversation history:\n${history || "No messages yet."}\n\nSuggest a helpful reply for the agent to send now:`,
-    });
+    let suggestion = "";
+    try {
+      const { text } = await generateText({
+        model: google("gemini-1.5-flash"),
+        system: `You are a professional WhatsApp sales agent for "${org?.name || "the business"}". 
+        REPLY RULES:
+        1. Reply in 1-2 short lines.
+        2. Be friendly and human-like.
+        3. Use simple Hinglish (Hindi + English) if the customer uses it.
+        4. Focus on helping and converting the user.
+        5. Do NOT use labels like "Agent:" or "Reply:".
+        6. If the history is empty, greet the user warmly.`,
+        prompt: `Conversation history:\n${history || "No messages yet."}\n\nSuggest a helpful reply for the agent to send now:`,
+      });
+      suggestion = text.trim();
+    } catch (e) {
+      console.error("AI Generation failed:", e);
+    }
+
+    // 4. Fallback safety
+    if (!suggestion) {
+      suggestion = "Thanks for your message! Our team will reply shortly 🙌";
+    }
 
     return NextResponse.json({
       success: true,
-      suggestion: text.trim(),
+      suggestion,
     });
+
   } catch (err) {
     console.error("AI Suggest Error:", err);
     return NextResponse.json({ message: "Failed to generate AI suggestion", success: false }, { status: 500 });

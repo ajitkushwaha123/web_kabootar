@@ -44,6 +44,7 @@ async function handleEvent(job) {
   const endpointMap = {
     "whatsapp-message": "/api/organization/inbox/message/received-message",
     "whatsapp-status-update": "/api/organization/inbox/message/update-status",
+    "auto-ai-reply": "/api/organization/inbox/message/auto-reply",
   };
 
   const endpoint = endpointMap[event];

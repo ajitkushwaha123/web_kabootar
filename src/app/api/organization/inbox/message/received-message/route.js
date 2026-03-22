@@ -84,8 +84,26 @@ export const POST = async (req) => {
       { new: true }
     );
 
+    // 🟢 NEW: Trigger Auto AI Reply if enabled
+    if (org.autoAiReply) {
+      const { whatsappEventQueue } = require("@/lib/bullmq/queue/whatsappEventQueue");
+      if (whatsappEventQueue) {
+        await whatsappEventQueue.add(
+          "auto-ai-reply",
+          {
+            event: "auto-ai-reply",
+            payload: {
+              conversationId: conversation._id,
+              organizationId: org.org_id,
+            },
+          },
+          { delay: 3000 } // Slight delay for realism
+        );
+      }
+    }
+
     return NextResponse.json(
-      { message: "Message processed successfully", success: true },
+      { message: "Webhook received success", success: true },
       { status: 200 }
     );
   } catch (err) {

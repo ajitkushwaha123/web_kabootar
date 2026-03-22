@@ -157,9 +157,27 @@ export function InboxSidebar(props) {
               {activeItem?.title}
             </h2>
             <div className="flex items-center gap-2">
-              <Label className="flex items-center gap-2 text-xs">
-                <span>Unreads</span>
-                <Switch className="h-4 w-7" />
+              <Label className="flex items-center gap-2 text-[10px] leading-none text-muted-foreground">
+                <span className="sr-only">AI Auto Reply</span>
+                <span className={cn(organization?.publicMetadata?.autoAiReply ? "text-sky-500 font-bold" : "")}>AI Auto</span>
+                <Switch 
+                  className="h-3.5 w-7 scale-75" 
+                  checked={!!organization?.publicMetadata?.autoAiReply}
+                  onCheckedChange={async (checked) => {
+                    toast.promise(
+                      fetch("/api/organization/update", {
+                        method: "PATCH",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ autoAiReply: checked }),
+                      }),
+                      {
+                        loading: "Updating AI...",
+                        success: "AI Settings Updated!",
+                        error: "Failed to update AI settings",
+                      }
+                    );
+                  }}
+                />
               </Label>
               <StartNewChat />
             </div>

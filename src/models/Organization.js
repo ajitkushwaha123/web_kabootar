@@ -55,6 +55,14 @@ const organizationSchema = new mongoose.Schema(
         },
       },
     ],
+    autoAiReply: {
+      type: Boolean,
+      default: false,
+    },
+    aiCapabilities: {
+      type: [String],
+      default: ["reply_suggestion"],
+    },
   },
   {
     timestamps: true,
