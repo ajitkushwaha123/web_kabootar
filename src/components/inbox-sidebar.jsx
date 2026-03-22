@@ -192,8 +192,7 @@ export function InboxSidebar(props) {
                 />
               )}
 
-              {!loading &&
-                !error &&
+              {!loading && !error && (
                 conversations?.map((conv) => {
                   const msg = conv.lastMessageId;
                   const unreadCount = conv.unreadCount || 0;
@@ -204,40 +203,56 @@ export function InboxSidebar(props) {
                       key={conv._id}
                       onClick={() => setActiveChat(conv._id)}
                       className={cn(
-                        "group flex flex-col items-start gap-1 border-b p-4 text-sm leading-tight transition-all cursor-pointer hover:bg-accent/40 last:border-b-0",
-                        isActive && "bg-accent"
+                        "group flex items-center gap-3 border-b p-4 transition-all cursor-pointer hover:bg-accent/40 last:border-b-0",
+                        isActive && "bg-accent",
+                        unreadCount > 0 && "bg-sky-50/50 dark:bg-sky-950/20"
                       )}
                     >
-                      <div className="flex w-full items-center">
-                        <span className="truncate text-[15px] font-medium text-foreground">
-                          {conv.contactId?.primaryName ||
-                            conv.contactId?.primaryPhone}
-                        </span>
-                        <div className="ml-auto flex items-center gap-1">
-                          {renderMessageStatus(msg)}
-                          {msg?.timestamp && (
-                            <span className="text-[11px] text-muted-foreground">
-                              {new Date(msg.timestamp).toLocaleTimeString([], {
-                                hour: "2-digit",
-                                minute: "2-digit",
-                              })}
-                            </span>
-                          )}
+                      {/* Avatar / Circle with Unread Green Dot */}
+                      <div className="relative shrink-0">
+                        <div className="h-10 w-10 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center font-bold text-gray-500">
+                          {(conv.contactId?.primaryName || "U")?.[0]?.toUpperCase()}
                         </div>
+                        {unreadCount > 0 && (
+                          <span className="absolute -top-1 -right-1 flex h-3 w-3">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500 border-2 border-white dark:border-black"></span>
+                          </span>
+                        )}
                       </div>
 
-                      <div className="line-clamp-1 flex w-full items-center text-xs text-muted-foreground">
-                        {renderMessagePreview(msg)}
-                      </div>
-
-                      {unreadCount > 0 && (
-                        <div className="ml-auto mt-1 rounded-full bg-primary px-2 py-[2px] text-[10px] font-semibold text-primary-foreground shadow-sm">
-                          {unreadCount}
+                      <div className="flex flex-col flex-1 min-w-0 gap-1 leading-tight">
+                        <div className="flex w-full items-center justify-between">
+                          <span className={cn(
+                            "truncate text-[15px] font-medium transition-colors",
+                            unreadCount > 0 ? "text-foreground font-bold" : "text-foreground/80"
+                          )}>
+                            {conv.contactId?.primaryName || conv.contactId?.primaryPhone}
+                          </span>
+                          <span className="text-[11px] text-muted-foreground whitespace-nowrap">
+                            {msg?.timestamp && new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                          </span>
                         </div>
-                      )}
+
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="line-clamp-1 text-xs text-muted-foreground overflow-hidden">
+                            {renderMessagePreview(msg)}
+                          </div>
+                          
+                          <div className="flex items-center gap-1.5 shrink-0">
+                            {renderMessageStatus(msg)}
+                            {unreadCount > 0 && (
+                              <div className="rounded-full bg-sky-500 px-1.5 py-[1px] text-[10px] font-bold text-white shadow-sm min-w-[18px] text-center">
+                                {unreadCount}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   );
-                })}
+                })
+              )}
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>

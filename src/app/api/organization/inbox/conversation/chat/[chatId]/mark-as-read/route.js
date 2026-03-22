@@ -1,5 +1,6 @@
 import dbConnect from "@/lib/dbConnect";
 import Conversation from "@/models/Conversation";
+import Message from "@/models/Message";
 import { NextResponse } from "next/server";
 
 export const PUT = async (req, { params }) => {
@@ -25,6 +26,12 @@ export const PUT = async (req, { params }) => {
 
     conversation.unreadCount = 0;
     await conversation.save();
+
+    // Also mark all messages in this conversation as read
+    await Message.updateMany(
+      { conversationId: chatId, direction: "incoming", status: { $ne: "read" } },
+      { $set: { status: "read" } }
+    );
 
     return NextResponse.json(
       {

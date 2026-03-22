@@ -4,11 +4,13 @@ import React, { useEffect } from "react";
 import { TextMessage } from "@/components/global/chat/message/text";
 import { useChat } from "@/store/hooks/useChat";
 import { useConversation } from "@/store/hooks/useConversation";
+import { useSocket } from "@/store/hooks/useSocket";
 import { useUser } from "@clerk/nextjs";
 import { Loader2 } from "lucide-react";
 
 const Page = () => {
   const { messages, getMessages, loading: chatLoading } = useChat();
+  const { isTyping } = useSocket();
   const { user } = useUser();
   const { activeConversationId, loading: convoLoading } = useConversation();
 
@@ -66,6 +68,14 @@ const Page = () => {
             </div>
           );
         })}
+        
+      {isTyping && (
+        <div className="flex items-center gap-2 text-xs text-muted-foreground animate-pulse mb-2 ml-1">
+          <div className="flex gap-1.5 px-3 py-2 bg-gray-100 rounded-full rounded-bl-none italic">
+            Customer is typing...
+          </div>
+        </div>
+      )}
     </div>
   );
 };
