@@ -42,6 +42,7 @@ import { InboxSidebarSkeleton } from "./skeleton/InboxSidebarSkeleton";
 import { EmptyState } from "./empty-state";
 import { renderMessageStatus } from "@/helper/ui-helper";
 import { useOrganization } from "@clerk/nextjs";
+import { StartNewChat } from "./global/chat/start-new-chat";
 
 const renderMessagePreview = (msg) => {
   const type = msg?.messageType;
@@ -155,10 +156,13 @@ export function InboxSidebar(props) {
             <h2 className="text-base font-semibold tracking-tight">
               {activeItem?.title}
             </h2>
-            <Label className="flex items-center gap-2 text-sm">
-              <span>Unreads</span>
-              <Switch className="shadow-none" />
-            </Label>
+            <div className="flex items-center gap-2">
+              <Label className="flex items-center gap-2 text-xs">
+                <span>Unreads</span>
+                <Switch className="h-4 w-7" />
+              </Label>
+              <StartNewChat />
+            </div>
           </div>
           <SidebarInput placeholder="Search conversations..." />
         </SidebarHeader>
@@ -181,9 +185,9 @@ export function InboxSidebar(props) {
               {!loading && !error && conversations?.length === 0 && (
                 <EmptyState
                   title="No conversations yet"
-                  description="Start a new chat to see it appear here."
-                  buttonLabel="New Chat"
-                  onClick={() => console.log("Start new chat")}
+                  description="Start a new chat using the + button above."
+                  buttonLabel="Refresh"
+                  onClick={getConversations}
                   icon={<FileQuestion className="h-12 w-12 text-sky-500" />}
                 />
               )}
