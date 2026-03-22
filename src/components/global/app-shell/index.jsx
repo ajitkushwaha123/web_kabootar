@@ -9,6 +9,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { usePathname, useRouter } from "next/navigation";
+import { Toaster } from "sonner";
 
 const OrgValidator = ({ children }) => {
   const { user, org, loading } = useAuth();
@@ -44,6 +45,7 @@ const AppShell = ({ children }) => {
     <ClerkProvider>
       <Provider store={store}>
         <AuthProvider>
+          <Toaster position="top-center" richColors />
           <OrgValidator>
             {isAuthStage ? (
               <main className="min-h-screen bg-slate-50">{children}</main>

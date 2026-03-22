@@ -35,7 +35,8 @@ export async function GET() {
       id: org.org_id, 
       name: org.name, 
       slug: org.slug, 
-      imageUrl: org.logo_url 
+      imageUrl: org.logo_url,
+      autoAiReply: !!org.autoAiReply
     });
   } catch (error) {
     console.error("Error fetching organization:", error);

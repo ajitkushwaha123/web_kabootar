@@ -22,8 +22,10 @@ const ChatInput = () => {
   const { activeConversationId } = useConversation();
 
   const handleAISuggest = async () => {
+    console.log("✨ AI Suggest Clicked. Active Convo ID:", activeConversationId);
     if (!activeConversationId) {
       toast.error("Select a conversation first");
+      console.warn("No active conversation ID found.");
       return;
     }
 
