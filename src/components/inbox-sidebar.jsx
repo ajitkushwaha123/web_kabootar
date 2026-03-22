@@ -42,6 +42,7 @@ import { InboxSidebarSkeleton } from "./skeleton/InboxSidebarSkeleton";
 import { EmptyState } from "./empty-state";
 import { renderMessageStatus } from "@/helper/ui-helper";
 import { useOrganization } from "@clerk/nextjs";
+import { useAuth } from "@/lib/auth/context";
 import { StartNewChat } from "./global/chat/start-new-chat";
 import { toast } from "sonner";
 
@@ -96,8 +97,7 @@ const SIDEBAR_DATA = {
 export function InboxSidebar(props) {
   const [activeItem, setActiveItem] = React.useState(SIDEBAR_DATA.navMain[0]);
   const { setOpen } = useSidebar();
-
-  const { organization } = useOrganization();
+  const { org } = useAuth();
 
   const {
     conversations,
@@ -108,9 +108,17 @@ export function InboxSidebar(props) {
     setActiveChat,
   } = useConversation();
 
+  const [autoReplyEnabled, setAutoReplyEnabled] = React.useState(!!org?.autoAiReply);
+
+  React.useEffect(() => {
+    if (org?.autoAiReply !== undefined) {
+      setAutoReplyEnabled(!!org.autoAiReply);
+    }
+  }, [org?.autoAiReply]);
+
   React.useEffect(() => {
     getConversations();
-  }, [organization?.id]);
+  }, [org?.id]);
 
   const handleNavClick = React.useCallback(
     (item) => {
@@ -139,7 +147,7 @@ export function InboxSidebar(props) {
                 className="flex h-10 w-10 items-center justify-center rounded-md transition-all hover:bg-accent"
                 aria-label={item.title}
               >
-                <item.icon className="h-5 w-5" />
+                <item.icon className="h-4 w-4" />
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
@@ -150,26 +158,30 @@ export function InboxSidebar(props) {
         </div>
       </aside>
 
-      {/* Sidebar main content */}
-      <aside className="flex w-[310px] flex-col">
-        <SidebarHeader className="sticky top-0 z-10 border-b bg-background p-4">
-          <div className="flex w-full items-center justify-between">
-            <h2 className="text-base font-semibold tracking-tight">
+      {/* Main sidebar content */}
+      <aside className="flex w-[340px] flex-col bg-background/95 backdrop-blur-sm">
+        <SidebarHeader className="border-b px-6 py-4">
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="text-xl font-bold tracking-tight text-foreground/90">
               {activeItem?.title}
             </h2>
             <div className="flex items-center gap-2">
               <Label className="flex items-center gap-2 text-[10px] leading-none text-muted-foreground">
                 <span className="sr-only">AI Auto Reply</span>
-                <span className={cn(organization?.publicMetadata?.autoAiReply ? "text-sky-500 font-bold" : "")}>AI Auto</span>
+                <span className={cn(autoReplyEnabled ? "text-sky-500 font-bold" : "")}>AI Auto</span>
                 <Switch 
                   className="h-3.5 w-7 scale-75" 
-                  checked={!!organization?.publicMetadata?.autoAiReply}
+                  checked={autoReplyEnabled}
                   onCheckedChange={async (checked) => {
+                    setAutoReplyEnabled(checked);
                     toast.promise(
                       fetch("/api/organization/update", {
                         method: "PATCH",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ autoAiReply: checked }),
+                      }).then(async (res) => {
+                        if (!res.ok) throw new Error("Failed to update");
+                        return res.json();
                       }),
                       {
                         loading: "Updating AI...",
