@@ -1,5 +1,3 @@
-import { generateText } from "ai";
-import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import dbConnect from "@/lib/dbConnect";
 import Message from "@/models/Message";
 import Organization from "@/models/Organization";
@@ -7,31 +5,30 @@ import Conversation from "@/models/Conversation";
 import { NextResponse } from "next/server";
 import axios from "axios";
 
-const google = createGoogleGenerativeAI({
-  apiKey: process.env.GEMINI_API_KEY,
-});
-
 export const POST = async (req) => {
   console.log("🚀 [AUTO-REPLY] API Route Hit");
   try {
     const { conversationId, organizationId } = await req.json();
-    console.log("📦 [AUTO-REPLY] Payload Received:", { conversationId, organizationId });
-
+    
     if (!conversationId || !organizationId) {
       return NextResponse.json({ message: "Missing data", success: false });
     }
 
     await dbConnect();
     const org = await Organization.findOne({ org_id: organizationId });
-    console.log("🤖 AutoReply Check - Org ID:", organizationId, "Enabled:", org?.autoAiReply);
     
     if (!org) return NextResponse.json({ message: "Org not found", success: false });
     if (!org.autoAiReply) return NextResponse.json({ message: "Auto Reply disabled for this org", success: false });
 
-    // 5. Send Response immediately (Async Processing)
-    // We run the AI generation and Meta sending in the 'background' to keep response time low.
+    // Dynamic import to avoid loading AI libs on simple validation checks
+    const { processMessage } = await import("@/lib/ai-brain/brain");
+    const { seedInitialKnowledge } = await import("@/lib/ai-brain/ragSystem");
+
+    // Send Response immediately (Async Processing)
     (async () => {
       try {
+        await seedInitialKnowledge(org.org_id); // lazy seed if none exists
+
         // 1. Double check: Did a human reply recently?
         const lastMsg = await Message.findOne({ conversationId }).sort({ createdAt: -1 });
         if (lastMsg && lastMsg.direction === "outgoing" && lastMsg.senderId !== "AI_BOT") {
@@ -40,43 +37,26 @@ export const POST = async (req) => {
         }
 
         // 2. Fetch context
-        const lastMessages = await Message.find({ conversationId })
-          .sort({ createdAt: -1 })
-          .limit(6)
-          .lean();
+        const convo = await Conversation.findById(conversationId).populate("contactId").lean();
+        if (!convo || !convo.contactId) return;
 
-        const history = lastMessages
-          .reverse()
-          .map((m) => `${m.direction === "incoming" ? "Customer" : "Agent"}: ${m.text?.body || "[Media]"}`)
-          .join("\n");
+        const customerName = convo.contactId.primaryName || "Customer";
+        const recipientPhone = convo.contactId.primaryPhone;
 
-        // 3. Generate Reply
-        console.log("🤖 Generating AI suggestion for history...");
-        let replyText = "";
-        const { text } = await generateText({
-          model: google("gemini-flash-latest"),
-          temperature: 0.9,
-          system: `You are a friendly human sales assistant for "${org.name}". 
-          
-          TONE & VARIETY:
-          - Talk like a real human, not a bot. 
-          - Use Hinglish (Hindi + English) naturally.
-          - Keep it very short (1-2 lines).
-          - NEVER repeat the same phrasing. Use different greetings (Hey, Hi, Hello, Haanji).
-          - Vary your sentence structures. 
-          - If the customer asks the same thing, try rephrasing your previous answer.
-          - Follow-up with a question occasionally to keep the chat alive.
-          - NEVER mention you are an AI.`,
-          prompt: `Recent Conversation:\n${history}\n\nProvide a unique and natural response as the Agent (Don't repeat previous agent messages):`,
-        });
-        replyText = text.trim();
+        // 3. 🧠 Smart AI Brain: Intent + History + RAG + Generation
+        console.log(`🤖 Processing Brain for ${customerName} in org ${org.name}...`);
+        const { reply: replyText, intent, usedKnowledge } = await processMessage(
+          lastMsg?.text?.body || "Hello", 
+          conversationId, 
+          org.org_id, 
+          org.name, 
+          customerName
+        );
 
         if (!replyText) return;
+        console.log(`🤖 Reply: "${replyText}" [Intent: ${intent}, RAG: ${usedKnowledge}]`);
 
-        // 4. Send Message
-        const recipientPhone = lastMessages.find(m => m.direction === "incoming")?.senderId; 
-        if (!recipientPhone) return;
-
+        // 4. Send Message via Meta API
         const waUrl = `${process.env.META_WA_API_URL || "https://graph.facebook.com/v21.0"}/${org.phone_number_id}/messages`;
         const response = await axios.post(
           waUrl,
@@ -91,7 +71,7 @@ export const POST = async (req) => {
 
         const whatsappMessageId = response.data?.messages?.[0]?.id;
 
-        // 5. Save to DB with timestamp
+        // 5. Save to DB
         const newMessage = await Message.create({
           conversationId,
           organizationId: org.org_id,
@@ -102,7 +82,7 @@ export const POST = async (req) => {
           status: "sent",
           whatsappMessageId,
           text: { body: replyText },
-          timestamp: new Date(), // ✅ FIXED: Timestamp is required in schema
+          timestamp: new Date(),
         });
 
         await Conversation.findByIdAndUpdate(conversationId, {
