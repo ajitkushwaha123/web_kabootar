@@ -36,6 +36,7 @@ export const POST = async (req) => {
     );
 
     if (!message) {
+      console.error(`❌ Status Update 404: Message with whatsappMessageId [${msgId}] not found in DB.`);
       return NextResponse.json(
         { success: false, message: "Message not found" },
         { status: 404 }

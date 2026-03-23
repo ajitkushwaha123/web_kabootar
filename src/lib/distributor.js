@@ -16,10 +16,16 @@ export async function assignLead(leadId, orgId) {
   let selectedMember = null;
 
   // Sirf active members lo
-  const activeMembers = await Member.find({ organizationId: orgId, isActive: true });
+  let activeMembers = await Member.find({ organizationId: orgId, isActive: true });
+  
   if (activeMembers.length === 0) {
-    console.log("⚠️ No active members found for lead assignment in org:", orgId);
-    return null;
+    console.warn("⚠️ No active members found for lead assignment in org:", orgId, ". Checking for ANY member as fallback...");
+    activeMembers = await Member.find({ organizationId: orgId });
+    
+    if (activeMembers.length === 0) {
+        console.error("❌ Critical: No members found at all for org:", orgId, ". Lead remains unassigned.");
+        return null;
+    }
   }
 
   // ── Rule 1: Round Robin ──────────────────────────────────
