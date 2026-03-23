@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Users, UserCog, UserCheck, ShieldCheck, HeartHandshake, UserPlus } from "lucide-react";
+import { Users, UserCog, UserCheck, ShieldCheck, HeartHandshake, UserPlus, Search } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -26,11 +26,22 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 
 export default function PublicAllUsersPage() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+
+  const filteredUsers = users.filter((u) => {
+    const term = search.toLowerCase();
+    return (
+      u.name?.toLowerCase().includes(term) ||
+      u.email?.toLowerCase().includes(term) ||
+      u.phone?.toLowerCase().includes(term)
+    );
+  });
 
   const fetchUsers = async () => {
     try {
@@ -87,10 +98,24 @@ export default function PublicAllUsersPage() {
 
         <Card className="border-none shadow-xl bg-white/80 dark:bg-black/80 backdrop-blur-md">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-2xl">
-              <Users className="h-6 w-6 text-primary" /> Registered Users
-            </CardTitle>
-            <CardDescription>View all accounts and bridge them into roles.</CardDescription>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div>
+                <CardTitle className="flex items-center gap-2 text-2xl">
+                  <Users className="h-6 w-6 text-primary" /> Registered Users
+                </CardTitle>
+                <CardDescription>View all accounts and bridge them into roles.</CardDescription>
+              </div>
+              <div className="relative w-full md:w-64">
+                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input
+                  type="search"
+                  placeholder="Search users..."
+                  className="pl-9 h-9"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </div>
+            </div>
           </CardHeader>
           <CardContent>
             {loading ? (
@@ -111,7 +136,7 @@ export default function PublicAllUsersPage() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {users.map((user) => (
+                    {filteredUsers.map((user) => (
                       <TableRow key={user.clerkId} className="hover:bg-slate-50/50 dark:hover:bg-slate-900/50 transition-colors">
                         <TableCell>
                           <div className="flex items-center gap-3">
@@ -161,6 +186,13 @@ export default function PublicAllUsersPage() {
                         </TableCell>
                       </TableRow>
                     ))}
+                    {filteredUsers.length === 0 && (
+                      <TableRow>
+                        <TableCell colSpan={5} className="h-32 text-center text-muted-foreground">
+                          {search ? "No users match your search." : "No users found in the global directory."}
+                        </TableCell>
+                      </TableRow>
+                    )}
                   </TableBody>
                 </Table>
               </div>
