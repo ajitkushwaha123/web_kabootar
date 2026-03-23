@@ -5,13 +5,14 @@ import { getAuthContext } from "@/lib/auth/getAuth";
 
 export async function PATCH(req, { params }) {
   try {
+    const { id } = await params;
     const { orgId } = await getAuthContext();
     if (!orgId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     const { isActive, name, phone, email, role } = await req.json();
     await dbConnect();
     
-    const memberId = params.id;
+    const memberId = id;
     
     const updateData = {};
     if (isActive !== undefined) updateData.isActive = isActive;
@@ -35,10 +36,11 @@ export async function PATCH(req, { params }) {
 
 export async function DELETE(_, { params }) {
   try {
+    const { id } = await params;
     const { orgId } = await getAuthContext();
     if (!orgId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    const memberId = params.id;
+    const memberId = id;
     await dbConnect();
 
     const deleted = await Member.findOneAndDelete({ _id: memberId, organizationId: orgId });
