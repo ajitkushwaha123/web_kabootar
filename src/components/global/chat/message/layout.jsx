@@ -78,53 +78,56 @@ export const MessageLayout = ({
   return (
     <div
       className={clsx(
-        "flex items-start gap-2.5 w-full",
-        direction === "outgoing" ? "justify-end" : "justify-start",
+        "flex items-end gap-3 w-full animate-in fade-in slide-in-from-bottom-2 duration-300",
+        direction === "outgoing" ? "flex-row-reverse" : "flex-row",
         className
       )}
     >
-      {direction === "incoming" && (
-        <Avatar className="w-8 h-8">
-          <AvatarImage src={avatar} alt={name} />
-          <AvatarFallback>{name[0]}</AvatarFallback>
-        </Avatar>
-      )}
+      <Avatar className="w-8 h-8 border-2 border-white shadow-sm shrink-0">
+        <AvatarImage src={avatar} alt={name} />
+        <AvatarFallback className="bg-slate-200 text-slate-600 text-[10px] font-bold">
+           {name ? name[0]?.toUpperCase() : "?"}
+        </AvatarFallback>
+      </Avatar>
 
-      {direction == "outgoing" && renderDropdownMenu()}
-
-      <div
-        className={clsx(
-          "flex flex-col leading-1.5 p-3 rounded-2xl shadow-sm relative",
-          direction === "incoming"
-            ? "bg-gray-100 text-black dark:bg-gray-800 dark:text-white rounded-bl-none"
-            : "bg-black text-white dark:bg-white dark:text-black rounded-br-none"
-        )}
-        style={{ maxWidth }}
-      >
-        <div className="flex items-center justify-between gap-2 mb-1">
-          <span className="text-sm font-semibold">{name}</span>
-          <span className="text-xs text-gray-500 dark:text-gray-400">
+      <div className="flex flex-col gap-1 max-w-[80%] group">
+        <div className="flex items-center gap-2 px-1">
+          <span className="text-[10px] font-medium text-slate-400 tracking-wide uppercase">{name}</span>
+          <span className="text-[9px] text-slate-300 font-mono">
             {formatMessageTime(time)}
           </span>
+          {direction === "outgoing" && (
+            <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+               {renderStatusIcon()}
+            </div>
+          )}
         </div>
 
-        {children}
-
-        {direction === "outgoing" && status && (
-          <div className="flex items-center justify-end gap-1 text-xs text-gray-500 dark:text-gray-400 mt-1">
-            {renderStatusIcon()}
-          </div>
-        )}
+        <div
+          className={clsx(
+            "p-3.5 rounded-2xl shadow-sm text-sm leading-relaxed relative",
+            direction === "incoming"
+              ? "bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-bl-none border border-slate-100 dark:border-slate-800"
+              : "bg-gradient-to-br from-indigo-600 to-violet-700 text-white rounded-br-none shadow-indigo-200 dark:shadow-none"
+          )}
+        >
+          {children}
+          
+          {direction === "outgoing" && (
+             <div className="absolute bottom-1 right-2 scale-75">
+               {status === 'read' ? (
+                 <CheckCheck className="w-3 h-3 text-indigo-200" />
+               ) : (
+                 <Check className="w-3 h-3 text-indigo-100/50" />
+               )}
+             </div>
+          )}
+        </div>
       </div>
 
-      {direction == "incoming" && renderDropdownMenu()}
-
-      {direction === "outgoing" && (
-        <Avatar className="w-8 h-8">
-          <AvatarImage src={avatar} alt={name} />
-          <AvatarFallback>{name[0]}</AvatarFallback>
-        </Avatar>
-      )}
+      <div className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center">
+         {renderDropdownMenu()}
+      </div>
     </div>
   );
 };

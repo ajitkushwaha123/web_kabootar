@@ -24,6 +24,10 @@ export const GET = async (req, { params }) => {
       );
     }
 
+    const Conversation = (await import("@/models/Conversation")).default;
+    const conversation = await Conversation.findById(chatId).populate("contactId").lean();
+    const contactName = conversation?.contactId?.primaryName || "Unknown Customer";
+
     const messages = await Message.find({
       conversationId: chatId,
       organizationId: orgId,
@@ -32,10 +36,16 @@ export const GET = async (req, { params }) => {
       .sort({ createdAt: 1 })
       .lean();
 
+    const enrichedMessages = messages.map(msg => ({
+      ...msg,
+      senderName: msg.direction === "incoming" ? contactName : "You",
+      senderAvatar: "" // can add logic for contact avatar if available
+    }));
+
     return NextResponse.json(
       {
-        message: "Messages fetched successfully",
-        data: messages,
+        message: enrichedMessages.length > 0 ? "Messages fetched successfully" : "No messages found",
+        data: enrichedMessages,
         success: true,
       },
       { status: 200 }
