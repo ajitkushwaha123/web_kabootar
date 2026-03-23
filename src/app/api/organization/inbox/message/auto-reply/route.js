@@ -22,12 +22,12 @@ export const POST = async (req) => {
 
     // Dynamic import to avoid loading AI libs on simple validation checks
     const { processMessage } = await import("@/lib/ai-brain/brain");
-    const { seedInitialKnowledge } = await import("@/lib/ai-brain/ragSystem");
+    const { seedMagicScaleKnowledge } = await import("@/lib/ai-brain/magicscale-knowledge");
 
     // Send Response immediately (Async Processing)
     (async () => {
       try {
-        await seedInitialKnowledge(org.org_id); // lazy seed if none exists
+        await seedMagicScaleKnowledge(org.org_id); // lazy seed Magic Scale data if none exists
 
         // 1. Double check: Did a human reply recently?
         const lastMsg = await Message.findOne({ conversationId }).sort({ createdAt: -1 });
