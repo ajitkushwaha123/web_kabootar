@@ -23,7 +23,7 @@ export async function GET() {
         name: `${user.firstName || ""} ${user.lastName || ""}`.trim() || user.username || "Unknown",
         phone: user.phoneNumbers?.[0]?.phoneNumber || "No Phone",
         email: user.emailAddresses?.[0]?.emailAddress || "No Email",
-        role: local?.role || "USER", // If not in Member table, they are just 'USER'
+        role: user.publicMetadata?.role || local?.role || "USER", 
         isActive: local?.isActive !== false,
         memberId: local?._id || null, // exists only if they are in the lead distribution system
         organizationId: local?.organizationId || "No Org", 
