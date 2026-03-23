@@ -11,26 +11,34 @@ import Organization from "@/models/Organization";
  */
 export async function POST(req) {
   try {
-    const { orgId } = await getAuthContext();
+    const auth = await getAuthContext();
+    const { orgId } = auth;
+    console.log("🧪 [BOT-TEST] Auth Context OrgId:", orgId);
+
     if (!orgId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    const { message } = await req.json();
+    const body = await req.json();
+    const { message } = body;
+    console.log("🧪 [BOT-TEST] Message received:", message);
+
     if (!message) return NextResponse.json({ error: "Message is required" }, { status: 400 });
 
     await dbConnect();
     const org = await Organization.findOne({ org_id: orgId });
 
     // 1. Bot Rules check
+    console.log("🧪 [BOT-TEST] Checking rules...");
     const rules = await BotRule.find({ organizationId: orgId, isActive: true }).sort({ priority: -1 });
     const botReply = matchRule(message, rules);
 
     if (botReply) {
-       // Increment match count in background
+       console.log("🧪 [BOT-TEST] Rule Match found!");
        BotRule.updateOne({ organizationId: orgId, reply: botReply }, { $inc: { matchCount: 1 } }).exec();
        return NextResponse.json({ reply: botReply, source: "bot" });
     }
 
     // 2. AI Brain check (RAG + Intent)
+    console.log("🧪 [BOT-TEST] Brain processing...");
     const { reply: aiReply, intent, usedKnowledge } = await processMessage(
       message, 
       "test-convo-id", 
@@ -40,6 +48,7 @@ export async function POST(req) {
     );
 
     if (aiReply) {
+       console.log("🧪 [BOT-TEST] AI Reply generated!");
        return NextResponse.json({ 
          reply: aiReply, 
          source: "ai", 
@@ -49,12 +58,14 @@ export async function POST(req) {
     }
 
     // 3. Fallback
+    console.log("🧪 [BOT-TEST] Fallback reached.");
     return NextResponse.json({ 
       reply: "Maaf kijiye, main ye samajh nahi gaya. Humari team aapko jald contact karegi! 🙏",
       source: "fallback"
     });
 
   } catch (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error("❌ [BOT-TEST] Fatal Error:", error);
+    return NextResponse.json({ error: error.message, stack: error.stack }, { status: 500 });
   }
 }

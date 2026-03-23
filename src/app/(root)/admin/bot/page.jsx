@@ -42,18 +42,28 @@ import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogDescription, 
+  DialogHeader, 
+  DialogTitle, 
+  DialogTrigger 
+} from "@/components/ui/dialog";
+
 const CATEGORIES = ["sales", "support", "onboarding", "fssai", "gst", "general"];
 
-/**
- * BOT TRAINING DASHBOARD
- * Admin UI — Bot train karo + test karo + unmatched dekho
- */
 export default function BotTrainingPage() {
   const [activeTab, setActiveTab] = useState("rules");
   const [rules, setRules] = useState([]);
   const [unmatched, setUnmatched] = useState([]);
   const [loading, setLoading] = useState(false);
   
+  // Bulk state
+  const [bulkJson, setBulkJson] = useState("");
+  const [isBulkOpen, setIsBulkOpen] = useState(false);
+  const [importing, setImporting] = useState(false);
+
   // Rule Form State
   const [formData, setFormData] = useState({
     keywords: "",
@@ -135,6 +145,33 @@ export default function BotTrainingPage() {
     }
   };
 
+  const handleBulkImport = async () => {
+    try {
+      const parsed = JSON.parse(bulkJson);
+      if (!Array.isArray(parsed)) throw new Error("JSON must be an array of objects");
+      
+      setImporting(true);
+      const res = await fetch("/api/admin/bot/rules", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(parsed)
+      });
+      const data = await res.json();
+      if (data.success) {
+        toast.success(`Successfully imported ${data.count} rules! 🎉`);
+        setBulkJson("");
+        setIsBulkOpen(false);
+        fetchRules();
+      } else {
+        toast.error(data.error || "Import failed");
+      }
+    } catch (err) {
+      toast.error(`Invalid JSON: ${err.message}`);
+    } finally {
+      setImporting(false);
+    }
+  };
+
   const deleteRule = async (id) => {
     if (!confirm("Pakka?")) return;
     try {
@@ -175,10 +212,20 @@ export default function BotTrainingPage() {
         body: JSON.stringify({ message: msg })
       });
       const data = await res.json();
+      
+      if (!res.ok) {
+        setTestMessages(p => [...p, { 
+          role: "bot", 
+          text: `Error ${res.status}: ${data.error || "Unknown Error"}`, 
+          source: "fallback" 
+        }]);
+        return;
+      }
+
       setTestMessages(p => [...p, { role: "bot", text: data.reply, source: data.source }]);
       if (data.source !== "bot") fetchUnmatched();
     } catch (err) {
-       toast.error("Test failed");
+       toast.error("Network or parsing error occurred");
     } finally {
       setTesting(false);
     }
@@ -202,6 +249,34 @@ export default function BotTrainingPage() {
            <h2 className="text-3xl font-bold tracking-tight">Bot Tuning Center 🧠</h2>
            <p className="text-muted-foreground">Train your AI with rules, test responses, and learn from visitor messages.</p>
         </div>
+
+        <Dialog open={isBulkOpen} onOpenChange={setIsBulkOpen}>
+           <DialogTrigger asChild>
+              <Button variant="outline" className="gap-2 border-dashed border-indigo-200 text-indigo-600 hover:bg-indigo-50">
+                <Plus className="w-4 h-4" /> Bulk Import JSON
+              </Button>
+           </DialogTrigger>
+           <DialogContent className="max-w-2xl">
+              <DialogHeader>
+                 <DialogTitle>Bulk Import Bot Rules</DialogTitle>
+                 <DialogDescription>
+                    Paste a JSON array of rules. Format: <code className="text-[10px] bg-slate-100 p-1">{"[ { \"keywords\": [\"hi\"], \"reply\": \"Hello\" } ]"}</code>
+                 </DialogDescription>
+              </DialogHeader>
+              <Textarea 
+                placeholder='[ {"keywords": ["price"], "reply": "Costs ₹3500", "category": "sales"}, ... ]'
+                className="min-h-[300px] font-mono text-xs mt-4"
+                value={bulkJson}
+                onChange={e => setBulkJson(e.target.value)}
+              />
+              <div className="flex justify-end gap-3 mt-4">
+                 <Button variant="ghost" onClick={() => setIsBulkOpen(false)}>Cancel</Button>
+                 <Button className="bg-indigo-600" onClick={handleBulkImport} disabled={importing || !bulkJson}>
+                   {importing ? "Importing..." : "Start Import"}
+                 </Button>
+              </div>
+           </DialogContent>
+        </Dialog>
       </div>
 
       <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">

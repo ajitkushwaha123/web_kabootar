@@ -73,6 +73,11 @@ const data = {
       url: "/team",
       icon: IconUsers,
     },
+    {
+      title: "AI Bot Center",
+      url: "/admin/bot",
+      icon: IconFileAi,
+    },
   ],
   // navClouds: [
   //   {
