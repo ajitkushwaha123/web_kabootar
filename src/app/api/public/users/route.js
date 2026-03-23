@@ -7,8 +7,8 @@ export async function GET() {
   try {
     const clerkClient = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY });
     
-    // Fetch all users from Clerk
-    const { data: clerkUsers } = await clerkClient.users.getUserList();
+    // Fetch all users from Clerk (up to 500)
+    const { data: clerkUsers } = await clerkClient.users.getUserList({ limit: 500 });
     
     await dbConnect();
     // Fetch current members to get their local settings/stats
