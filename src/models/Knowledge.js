@@ -28,6 +28,10 @@ const knowledgeSchema = new mongoose.Schema(
     priority: {
       type: Number,
       default: 1 // Higher is searched first
+    },
+    usageCount: {
+      type: Number,
+      default: 0
     }
   },
   { timestamps: true }

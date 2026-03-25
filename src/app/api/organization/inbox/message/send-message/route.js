@@ -64,6 +64,14 @@ export const POST = async (req) => {
         if (!reaction) throw new Error("Reaction content is required");
         messageContent.reaction = reaction;
         break;
+      case "template":
+        if (!metadata.templateName) throw new Error("Template name is required for template message");
+        messageContent.template = { 
+          name: metadata.templateName, 
+          language: { code: metadata.language || "en" },
+          components: metadata.components || [] 
+        };
+        break;
       default:
         throw new Error("Unsupported message type");
     }
@@ -80,6 +88,22 @@ export const POST = async (req) => {
     }
 
     const recipientPhone = conversation.contactId.primaryPhone;
+
+    // 🕒 24-Hour Session Window Check 🚀
+    const lastCustomerMsg = conversation.lastCustomerMessageAt || conversation.updatedAt || new Date();
+    const isWithin24Hours = (new Date() - new Date(lastCustomerMsg)) <= 24 * 60 * 60 * 1000;
+
+    if (!isWithin24Hours && !metadata.isTemplate) {
+      console.warn(`⚠️ [WHATSAPP-WINDOW] Session expired for ${recipientPhone}. Last customer message was at: ${lastCustomerMsg}`);
+      return NextResponse.json(
+        { 
+          message: "WhatsApp 24h session window expired. Please send a Template message to re-engage the customer.", 
+          success: false,
+          windowExpired: true 
+        },
+        { status: 403 }
+      );
+    }
 
     // 2. Save message locally first
     const newMessage = await Message.create({
@@ -141,6 +165,44 @@ export const POST = async (req) => {
           lastMessageId: newMessage._id,
           lastMessageAt: newMessage.timestamp,
         });
+
+        // 💰 Log Cost for Platform Tracker (Zomato-style) 🚀
+        try {
+          const { default: CostRecord } = await import("@/models/CostRecord");
+          const msgCost = messageType === "template" ? 1.1 : 0; // ₹1.1 avg for template
+          await CostRecord.create({
+            organizationId: orgId,
+            conversationId,
+            type: messageType === "template" ? "template" : "agent_message",
+            messageType,
+            cost: msgCost,
+            metadata: { waId: waRes.data.messages[0].id }
+          });
+          console.log(`💰 [COST-TRACK] ₹${msgCost} logged for ${messageType}`);
+        } catch (costErr) {
+          console.error("❌ Failed to log cost:", costErr.message);
+        }
+
+        // 🧠 Layer: AI Auto-Learning from Agent (Only if enabled)
+        if (text && senderType === "agent" && org.autoLearn !== false) {
+           (async () => {
+             try {
+                const { learnFromAgent } = await import("@/lib/ai-brain/ragSystem");
+                // Find previous incoming message to pair with this answer
+                const incomingMsg = await Message.findOne({ 
+                  conversationId, 
+                  direction: "incoming",
+                  messageType: "text" 
+                }).sort({ createdAt: -1 });
+
+                if (incomingMsg?.text?.body) {
+                   await learnFromAgent(incomingMsg.text.body, text, orgId);
+                }
+             } catch (learnErr) {
+                console.error("Auto-Learn Error:", learnErr.message);
+             }
+           })();
+        }
       }
     } catch (waErr) {
       console.error("❌ WhatsApp API error:", waErr.response?.data || waErr.message);

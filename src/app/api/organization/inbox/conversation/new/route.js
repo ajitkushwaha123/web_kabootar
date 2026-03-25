@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/dbConnect";
 import Contact from "@/models/Contact";
 import Conversation from "@/models/Conversation";
+import Lead from "@/models/Lead";
 
 export const POST = async (req) => {
   try {
@@ -61,6 +62,29 @@ export const POST = async (req) => {
         unreadCount: 0,
         lastMessageAt: new Date(),
       });
+    }
+
+    // 3. Find or Create Lead
+    const lead = await Lead.findOneAndUpdate(
+      { contactId: contact._id, organizationId: orgId },
+      { 
+        $setOnInsert: { 
+          title: contact.primaryName || cleanPhone,
+          source: "manual_chat",
+          conversationId: conversation._id,
+          stage: "new",
+        } 
+      },
+      { new: true, upsert: true }
+    );
+
+    // Link lead to conversation
+    if (!conversation.leadId) {
+      conversation = await Conversation.findByIdAndUpdate(
+        conversation._id, 
+        { leadId: lead._id }, 
+        { new: true }
+      );
     }
 
     return NextResponse.json({

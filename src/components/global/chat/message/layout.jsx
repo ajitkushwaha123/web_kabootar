@@ -22,6 +22,8 @@ export const MessageLayout = ({
   direction = "incoming",
   maxWidth = "320px",
   className,
+  metadata,
+  onCorrect,
   children,
 }) => {
   const renderStatusIcon = () => {
@@ -64,6 +66,14 @@ export const MessageLayout = ({
         <DropdownMenuItem>Reply</DropdownMenuItem>
         <DropdownMenuItem>Forward</DropdownMenuItem>
         <DropdownMenuItem>Copy</DropdownMenuItem>
+        {metadata?.source && (
+          <DropdownMenuItem 
+            className="text-indigo-600 font-bold gap-2 cursor-pointer"
+            onClick={() => onCorrect?.(children, metadata?.triggerMessage)}
+          >
+             <Clock className="w-3.5 h-3.5"/> Correct AI Answer
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem>Report</DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => handleDelete(_id)}
@@ -93,6 +103,22 @@ export const MessageLayout = ({
       <div className="flex flex-col gap-1 max-w-[80%] group">
         <div className="flex items-center gap-2 px-1">
           <span className="text-[10px] font-medium text-slate-400 tracking-wide uppercase">{name}</span>
+          
+          {metadata?.source && (
+             <span className={clsx(
+                "text-[8px] font-black uppercase px-1.5 py-0.5 rounded-sm tracking-tighter",
+                metadata.source === 'memory' && "bg-indigo-50 text-indigo-600 border border-indigo-100",
+                metadata.source === 'bot' && "bg-emerald-50 text-emerald-600 border border-emerald-100",
+                metadata.source === 'ai' && "bg-violet-50 text-violet-600 border border-violet-100"
+             )}>
+                {metadata.source}
+             </span>
+          )}
+
+          {metadata?.intent && (
+             <span className="text-[8px] font-bold text-slate-300 border-l border-slate-200 pl-2 uppercase tracking-widest">{metadata.intent}</span>
+          )}
+
           <span className="text-[9px] text-slate-300 font-mono">
             {formatMessageTime(time)}
           </span>

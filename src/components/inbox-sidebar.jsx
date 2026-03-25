@@ -23,8 +23,11 @@ import {
   Phone,
   MoreVertical,
   Users,
+  X,
 } from "lucide-react";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { fetchConversations } from "@/store/slices/conversationSlice";
 
 import { NavUser } from "@/components/nav-user";
 import { Label } from "@/components/ui/label";
@@ -112,6 +115,14 @@ export function InboxSidebar(props) {
     getConversations,
     setActiveChat,
   } = useConversation();
+
+  const dispatch = useDispatch();
+  const [activeTag, setActiveTag] = React.useState(null);
+
+  const handleTagFilter = (tag) => {
+    setActiveTag(tag);
+    dispatch(fetchConversations(tag));
+  };
 
   const [autoReplyEnabled, setAutoReplyEnabled] = React.useState(!!org?.autoAiReply);
 
@@ -213,7 +224,40 @@ export function InboxSidebar(props) {
               <StartNewChat />
             </div>
           </div>
-          <SidebarInput placeholder="Search conversations..." />
+          <SidebarInput 
+            placeholder="Search conversations..." 
+            className="mb-3"
+          />
+          
+          {/* Tag Filter Bar */}
+          <div className="flex gap-2 pb-2 overflow-x-auto no-scrollbar scroll-smooth">
+            {["Hot Lead", "FSSAI", "Pending", "Cold"].map((tag) => {
+              const isActive = activeTag === tag;
+              return (
+                <button
+                  key={tag}
+                  onClick={() => handleTagFilter(tag)}
+                  className={cn(
+                    "whitespace-nowrap rounded-full px-3 py-1 text-[10px] font-semibold transition-all border",
+                    isActive 
+                      ? "bg-primary text-primary-foreground border-primary" 
+                      : "bg-muted/50 text-muted-foreground hover:bg-muted border-transparent"
+                  )}
+                >
+                  {tag}
+                </button>
+              );
+            })}
+            {activeTag && (
+              <button 
+                onClick={() => handleTagFilter(null)}
+                className="whitespace-nowrap text-[10px] items-center flex gap-1 font-medium text-destructive hover:underline"
+              >
+                <X className="w-3 h-3" />
+                Clear
+              </button>
+            )}
+          </div>
         </SidebarHeader>
 
         <SidebarContent className="flex-1 overflow-y-auto">

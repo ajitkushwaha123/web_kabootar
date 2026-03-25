@@ -10,6 +10,8 @@ export const TextMessage = ({
   message,
   status,
   direction = "incoming",
+  metadata,
+  onCorrect,
 }) => {
   return (
     <div>
@@ -19,6 +21,8 @@ export const TextMessage = ({
         time={time}
         status={status}
         direction={direction}
+        metadata={metadata}
+        onCorrect={(txt, trigger) => onCorrect?.(message, trigger)}
       >
         <p className="text-sm py-2">{message}</p>
       </MessageLayout>

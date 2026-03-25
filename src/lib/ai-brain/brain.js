@@ -1,12 +1,17 @@
 import { generateText } from "ai";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
+import { createOpenAI } from "@ai-sdk/openai"; // 🤖 NEW
 import { detectIntent } from "./intentDetector";
-import { searchKnowledge } from "./ragSystem";
+import { searchKnowledge, findSimilarQuestion } from "./ragSystem";
 import dbConnect from "../dbConnect";
 import Message from "@/models/Message";
 
 const google = createGoogleGenerativeAI({
   apiKey: process.env.GEMINI_API_KEY,
+});
+
+const openai = createOpenAI({ // 🤖 NEW
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 /**
@@ -46,6 +51,20 @@ export async function processMessage(userMessage, conversationId, organizationId
   if (!userMessage || !organizationId) return { reply: "", intent: "unknown", usedKnowledge: false };
 
   await dbConnect();
+  const Organization = (await import("@/models/Organization")).default;
+  const org = await Organization.findOne({ org_id: organizationId });
+
+  // 🔍 Layer 0: Direct Knowledge Match (Fast + Free)
+  const memoryReply = await findSimilarQuestion(userMessage, organizationId, org?.aiConfidenceThreshold);
+  if (memoryReply) {
+     console.log("🧠 Brain Match found: Sending from Memory.");
+     return { 
+       reply: memoryReply, 
+       intent: "faq", 
+       usedKnowledge: true,
+       source: "memory" 
+     };
+  }
   
   // 1. 🔍 Detect intent (Fast or AI-based)
   const intent = await detectIntent(userMessage);
@@ -79,7 +98,9 @@ export async function processMessage(userMessage, conversationId, organizationId
   🆕 NEW MESSAGE from ${customerName}: "${userMessage}"
   `;
 
+  // --- PRIMARY AI: GEMINI ---
   try {
+     console.log("🤖 [AI-BRAIN] Trying Primary AI (Gemini Flash)...");
      const { text: reply } = await generateText({
        model: google("gemini-flash-latest"),
        temperature: 0.85,
@@ -90,14 +111,45 @@ export async function processMessage(userMessage, conversationId, organizationId
      return { 
        reply: reply.trim(), 
        intent, 
-       usedKnowledge 
+       usedKnowledge,
+       source: "gemini"
      };
   } catch (err) {
-    console.error("AI Brain Error:", err.message);
-    return { 
-      reply: "Maaf kijiye, humare system mein thodi dikkat thhi. Kal fir try karein ya support@creativeminds.in pe likhein 🙏", 
-      intent: "unknown", 
-      usedKnowledge: false 
-    };
+    console.warn("❌ [AI-BRAIN] Gemini failed:", err.message);
+
+    // --- SECONDARY AI: OPENAI FALLBACK ---
+    if (!process.env.OPENAI_API_KEY) {
+       console.error("❌ [AI-BRAIN] OpenAI Key missing. Aborting.");
+       return { 
+         reply: "Maaf kijiye, humare system mein thodi dikkat thhi. Kal fir try karein 🙏", 
+         intent, 
+         source: "fallback" 
+       };
+    }
+
+    try {
+       console.log("🔁 [AI-BRAIN] Switching to Backup AI (GPT-4o-mini)...");
+       const { text: openaiReply } = await generateText({
+         model: openai("gpt-4o-mini"),
+         temperature: 0.7,
+         system: systemPrompt,
+         prompt: `Suggest a reply (Return ONLY the reply text):`,
+       });
+
+       return {
+         reply: openaiReply.trim(),
+         intent,
+         usedKnowledge,
+         source: "openai"
+       };
+    } catch (openaiErr) {
+       console.error("❌ [AI-BRAIN] OpenAI also failed:", openaiErr.message);
+       return { 
+         reply: "Server thoda busy hai, thodi der baad try karein 🙏", 
+         intent: "unknown", 
+         usedKnowledge: false,
+         source: "fallback"
+       };
+    }
   }
 }

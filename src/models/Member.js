@@ -38,6 +38,10 @@ const memberSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    permissions: {
+      type: [String],
+      default: ["inbox", "analytics", "bot", "team"],
+    },
   },
   { timestamps: true }
 );

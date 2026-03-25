@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Plus, Settings, Users, ArrowRightLeft, UserCheck, Trash2, Mail, Phone, MoreVertical } from "lucide-react";
+import { Plus, Settings, Users, ArrowRightLeft, UserCheck, Trash2, Mail, Phone, MoreVertical, Lock, Layout } from "lucide-react";
+import { IconChartBar, IconFileAi } from "@tabler/icons-react";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -53,7 +55,15 @@ export default function TeamDashboard() {
   const [loading, setLoading] = useState(true);
   
   // States for 'Add Member' Form
-  const [newMember, setNewMember] = useState({ name: "", phone: "", email: "", role: "SALES" });
+  const [newMember, setNewMember] = useState({ 
+    name: "", 
+    phone: "", 
+    email: "", 
+    role: "SALES",
+    permissions: ["inbox", "analytics", "bot", "team"],
+    autoPassword: true,
+    password: ""
+  });
   const [isAddMemberOpen, setIsAddMemberOpen] = useState(false);
 
   const fetchData = async () => {
@@ -111,8 +121,27 @@ export default function TeamDashboard() {
         body: JSON.stringify(newMember)
       });
       if (res.ok) {
-        toast.success("Member added successfully");
-        setNewMember({ name: "", phone: "", email: "", role: "SALES" });
+        const resData = await res.json();
+        if (resData.credentials) {
+           toast.success(`Agent Created! Email: ${resData.credentials.email} | Pass: ${resData.credentials.password}`, {
+             duration: 10000,
+             action: {
+                label: 'Copy Password',
+                onClick: () => navigator.clipboard.writeText(resData.credentials.password)
+             }
+           });
+        } else {
+           toast.success("Member added successfully");
+        }
+        setNewMember({ 
+          name: "", 
+          phone: "", 
+          email: "", 
+          role: "SALES",
+          permissions: ["inbox", "analytics", "bot", "team"],
+          autoPassword: true,
+          password: ""
+        });
         setIsAddMemberOpen(false);
         fetchData();
       } else {
@@ -177,122 +206,158 @@ export default function TeamDashboard() {
     <div className="p-8 max-w-7xl mx-auto space-y-8">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Team & Lead Distribution</h1>
-          <p className="text-muted-foreground">Manage your team and how new WhatsApp leads are assigned.</p>
+          <h1 className="text-3xl font-black tracking-tighter">TEAM & PERMISSIONS</h1>
+          <p className="text-slate-400 text-sm font-medium">Define access and distribute workloads effortlessly.</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={fetchData}>Refresh Data</Button>
+          <Button variant="outline" className="rounded-xl border-slate-200" onClick={fetchData}>Refresh</Button>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="md:col-span-1">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Settings className="h-5 w-5" /> Distribution Rule
+        <Card className="md:col-span-1 rounded-2xl border-slate-100 shadow-sm overflow-hidden">
+          <CardHeader className="bg-slate-50/50">
+            <CardTitle className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-500">
+               <Settings className="h-4 w-4" /> Routing Rules
             </CardTitle>
-            <CardDescription>Choose how new leads are assigned.</CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className={`p-4 border rounded-lg cursor-pointer transition-colors ${settings.rule === 'round_robin' ? 'bg-primary/5 border-primary' : 'bg-card'}`} onClick={() => handleUpdateRule('round_robin')}>
-                <div className="flex items-center justify-between mb-1">
-                  <h4 className="font-semibold text-sm">Round Robin</h4>
-                  {settings.rule === 'round_robin' && <div className="h-2 w-2 rounded-full bg-primary" />}
+          <CardContent className="pt-6">
+            <div className="space-y-3">
+              {[
+                { id: 'round_robin', name: 'Round Robin', desc: 'Loop based distribution among agents' },
+                { id: 'load_based', name: 'Load Balanced', desc: 'Prioritise agents with least leads' },
+                { id: 'manual', name: 'Manual Only', desc: 'Admin assigns everything' }
+              ].map(r => (
+                <div key={r.id} className={cn(
+                  "p-4 border rounded-xl cursor-pointer transition-all hover:border-indigo-200",
+                  settings.rule === r.id ? "bg-indigo-50/50 border-indigo-400 ring-1 ring-indigo-400" : "bg-white border-slate-100"
+                )} onClick={() => handleUpdateRule(r.id)}>
+                   <div className="flex items-center justify-between mb-1">
+                      <h4 className="font-black text-xs uppercase tracking-tight text-slate-700">{r.name}</h4>
+                      {settings.rule === r.id && <div className="h-2 w-2 rounded-full bg-indigo-600 shadow-[0_0_8px_#4f46e5]" />}
+                   </div>
+                   <p className="text-[10px] font-medium text-slate-400 leading-tight">{r.desc}</p>
                 </div>
-                <p className="text-xs text-muted-foreground">Distributes leads equally among all active team members in a loop.</p>
-              </div>
-              
-              <div className={`p-4 border rounded-lg cursor-pointer transition-colors ${settings.rule === 'load_based' ? 'bg-primary/5 border-primary' : 'bg-card'}`} onClick={() => handleUpdateRule('load_based')}>
-                <div className="flex items-center justify-between mb-1">
-                  <h4 className="font-semibold text-sm">Load Based</h4>
-                  {settings.rule === 'load_based' && <div className="h-2 w-2 rounded-full bg-primary" />}
-                </div>
-                <p className="text-xs text-muted-foreground">Gives leads to the member with the fewest active leads currently.</p>
-              </div>
-
-              <div className={`p-4 border rounded-lg cursor-pointer transition-colors ${settings.rule === 'manual' ? 'bg-primary/5 border-primary' : 'bg-card'}`} onClick={() => handleUpdateRule('manual')}>
-                <div className="flex items-center justify-between mb-1">
-                  <h4 className="font-semibold text-sm">Manual</h4>
-                  {settings.rule === 'manual' && <div className="h-2 w-2 rounded-full bg-primary" />}
-                </div>
-                <p className="text-xs text-muted-foreground">Leads will not be automatically assigned. Admin must assign them.</p>
-              </div>
+              ))}
             </div>
           </CardContent>
         </Card>
 
-        <Card className="md:col-span-2">
-          <CardHeader className="flex flex-row items-center justify-between">
+        <Card className="md:col-span-2 rounded-2xl border-slate-100 shadow-sm">
+          <CardHeader className="flex flex-row items-center justify-between bg-white border-b border-slate-50">
             <div>
-              <CardTitle className="flex items-center gap-2">
-                <Users className="h-5 w-5" /> Team Members
+              <CardTitle className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-slate-500">
+                <Users className="h-4 w-4" /> Team Roster
               </CardTitle>
-              <CardDescription>Active members receive automated assignments.</CardDescription>
             </div>
             
             <Dialog open={isAddMemberOpen} onOpenChange={setIsAddMemberOpen}>
               <DialogTrigger asChild>
-                <Button size="sm"><Plus className="h-4 w-4 mr-2" /> Add Member</Button>
+                <Button className="rounded-xl bg-indigo-600 hover:bg-indigo-700 shadow-md shadow-indigo-100 font-bold text-xs"><Plus className="h-4 w-4 mr-1" /> CREATE AGENT</Button>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent className="max-w-2xl rounded-3xl overflow-hidden border-none p-0 shadow-2xl">
                 <form onSubmit={handleAddMember}>
-                  <DialogHeader>
-                    <DialogTitle>Add Team Member</DialogTitle>
-                    <DialogDescription>Add a new person to receive leads.</DialogDescription>
-                  </DialogHeader>
-                  <div className="grid gap-4 py-4">
-                    <div className="grid gap-2">
-                      <Label htmlFor="name">Full Name</Label>
-                      <Input id="name" placeholder="Yogesh Sharma" value={newMember.name} onChange={(e) => setNewMember({...newMember, name: e.target.value})} required />
+                  <div className="bg-indigo-600 p-8 text-white relative">
+                     <div className="absolute top-0 right-0 p-8 opacity-10"><Users className="w-24 h-24" /></div>
+                    <DialogTitle className="text-2xl font-black tracking-tighter mb-1">Onboard New Agent</DialogTitle>
+                    <DialogDescription className="text-indigo-100 text-xs font-medium uppercase tracking-widest italic">Setup credentials and visibility</DialogDescription>
+                  </div>
+                  <div className="p-8 space-y-6">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label className="text-[10px] font-black uppercase text-slate-400 ml-1">Full Name</Label>
+                        <Input className="rounded-xl border-slate-100 bg-slate-50 focus:bg-white transition-all shadow-none h-11" placeholder="Arjun Singh" value={newMember.name} onChange={(e) => setNewMember({...newMember, name: e.target.value})} required />
+                      </div>
+                      <div className="space-y-2">
+                        <Label className="text-[10px] font-black uppercase text-slate-400 ml-1">Mobile (WA)</Label>
+                        <Input className="rounded-xl border-slate-100 bg-slate-50 focus:bg-white transition-all shadow-none h-11" placeholder="918888888888" value={newMember.phone} onChange={(e) => setNewMember({...newMember, phone: e.target.value})} required />
+                      </div>
                     </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="phone">WhatsApp Number (with country code)</Label>
-                      <Input id="phone" placeholder="918888888888" value={newMember.phone} onChange={(e) => setNewMember({...newMember, phone: e.target.value})} required />
+                    
+                    <div className="space-y-4 pt-2 border-t border-slate-50">
+                       <div className="flex items-center justify-between">
+                         <Label className="text-[10px] font-black uppercase text-indigo-500 tracking-widest leading-none">Login Credentials</Label>
+                         <label className="flex items-center gap-2 cursor-pointer group">
+                           <input 
+                             type="checkbox" 
+                             checked={newMember.autoPassword} 
+                             onChange={(e) => setNewMember({...newMember, autoPassword: e.target.checked})}
+                             className="w-3.5 h-3.5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                           />
+                           <span className="text-[10px] font-black text-slate-400 group-hover:text-slate-600 uppercase">Auto-Generate Password</span>
+                         </label>
+                       </div>
+                       
+                       <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label className="text-[10px] font-black uppercase text-slate-400 ml-1">Work Email</Label>
+                            <Input className="rounded-xl border-slate-100 bg-slate-50 focus:bg-white transition-all shadow-none h-11" type="email" placeholder="agent @magicscale.com" value={newMember.email} onChange={(e) => setNewMember({...newMember, email: e.target.value})} required />
+                          </div>
+                          {!newMember.autoPassword && (
+                            <div className="space-y-2">
+                              <Label className="text-[10px] font-black uppercase text-slate-400 ml-1">Manual Password</Label>
+                              <Input className="rounded-xl border-slate-100 bg-slate-50 focus:bg-white transition-all shadow-none h-11" type="password" value={newMember.password} onChange={(e) => setNewMember({...newMember, password: e.target.value})} />
+                            </div>
+                          )}
+                       </div>
                     </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="email">Email</Label>
-                      <Input id="email" type="email" placeholder="yogesh@example.com" value={newMember.email} onChange={(e) => setNewMember({...newMember, email: e.target.value})} required />
-                    </div>
-                    <div className="grid gap-2">
-                      <Label htmlFor="role">Role</Label>
-                      <Select value={newMember.role} onValueChange={(val) => setNewMember({...newMember, role: val})}>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select Role" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="ADMIN">Admin</SelectItem>
-                          <SelectItem value="SALES">Sales</SelectItem>
-                          <SelectItem value="SUPPORT">Support</SelectItem>
-                        </SelectContent>
-                      </Select>
+
+                    <div className="space-y-4 pt-2 border-t border-slate-50">
+                       <Label className="text-[10px] font-black uppercase text-indigo-500 tracking-widest ml-1">Visibility Permissions</Label>
+                       <div className="grid grid-cols-2 gap-3">
+                          {[
+                            { id: 'inbox', label: 'Inbox & Chats', icon: <Mail className="w-3 h-3"/> },
+                            { id: 'analytics', label: 'Analytics Panel', icon: <IconChartBar className="w-3 h-3"/> },
+                            { id: 'bot', label: 'Bot Training', icon: <IconFileAi className="w-3 h-3"/> },
+                            { id: 'team', label: 'Team Management', icon: <Users className="w-3 h-3"/> }
+                          ].map(p => (
+                            <label key={p.id} className="flex items-center gap-3 p-3 rounded-xl border border-slate-50 bg-slate-50/50 cursor-pointer hover:bg-white hover:border-indigo-100 transition-colors">
+                               <input 
+                                 type="checkbox" 
+                                 checked={newMember.permissions?.includes(p.id)}
+                                 onChange={(e) => {
+                                   const current = newMember.permissions || [];
+                                   const updated = e.target.checked ? [...current, p.id] : current.filter(x => x !== p.id);
+                                   setNewMember({...newMember, permissions: updated});
+                                 }}
+                                 className="w-4 h-4 text-indigo-600 rounded focus:ring-indigo-500"
+                               />
+                               <div className="flex items-center gap-2">
+                                  <div className="text-slate-400">{p.icon}</div>
+                                  <span className="text-xs font-bold text-slate-600">{p.label}</span>
+                               </div>
+                            </label>
+                          ))}
+                       </div>
                     </div>
                   </div>
-                  <DialogFooter>
-                    <Button type="submit">Save Member</Button>
-                  </DialogFooter>
+                  <div className="p-8 bg-slate-50 border-t border-slate-100 flex justify-end gap-3">
+                    <Button type="button" variant="ghost" onClick={() => setIsAddMemberOpen(false)} className="rounded-xl font-bold text-[10px] uppercase text-slate-400">Cancel</Button>
+                    <Button type="submit" className="rounded-xl bg-indigo-600 hover:bg-indigo-700 font-bold text-[10px] uppercase shadow-lg shadow-indigo-100 min-w-[140px] h-11">Confirm Onboard</Button>
+                  </div>
                 </form>
               </DialogContent>
             </Dialog>
           </CardHeader>
           <CardContent>
             <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Member</TableHead>
-                  <TableHead>Role</TableHead>
-                  <TableHead>Leads (Cur/Tot)</TableHead>
-                  <TableHead>Active</TableHead>
-                  <TableHead></TableHead>
+              <TableHeader className="bg-slate-50/50 uppercase">
+                <TableRow className="border-slate-100 hover:bg-transparent">
+                  <TableHead className="text-[9px] font-black text-slate-400 py-3">Agent</TableHead>
+                  <TableHead className="text-[9px] font-black text-slate-400 py-3">Role</TableHead>
+                  <TableHead className="text-[9px] font-black text-slate-400 py-3">Visibility Control</TableHead>
+                  <TableHead className="text-[9px] font-black text-slate-400 py-3">Load</TableHead>
+                  <TableHead className="text-[9px] font-black text-slate-400 py-3">Status</TableHead>
+                  <TableHead className="py-3"></TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {members.map((member) => (
-                  <TableRow key={member._id}>
+                  <TableRow key={member._id} className="hover:bg-slate-50/50 transition-colors border-slate-50">
                     <TableCell>
                       <div className="flex flex-col">
-                        <span className="font-medium text-sm">{member.name}</span>
-                        <span className="text-[10px] text-muted-foreground">{member.phone}</span>
+                        <span className="font-black text-sm text-slate-700 tracking-tight">{member.name}</span>
+                        <span className="text-[10px] text-slate-400 font-bold uppercase">{member.phone}</span>
                       </div>
                     </TableCell>
                     <TableCell>
@@ -300,30 +365,60 @@ export default function TeamDashboard() {
                         value={member.role} 
                         onValueChange={(val) => handleUpdateMember(member._id, { role: val })}
                       >
-                        <SelectTrigger className="w-[100px] h-8 text-xs">
+                        <SelectTrigger className="w-[110px] h-9 text-[10px] font-black uppercase rounded-lg border-slate-100 bg-white">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="ADMIN">Admin</SelectItem>
-                          <SelectItem value="SALES">Sales</SelectItem>
-                          <SelectItem value="SUPPORT">Support</SelectItem>
+                          <SelectItem value="ADMIN" className="text-[10px] font-bold">ADMIN</SelectItem>
+                          <SelectItem value="SALES" className="text-[10px] font-bold">SALES</SelectItem>
+                          <SelectItem value="SUPPORT" className="text-[10px] font-bold">SUPPORT</SelectItem>
                         </SelectContent>
                       </Select>
                     </TableCell>
                     <TableCell>
-                      <span className="text-xs tabular-nums text-muted-foreground">
-                        {member.currentLeads || 0} / {member.totalLeads || 0}
-                      </span>
+                      <div className="flex items-center gap-1.5">
+                         {[
+                           { id: 'inbox', icon: <Mail className="w-3.5 h-3.5" />, label: 'Inbox' },
+                           { id: 'analytics', icon: <IconChartBar className="w-3.5 h-3.5" />, label: 'Analytics' },
+                           { id: 'bot', icon: <IconFileAi className="w-3.5 h-3.5" />, label: 'Bot' },
+                           { id: 'team', icon: <Users className="w-3.5 h-3.5" />, label: 'Team' }
+                         ].map(p => {
+                           const hasPerm = member.permissions?.includes(p.id);
+                           return (
+                             <button
+                               key={p.id}
+                               title={p.label}
+                               onClick={() => {
+                                 const current = member.permissions || [];
+                                 const updated = hasPerm ? current.filter(x => x !== p.id) : [...current, p.id];
+                                 handleUpdateMember(member._id, { permissions: updated });
+                               }}
+                               className={cn(
+                                 "p-1.5 rounded-md border transition-all",
+                                 hasPerm ? "bg-indigo-50 border-indigo-200 text-indigo-600 shadow-sm" : "bg-white border-slate-100 text-slate-300 grayscale opacity-40 hover:opacity-100 hover:grayscale-0"
+                               )}
+                             >
+                               {p.icon}
+                             </button>
+                           )
+                         })}
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                       <div className="flex items-center gap-2">
+                          <span className="text-[10px] font-black tabular-nums text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">{member.currentLeads || 0}</span>
+                       </div>
                     </TableCell>
                     <TableCell>
                       <Switch 
                         checked={member.isActive} 
+                        className="data-[state=checked]:bg-indigo-600"
                         onCheckedChange={() => handleToggleMember(member._id, member.isActive)} 
                       />
                     </TableCell>
                     <TableCell>
-                      <Button variant="ghost" size="icon" onClick={() => handleDeleteMember(member._id)}>
-                        <Trash2 className="h-4 w-4 text-destructive" />
+                      <Button variant="ghost" size="icon" onClick={() => handleDeleteMember(member._id)} className="hover:bg-rose-50 hover:text-rose-600 transition-colors">
+                        <Trash2 className="h-4 w-4" />
                       </Button>
                     </TableCell>
                   </TableRow>

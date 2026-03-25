@@ -15,8 +15,12 @@ export async function assignLead(leadId, orgId) {
   const rule = settings.rule;
   let selectedMember = null;
 
-  // Sirf active members lo
-  let activeMembers = await Member.find({ organizationId: orgId, isActive: true });
+  // Sirf active aur 'inbox' permission wale members lo
+  let activeMembers = await Member.find({ 
+    organizationId: orgId, 
+    isActive: true,
+    permissions: "inbox" // Check for inbox permission
+  });
   
   if (activeMembers.length === 0) {
     console.warn("⚠️ No active members found for lead assignment in org:", orgId, ". Checking for ANY member as fallback...");

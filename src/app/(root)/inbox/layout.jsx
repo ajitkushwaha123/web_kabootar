@@ -9,6 +9,7 @@ import { InboxSidebar } from "@/components/inbox-sidebar";
 import { ChatHeaderSkeleton } from "@/components/skeleton/ChatHeaderSkeleton";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { useConversation } from "@/store/hooks/useConversation";
+import { LeadSidebar } from "@/components/global/chat/lead-sidebar";
 
 export default function Page({ children }) {
   const { chatDetails, chatDetailsLoading, activeConversationId } =
@@ -39,19 +40,22 @@ export default function Page({ children }) {
       <InboxSidebar />
 
       {activeConversationId ? (
-        <SidebarInset className="flex flex-col h-screen bg-white dark:bg-black text-black dark:text-white">
-          {chatDetailsLoading ? (
-            <ChatHeaderSkeleton />
-          ) : (
-            <ChatHeader chatDetails={chatDetails} />
-          )}
+        <div className="flex flex-1 overflow-hidden">
+          <SidebarInset className="flex flex-col h-screen bg-white dark:bg-black text-black dark:text-white">
+            {chatDetailsLoading ? (
+              <ChatHeaderSkeleton />
+            ) : (
+              <ChatHeader chatDetails={chatDetails} />
+            )}
 
-          <main className="flex-1 overflow-y-auto p-4">{children}</main>
+            <main className="flex-1 overflow-y-auto p-4">{children}</main>
 
-          <footer className="sticky bottom-0 z-10 p-4 bg-white dark:bg-black border-t border-gray-300 dark:border-gray-700">
-            <ChatInput />
-          </footer>
-        </SidebarInset>
+            <footer className="sticky bottom-0 z-10 p-4 bg-white dark:bg-black border-t border-gray-300 dark:border-gray-700">
+              <ChatInput />
+            </footer>
+          </SidebarInset>
+          <LeadSidebar />
+        </div>
       ) : (
         <div className="flex-1 flex items-center justify-center">
           <EmptyState

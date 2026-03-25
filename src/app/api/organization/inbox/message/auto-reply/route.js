@@ -48,31 +48,42 @@ export const POST = async (req) => {
         const recipientPhone = convo.contactId.primaryPhone;
         const userMessage = lastMsg?.text?.body || "Hello";
 
-        // 3. 🤖 BOT RULES LAYER (Check keywords first)
-        const activeRules = await BotRule.find({ organizationId: org.org_id, isActive: true }).sort({ priority: -1 });
-        const botReply = matchRule(userMessage, activeRules);
+        const mode = org.autoReplyMode || "HYBRID";
+        console.log(`🤖 Auto-Reply Mode: ${mode} for Org: ${org.name}`);
+
+        if (mode === "OFF") {
+           console.log("🤖 Auto-reply is OFF.");
+           return;
+        }
 
         let finalReply = "";
         let source = "ai";
 
-        if (botReply) {
-           console.log(`🤖 Bot Rule Matched: "${botReply}"`);
-           finalReply = botReply;
-           source = "bot";
-           // Increment match count
-           BotRule.updateOne({ organizationId: org.org_id, reply: botReply }, { $inc: { matchCount: 1 } }).exec();
-        } else {
-           // 4. 🧠 SMART AI BRAIN LAYER (RAG + History)
-           console.log(`🤖 No Bot Rule. Processing Brain for ${customerName}...`);
+        // --- LAYER 1: BOT RULES (Only if HYBRID or BOT_ONLY) ---
+        if (mode === "HYBRID" || mode === "BOT_ONLY") {
+          const activeRules = await BotRule.find({ organizationId: org.org_id, isActive: true }).sort({ priority: -1 });
+          const botReply = matchRule(userMessage, activeRules);
+          
+          if (botReply) {
+             console.log(`🤖 Bot Rule Matched: "${botReply}"`);
+             finalReply = botReply;
+             source = "bot";
+             BotRule.updateOne({ organizationId: org.org_id, reply: botReply }, { $inc: { matchCount: 1 } }).exec();
+          }
+        }
+
+        // --- LAYER 2: AI BRAIN (Only if HYBRID/AI_ONLY and no reply yet) ---
+        if (!finalReply && (mode === "HYBRID" || mode === "AI_ONLY")) {
+           console.log(`🤖 Processing Brain for ${customerName}...`);
            
-           // Log unmatched for training
+           // Log unmatched for training (If not matched by bot)
            UnmatchedMessage.create({ 
              organizationId: org.org_id, 
              text: userMessage, 
              phone: recipientPhone 
            }).catch(e => console.error("Unmatched Log Error:", e));
 
-           const { reply: aiReply, intent, usedKnowledge } = await processMessage(
+           const { reply: aiReply, intent, usedKnowledge, source: brainSource } = await processMessage(
              userMessage, 
              conversationId, 
              org.org_id, 
@@ -80,8 +91,8 @@ export const POST = async (req) => {
              customerName
            );
            finalReply = aiReply;
-           source = "ai";
-           console.log(`🤖 AI Reply: "${finalReply}" [Intent: ${intent}, RAG: ${usedKnowledge}]`);
+           source = brainSource || "ai";
+           console.log(`🤖 ${source.toUpperCase()} Reply: "${finalReply}" [Intent: ${intent}, RAG: ${usedKnowledge}]`);
         }
 
         if (!finalReply) return;
@@ -112,7 +123,11 @@ export const POST = async (req) => {
           status: "sent",
           whatsappMessageId,
           text: { body: finalReply },
-          metadata: { source }, // bot or ai
+          metadata: { 
+            source, 
+            intent: intent || null, 
+            triggerMessage: userMessage 
+          }, // bot or ai + intent info + trigger for corrections
           timestamp: new Date(),
         });
 
@@ -120,6 +135,27 @@ export const POST = async (req) => {
           lastMessageId: newMessage._id,
           lastMessageAt: new Date(),
         });
+
+        // 💰 Log AI / Bot Cost (Zomato-style Tracking) 🚀
+        try {
+          const { default: CostRecord } = await import("@/models/CostRecord");
+          let aiCost = 0;
+          if (source === "ai_gemini") aiCost = 0.05;
+          else if (source === "ai_openai") aiCost = 0.15;
+          else if (source === "bot") aiCost = 0; // Bot rules are free (excluding Meta cost)
+
+          await CostRecord.create({
+            organizationId: org.org_id,
+            conversationId,
+            type: source.startsWith("ai") ? source : "bot",
+            messageType: "text",
+            cost: aiCost,
+            metadata: { trigger: userMessage, waId: whatsappMessageId }
+          });
+          console.log(`💰 [AUTO-COST] ₹${aiCost} logged for ${source}`);
+        } catch (costErr) {
+          console.error("❌ Failed to log AI cost:", costErr.message);
+        }
         console.log("✅ Auto-reply background process completed");
       } catch (innerErr) {
         console.error("❌ Auto-reply async background error:", innerErr.response?.data || innerErr.message);

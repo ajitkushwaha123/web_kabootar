@@ -17,7 +17,6 @@ const botRuleSchema = new mongoose.Schema(
     },
     category: {
       type: String,
-      enum: ["sales", "support", "fssai", "gst", "onboarding", "general"],
       default: "general",
     },
     isActive: {

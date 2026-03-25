@@ -26,6 +26,7 @@ export const GET = async (req, { params }) => {
       isDeleted: false,
     })
       .populate("contactId", "primaryName primaryPhone source")
+      .populate("leadId")
       .populate("lastMessageId")
       .lean();
 

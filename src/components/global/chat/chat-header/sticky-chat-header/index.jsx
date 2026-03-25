@@ -2,8 +2,9 @@
 
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatPhone, UserAvatar } from "@/helper/transform";
+import { WhatsAppWindowTimer } from "../../WhatsAppWindowTimer"; // 🕒 NEW
 
-export default function StickyChatHeader({ name, phone }) {
+export default function StickyChatHeader({ name, phone, lastCustomerMessageAt }) {
   return (
     <>
       <Card className="border-0 rounded-none shadow-sm bg-white dark:bg-gray-900">
@@ -25,6 +26,9 @@ export default function StickyChatHeader({ name, phone }) {
               </p>
             </div>
           </div>
+          
+          {/* 🕒 24-Hour Timer Badge */}
+          <WhatsAppWindowTimer lastCustomerMessageAt={lastCustomerMessageAt} />
         </CardHeader>
       </Card>
     </>

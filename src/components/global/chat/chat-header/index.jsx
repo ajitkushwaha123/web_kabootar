@@ -22,6 +22,7 @@ export default function ChatHeader({ chatDetails }) {
           <StickyChatHeader
             name={chatDetails?.contactId?.primaryName}
             phone={chatDetails?.contactId?.primaryPhone}
+            lastCustomerMessageAt={chatDetails?.lastCustomerMessageAt}
           />
         </header>
       </SheetTrigger>

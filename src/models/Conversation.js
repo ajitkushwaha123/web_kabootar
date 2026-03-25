@@ -42,6 +42,11 @@ const conversationSchema = new Schema(
       default: Date.now,
       index: true,
     },
+    lastCustomerMessageAt: {
+      type: Date,
+      default: Date.now,
+      index: true,
+    },
 
     status: {
       type: String,
@@ -54,6 +59,16 @@ const conversationSchema = new Schema(
       type: [String],
       default: [],
     },
+
+    notes: [
+      {
+        text: { type: String, required: true },
+        createdBy: { type: String, required: true }, // Clerk user ID or name
+        creatorName: String,
+        createdAt: { type: Date, default: Date.now },
+        isPinned: { type: Boolean, default: false },
+      },
+    ],
 
     isLead: {
       type: Boolean,

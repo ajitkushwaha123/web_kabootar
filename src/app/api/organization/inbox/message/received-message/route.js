@@ -84,6 +84,7 @@ export const POST = async (req) => {
       {
         lastMessageId: message._id,
         lastMessageAt: new Date(),
+        lastCustomerMessageAt: new Date(), // 🚀 NEW
         $inc: { unreadCount: 1 },
       },
       { new: true }
@@ -106,6 +107,11 @@ export const POST = async (req) => {
         },
         { new: true, upsert: true }
       );
+
+      // Link lead to conversation if not already linked
+      if (!conversation.leadId) {
+        await Conversation.findByIdAndUpdate(conversation._id, { leadId: lead._id });
+      }
 
       // If lead is new and not assigned, assign it
       if (lead.stage === "new" && (!lead.assignedTo || lead.assignedTo.length === 0)) {

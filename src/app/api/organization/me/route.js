@@ -31,12 +31,16 @@ export async function GET() {
       return NextResponse.json({ error: "No organization found" }, { status: 404 });
     }
 
+    const member = org.members.find(m => m.user_id === user.id);
+
     return NextResponse.json({ 
       id: org.org_id, 
       name: org.name, 
       slug: org.slug, 
       imageUrl: org.logo_url,
-      autoAiReply: !!org.autoAiReply
+      autoAiReply: !!org.autoAiReply,
+      role: member ? member.role : "MEMBER",
+      permissions: member ? member.permissions : ["inbox"]
     });
   } catch (error) {
     console.error("Error fetching organization:", error);

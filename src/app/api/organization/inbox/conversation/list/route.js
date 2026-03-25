@@ -5,9 +5,11 @@ import Message from "@/models/Message";
 import { getAuthContext } from "@/lib/auth/getAuth";
 import { NextResponse } from "next/server";
 
-export const GET = async () => {
+export const GET = async (req) => {
   try {
     const { userId, orgId } = await getAuthContext();
+    const { searchParams } = new URL(req.url);
+    const tag = searchParams.get("tag");
 
     if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -20,10 +22,16 @@ export const GET = async () => {
       );
     }
 
-    const conversations = await Conversation.find({
+    const query = {
       organizationId: orgId,
       isDeleted: false,
-    })
+    };
+
+    if (tag) {
+      query.tags = { $in: [tag] };
+    }
+
+    const conversations = await Conversation.find(query)
       .populate("contactId", "primaryName , primaryPhone")
       .populate("lastMessageId")
       .sort({ lastMessageAt: -1 })

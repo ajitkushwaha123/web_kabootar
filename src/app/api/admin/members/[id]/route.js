@@ -9,7 +9,7 @@ export async function PATCH(req, { params }) {
     const { orgId } = await getAuthContext();
     if (!orgId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-    const { isActive, name, phone, email, role } = await req.json();
+    const { isActive, name, phone, email, role, permissions } = await req.json();
     await dbConnect();
     
     const memberId = id;
@@ -20,6 +20,7 @@ export async function PATCH(req, { params }) {
     if (phone) updateData.phone = phone;
     if (email) updateData.email = email;
     if (role) updateData.role = role;
+    if (permissions) updateData.permissions = permissions;
 
     const member = await Member.findOneAndUpdate(
       { _id: memberId, organizationId: orgId },
@@ -28,6 +29,17 @@ export async function PATCH(req, { params }) {
     );
     
     if (!member) return NextResponse.json({ error: "Member not found" }, { status: 404 });
+
+    // Sync to Organization model if user_id exists
+    if (member.user_id && permissions) {
+       const Organization = (await import("@/models/Organization")).default;
+       await Organization.updateOne(
+          { org_id: orgId, "members.user_id": member.user_id },
+          { $set: { "members.$.permissions": permissions } }
+       );
+       console.log(`✅ Synced permissions for user ${member.user_id} in Org ${orgId}`);
+    }
+
     return NextResponse.json(member);
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

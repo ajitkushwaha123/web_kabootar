@@ -55,7 +55,7 @@ const data = {
     },
     {
       title: "Analytics",
-      url: "/analytics",
+      url: "/admin/analytics",
       icon: IconChartBar,
     },
     {
@@ -74,11 +74,26 @@ const data = {
       icon: IconUsers,
     },
     {
+      title: "Menu Guide",
+      url: "/admin/catalog",
+      icon: IconListDetails,
+    },
+    {
       title: "AI Bot Center",
       url: "/admin/bot",
       icon: IconFileAi,
     },
-  ],
+    {
+      title: "Pipeline",
+      url: "/pipeline",
+      icon: IconInnerShadowTop,
+    },
+    {
+      title: "Master Center",
+      url: "/admin/master",
+      icon: IconInnerShadowTop,
+    },
+],
   // navClouds: [
   //   {
   //     title: "Capture",
@@ -170,14 +185,31 @@ const data = {
 export function AppSidebar({ ...props }) {
   const { organization } = useOrganization();
 
-  console.log(organization);
+  const [permissions, setPermissions] = React.useState(["inbox"]);
+  const [role, setRole] = React.useState("MEMBER");
+
+  React.useEffect(() => {
+    fetch("/api/organization/me")
+      .then(res => res.json())
+      .then(d => {
+        if (d.permissions) setPermissions(d.permissions);
+        if (d.role) setRole(d.role);
+      })
+      .catch(e => console.error("Sidebar auth:", e));
+  }, []);
+
   const team = {
     name: organization?.name,
     plan: "Pro",
     logo: organization?.imageUrl,
   };
 
-  console.log("team", team);
+  const filteredNavMain = data.navMain.filter(item => {
+    if (role === "ADMIN") return true;
+    const map = { "Inbox": "inbox", "Analytics": "analytics", "AI Bot Center": "bot", "Team": "team", "Billing": "billing", "Templates": "templates", "Menu Guide": "catalog", "Pipeline": "pipeline" };
+    const slug = map[item.title];
+    return !slug || permissions.includes(slug);
+  });
 
   return (
     <Sidebar collapsible="offcanvas" {...props}>
@@ -191,7 +223,7 @@ export function AppSidebar({ ...props }) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={filteredNavMain} />
         <NavDocuments items={data.documents} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>

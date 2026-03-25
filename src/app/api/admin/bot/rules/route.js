@@ -37,36 +37,59 @@ export async function POST(req) {
 
       const rulesToInsert = body.map(item => ({
         organizationId: orgId,
-        keywords: Array.isArray(item.keywords) ? item.keywords.map(k => k.trim().toLowerCase()) : [],
+        keywords: Array.isArray(item.keywords) 
+          ? item.keywords.filter(k => typeof k === 'string').map(k => k.trim().toLowerCase()) 
+          : (typeof item.keywords === 'string' ? item.keywords.split(',').map(k => k.trim().toLowerCase()) : []),
         reply: item.reply || "",
         category: item.category || "general",
-        priority: item.priority || 5,
+        priority: Number(item.priority) || 5,
         isActive: item.isActive !== false,
       })).filter(r => r.keywords.length > 0 && r.reply);
 
-      if (rulesToInsert.length === 0) return NextResponse.json({ error: "No valid rules found in array" }, { status: 400 });
+      if (rulesToInsert.length === 0) return NextResponse.json({ error: "No valid rules found in array. Check keywords and reply fields." }, { status: 400 });
 
-      const docs = await BotRule.insertMany(rulesToInsert);
-      return NextResponse.json({ success: true, count: docs.length, data: docs });
+      try {
+        console.log(`🚀 [RULES-POST] Inserting ${rulesToInsert.length} rules for ${orgId}`);
+        const docs = await BotRule.insertMany(rulesToInsert);
+        return NextResponse.json({ success: true, count: docs.length, data: docs });
+      } catch (dbErr) {
+        console.error("❌ [RULES-POST] insertMany Error:", dbErr.message);
+        return NextResponse.json({ error: `Database Error: ${dbErr.message}` }, { status: 500 });
+      }
     }
 
     // --- CASE 2: SINGLE RULE ---
     const { keywords, reply, category, priority } = body;
 
-    if (!keywords?.length || !reply) {
+    if (!keywords || !reply) {
       return NextResponse.json({ error: "keywords and reply are required" }, { status: 400 });
     }
 
-    const rule = await BotRule.create({
-      organizationId: orgId,
-      keywords: keywords.map(kw => kw.trim().toLowerCase()),
-      reply,
-      category: category || "general",
-      priority: priority || 5,
-    });
+    // Ensure keywords is an array even if sent as a string/comma-separated
+    const finalKeywords = Array.isArray(keywords) 
+       ? keywords.filter(k => typeof k === 'string').map(kw => kw.trim().toLowerCase())
+       : (typeof keywords === 'string' ? keywords.split(',').map(kw => kw.trim().toLowerCase()) : []);
 
-    return NextResponse.json({ success: true, data: rule });
+    if (finalKeywords.length === 0) {
+      return NextResponse.json({ error: "At least one valid keyword is required" }, { status: 400 });
+    }
+
+    try {
+      console.log(`🚀 [RULES-POST] Creating single rule for ${orgId}`);
+      const rule = await BotRule.create({
+        organizationId: orgId,
+        keywords: finalKeywords,
+        reply,
+        category: category || "general",
+        priority: Number(priority) || 5,
+      });
+      return NextResponse.json({ success: true, data: rule });
+    } catch (dbErr) {
+      console.error("❌ [RULES-POST] create Error:", dbErr.message);
+      return NextResponse.json({ error: `Database Error: ${dbErr.message}` }, { status: 500 });
+    }
   } catch (error) {
+    console.error("🔥 [RULES-POST] Fatal Error:", error.message);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

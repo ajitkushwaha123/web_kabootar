@@ -28,7 +28,10 @@ import {
   TrendingUp, 
   AlertCircle,
   Loader2,
-  SendHorizontal
+  SendHorizontal,
+  Settings2,
+  Zap,
+  Bot
 } from "lucide-react";
 import { toast } from "sonner";
 import { 
@@ -41,6 +44,19 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { 
+  ResponsiveContainer, 
+  PieChart, 
+  Pie, 
+  Cell, 
+  BarChart, 
+  Bar, 
+  XAxis, 
+  YAxis, 
+  Tooltip, 
+  Legend,
+  CartesianGrid
+} from 'recharts';
 
 import { 
   Dialog, 
@@ -57,12 +73,15 @@ export default function BotTrainingPage() {
   const [activeTab, setActiveTab] = useState("rules");
   const [rules, setRules] = useState([]);
   const [unmatched, setUnmatched] = useState([]);
+  const [knowledge, setKnowledge] = useState([]); 
+  const [analytics, setAnalytics] = useState(null); // 📊 NEW
   const [loading, setLoading] = useState(false);
+  const [knowledgeSearch, setKnowledgeSearch] = useState(""); 
   
-  // Bulk state
-  const [bulkJson, setBulkJson] = useState("");
-  const [isBulkOpen, setIsBulkOpen] = useState(false);
-  const [importing, setImporting] = useState(false);
+  // Settings state
+  const [responseMode, setResponseMode] = useState("HYBRID");
+  const [autoLearn, setAutoLearn] = useState(true); // 🧠 NEW
+  const [confidenceThreshold, setConfidenceThreshold] = useState(0.85); // 🧠 NEW
 
   // Rule Form State
   const [formData, setFormData] = useState({
@@ -71,8 +90,19 @@ export default function BotTrainingPage() {
     category: "general",
     priority: "5"
   });
-  const [editId, setEditId] = useState(null);
-  const [saving, setSaving] = useState(false);
+  
+  // Knowledge Form State 🧠 NEW
+  const [knowledgeFormData, setKnowledgeFormData] = useState({
+    question: "",
+    answer: "",
+    category: "learned"
+  });
+  const [editKId, setEditKId] = useState(null);
+
+  // Bulk state
+  const [bulkJson, setBulkJson] = useState("");
+  const [isBulkOpen, setIsBulkOpen] = useState(false);
+  const [importing, setImporting] = useState(false);
 
   // Test State
   const [testInput, setTestInput] = useState("");
@@ -82,14 +112,122 @@ export default function BotTrainingPage() {
   const [testing, setTesting] = useState(false);
   const chatEndRef = useRef(null);
 
+  // 📊 Analytics Fetching
+  const fetchAnalytics = async () => {
+    try {
+      const res = await fetch("/api/admin/bot/analytics");
+      const data = await res.json();
+      if (data.success) setAnalytics(data);
+    } catch (e) {
+      console.error("Analytics fetch error:", e);
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab === "analytics") {
+      fetchAnalytics();
+    }
+  }, [activeTab]);
+
+  const [editId, setEditId] = useState(null);
+  const [saving, setSaving] = useState(false);
+
   useEffect(() => {
     fetchRules();
     fetchUnmatched();
+    fetchSettings();
+    fetchKnowledge(); // 🧠 NEW
   }, []);
+
+  async function fetchKnowledge() { // 🧠 NEW
+    try {
+      const res = await fetch("/api/admin/bot/knowledge");
+      const data = await res.json();
+      if (data.success) setKnowledge(data.data);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  const handleSaveKnowledge = async () => { // 🧠 NEW
+    if (!knowledgeFormData.question || !knowledgeFormData.answer) return toast.error("Please fill question and answer");
+    setSaving(true);
+    try {
+      const url = editKId ? `/api/admin/bot/knowledge/${editKId}` : "/api/admin/bot/knowledge";
+      const method = editKId ? "PATCH" : "POST";
+      const res = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(knowledgeFormData)
+      });
+      if (res.ok) {
+        toast.success(editKId ? "Memory updated!" : "Memory created!");
+        setEditKId(null);
+        setKnowledgeFormData({ question: "", answer: "", category: "learned" });
+        fetchKnowledge();
+      }
+    } catch (e) {
+      toast.error("Operation failed");
+    }
+    setSaving(false);
+  };
+
+  const deleteKnowledge = async (id) => { // 🧠 NEW
+    if (!confirm("Pakka remove karein? Memory se delete ho jayega.")) return;
+    try {
+       await fetch(`/api/admin/bot/knowledge/${id}`, { method: "DELETE" });
+       fetchKnowledge();
+    } catch (err) {
+      toast.error("Delete failed");
+    }
+  };
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [testMessages]);
+
+  async function fetchSettings() {
+    try {
+      const res = await fetch("/api/admin/bot/settings");
+      const data = await res.json();
+      if (data.success) {
+        setResponseMode(data.mode);
+        setAutoLearn(data.autoLearn);
+        setConfidenceThreshold(data.confidenceThreshold);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  const handleUpdateSettings = async (updates) => {
+    try {
+      const res = await fetch("/api/admin/bot/settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updates)
+      });
+      const data = await res.json();
+      if (data.success) {
+        if (updates.mode) setResponseMode(data.mode);
+        if (updates.autoLearn !== undefined) setAutoLearn(data.autoLearn);
+        if (updates.confidenceThreshold !== undefined) setConfidenceThreshold(data.confidenceThreshold);
+        toast.success("Settings updated!");
+      }
+    } catch (err) {
+      toast.error("Update failed");
+    }
+  };
+
+  const handleModeChange = (newMode) => {
+    setResponseMode(newMode);
+    handleUpdateSettings({ mode: newMode });
+  };
+
+  const handleAutoLearnToggle = (checked) => {
+    setAutoLearn(checked);
+    handleUpdateSettings({ autoLearn: checked });
+  };
 
   async function fetchRules() {
     setLoading(true);
@@ -244,39 +382,115 @@ export default function BotTrainingPage() {
 
   return (
     <div className="flex-col md:flex p-8 pt-6 space-y-6 max-w-[1200px] mx-auto">
-      <div className="flex items-center justify-between">
-        <div>
-           <h2 className="text-3xl font-bold tracking-tight">Bot Tuning Center 🧠</h2>
-           <p className="text-muted-foreground">Train your AI with rules, test responses, and learn from visitor messages.</p>
+      {/* HEADER SECTION WITH MODE SWITCH */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-2xl border shadow-sm">
+        <div className="flex items-center gap-4">
+           <div className="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-indigo-200">
+              <Zap className="w-6 h-6" />
+           </div>
+           <div>
+              <h2 className="text-2xl font-bold tracking-tight">Bot Tuning Center 🧠</h2>
+              <p className="text-sm text-muted-foreground">Manage your Auto-Response and AI logic here.</p>
+           </div>
         </div>
 
-        <Dialog open={isBulkOpen} onOpenChange={setIsBulkOpen}>
-           <DialogTrigger asChild>
-              <Button variant="outline" className="gap-2 border-dashed border-indigo-200 text-indigo-600 hover:bg-indigo-50">
-                <Plus className="w-4 h-4" /> Bulk Import JSON
-              </Button>
-           </DialogTrigger>
-           <DialogContent className="max-w-2xl">
-              <DialogHeader>
-                 <DialogTitle>Bulk Import Bot Rules</DialogTitle>
-                 <DialogDescription>
-                    Paste a JSON array of rules. Format: <code className="text-[10px] bg-slate-100 p-1">{"[ { \"keywords\": [\"hi\"], \"reply\": \"Hello\" } ]"}</code>
-                 </DialogDescription>
-              </DialogHeader>
-              <Textarea 
-                placeholder='[ {"keywords": ["price"], "reply": "Costs ₹3500", "category": "sales"}, ... ]'
-                className="min-h-[300px] font-mono text-xs mt-4"
-                value={bulkJson}
-                onChange={e => setBulkJson(e.target.value)}
-              />
-              <div className="flex justify-end gap-3 mt-4">
-                 <Button variant="ghost" onClick={() => setIsBulkOpen(false)}>Cancel</Button>
-                 <Button className="bg-indigo-600" onClick={handleBulkImport} disabled={importing || !bulkJson}>
-                   {importing ? "Importing..." : "Start Import"}
-                 </Button>
-              </div>
-           </DialogContent>
-        </Dialog>
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-col gap-1 pr-4 border-r mr-2">
+             <label className="text-[10px] uppercase font-bold text-slate-400">Response Strategy</label>
+             <Select value={responseMode} onValueChange={handleModeChange}>
+                <SelectTrigger className="w-[180px] h-9 bg-slate-50 border-slate-200 font-semibold focus:ring-indigo-500">
+                   <div className="flex items-center gap-2">
+                      <div className={cn(
+                        "w-2 h-2 rounded-full",
+                        responseMode === 'OFF' ? "bg-rose-500" : "bg-emerald-500 animate-pulse"
+                       )} />
+                      <SelectValue />
+                   </div>
+                </SelectTrigger>
+                <SelectContent>
+                   <SelectItem value="HYBRID" className="font-medium">Hybrid (Bot + AI) ✨</SelectItem>
+                   <SelectItem value="BOT_ONLY" className="font-medium">Bot Rules Only 🤖</SelectItem>
+                   <SelectItem value="AI_ONLY" className="font-medium">AI Brain Only 🧠</SelectItem>
+                   <SelectItem value="OFF" className="font-medium text-rose-500">Auto-Reply OFF ❌</SelectItem>
+                </SelectContent>
+             </Select>
+          </div>
+
+          <div className="flex flex-col gap-1 pr-4 border-r mr-2">
+             <label className="text-[10px] uppercase font-bold text-slate-400 flex items-center gap-1">
+                Auto-Learning <Bot className="w-2.5 h-2.5 text-indigo-400" />
+             </label>
+             <div className="flex items-center h-9 gap-2 bg-slate-50 px-3 rounded-lg border border-slate-200">
+                <Switch checked={autoLearn} onCheckedChange={handleAutoLearnToggle} />
+                <span className="text-[10px] font-bold text-slate-600">{autoLearn ? "ON" : "OFF"}</span>
+             </div>
+          </div>
+
+          <div className="flex flex-col gap-1 pr-4 border-r mr-2">
+             <label className="text-[10px] uppercase font-bold text-slate-400 flex items-center gap-1">
+                Smart Match Score <CheckCircle2 className="w-2.5 h-2.5 text-emerald-400" />
+             </label>
+             <div className="flex items-center h-9 gap-2 bg-slate-50 px-2 rounded-lg border border-slate-200 w-24">
+                <Input 
+                   type="number" 
+                   step="0.05" 
+                   max="1" 
+                   min="0.5" 
+                   className="h-7 text-xs font-black border-none bg-transparent focus:ring-0 p-0 text-center" 
+                   value={confidenceThreshold}
+                   onChange={e => {
+                      const val = parseFloat(e.target.value);
+                      setConfidenceThreshold(val);
+                      handleUpdateSettings({ confidenceThreshold: val });
+                   }}
+                />
+             </div>
+          </div>
+
+          <Dialog open={isBulkOpen} onOpenChange={setIsBulkOpen}>
+             <DialogTrigger asChild>
+                <Button variant="outline" className="h-9 gap-2 border-dashed border-indigo-200 text-indigo-600 hover:bg-indigo-50 font-medium">
+                  <Plus className="w-4 h-4" /> Bulk
+                </Button>
+             </DialogTrigger>
+             <DialogContent className="max-w-2xl">
+                <DialogHeader>
+                   <DialogTitle className="flex items-center gap-2">
+                       <Plus className="w-5 h-5 text-indigo-600" />
+                       Bulk Import Bot Rules
+                    </DialogTitle>
+                   <DialogDescription className="text-xs">
+                      Multiple rules ko ek saath add karne ke liye niche diya gaya JSON format use karein. Ensure the structure is exactly as shown:
+                   </DialogDescription>
+                </DialogHeader>
+                
+                <div className="bg-slate-950/95 p-4 rounded-xl text-emerald-400 text-[11px] font-mono border border-slate-800 shadow-2xl my-3">
+                   <p className="text-slate-500 mb-2 font-bold tracking-widest text-[9px] uppercase border-b border-white/5 pb-1">✅ Standard Import Format</p>
+                   <pre>{`[
+  {
+    "keywords": ["price", "cost"],
+    "reply": "Service cost is ₹3500",
+    "category": "sales",
+    "priority": 10
+  }
+]`}</pre>
+                </div>
+
+                <Textarea 
+                  placeholder='[ {"keywords": ["price"], "reply": "Costs ₹3500", "category": "sales"}, ... ]'
+                  className="min-h-[250px] font-mono text-xs mt-2 border-slate-200"
+                  value={bulkJson}
+                  onChange={e => setBulkJson(e.target.value)}
+                />
+                <div className="flex justify-end gap-3 mt-4">
+                   <Button variant="ghost" onClick={() => setIsBulkOpen(false)}>Cancel</Button>
+                   <Button className="bg-indigo-600" onClick={handleBulkImport} disabled={importing || !bulkJson}>
+                     {importing ? "Importing..." : "Start Import"}
+                   </Button>
+                </div>
+             </DialogContent>
+          </Dialog>
+        </div>
       </div>
 
       <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
@@ -316,15 +530,95 @@ export default function BotTrainingPage() {
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
         <TabsList className="bg-slate-100/50 p-1 border">
-          <TabsTrigger value="rules" className="gap-2"><Plus className="w-4 h-4"/> Rules Manager</TabsTrigger>
-          <TabsTrigger value="test" className="gap-2"><SendHorizontal className="w-4 h-4"/> Live Playground</TabsTrigger>
+          <TabsTrigger value="rules" className="gap-2"><Bot className="w-4 h-4"/> Bot Rules</TabsTrigger>
+          <TabsTrigger value="memory" className="gap-2"><Zap className="w-4 h-4"/> AI Memory</TabsTrigger>
+          <TabsTrigger value="test" className="gap-2"><SendHorizontal className="w-4 h-4"/> Playground</TabsTrigger>
           <TabsTrigger value="unmatched" className="gap-2 flex">
-             <MessageSquare className="w-4 h-4"/> Review Inbox
+             <MessageSquare className="w-4 h-4"/> Unmatched
              {unmatched.length > 0 && (
                 <span className="ml-1 w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
              )}
           </TabsTrigger>
+          <TabsTrigger value="analytics" className="gap-2">
+             <TrendingUp className="w-4 h-4"/> Efficiency & Costs
+          </TabsTrigger>
         </TabsList>
+
+        {/* --- AI MEMORY TAB --- */}
+        <TabsContent value="memory" className="space-y-4">
+           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Card className="md:col-span-1 h-fit shadow-md border-indigo-50">
+                <CardHeader>
+                  <CardTitle className="text-lg">{editKId ? "Edit Memory" : "Add Direct Knowledge"}</CardTitle>
+                  <CardDescription>Questions added here skip AI generation and reply directly.</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                   <div className="space-y-2">
+                      <label className="text-xs font-bold text-slate-500 uppercase">Question</label>
+                      <Input 
+                        placeholder="e.g. Price kya hai?" 
+                        value={knowledgeFormData.question}
+                        onChange={e => setKnowledgeFormData(p => ({ ...p, question: e.target.value }))}
+                      />
+                   </div>
+                   <div className="space-y-2">
+                      <label className="text-xs font-bold text-slate-500 uppercase">Stored Answer</label>
+                      <Textarea 
+                        placeholder="Zomato onboarding cost is ₹3500..." 
+                        className="min-h-[100px]"
+                        value={knowledgeFormData.answer}
+                        onChange={e => setKnowledgeFormData(p => ({ ...p, answer: e.target.value }))}
+                      />
+                   </div>
+                   <Button className="w-full bg-indigo-600" onClick={handleSaveKnowledge} disabled={saving}>
+                      {editKId ? "Update Memory" : "Add to Memory"}
+                   </Button>
+                   {editKId && (
+                      <Button variant="ghost" className="w-full text-slate-400" onClick={() => { setEditKId(null); setKnowledgeFormData({ question: "", answer: "", category: "learned" }); }}>Cancel</Button>
+                   )}
+                </CardContent>
+              </Card>
+
+              <div className="md:col-span-2 space-y-4">
+                 <div className="relative">
+                    <Search className="absolute left-3 top-3 w-4 h-4 text-slate-400" />
+                    <Input 
+                       placeholder="Search through AI Memory..." 
+                       className="pl-10 h-10 bg-white border-slate-100"
+                       value={knowledgeSearch}
+                       onChange={e => setKnowledgeSearch(e.target.value)}
+                    />
+                 </div>
+                 
+                 <div className="space-y-2">
+                    {knowledge.filter(k => k.question.toLowerCase().includes(knowledgeSearch.toLowerCase())).map(item => (
+                       <Card key={item._id} className="transition-all hover:border-indigo-200 group border-slate-100 shadow-sm">
+                          <CardContent className="p-4 flex items-start justify-between gap-4">
+                             <div className="flex-1 space-y-1">
+                                <div className="flex items-center gap-2">
+                                   <Badge variant="outline" className="text-[9px] uppercase font-bold text-indigo-500 bg-indigo-50/50 border-none">
+                                      {item.category}
+                                   </Badge>
+                                   <span className="text-[10px] text-slate-300 font-bold tracking-widest uppercase">Used {item.usageCount || 0} times</span>
+                                </div>
+                                <h4 className="text-sm font-black text-slate-800 leading-tight">Q: {item.question}</h4>
+                                <p className="text-sm text-slate-500 leading-relaxed italic">A: {item.answer}</p>
+                             </div>
+                             <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400 hover:text-indigo-600" onClick={() => {
+                                   setEditKId(item._id);
+                                   setKnowledgeFormData({ question: item.question, answer: item.answer, category: item.category });
+                                }}><Edit className="w-4 h-4"/></Button>
+                                <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400 hover:text-rose-600" onClick={() => deleteKnowledge(item._id)}><Trash2 className="w-4 h-4"/></Button>
+                             </div>
+                          </CardContent>
+                       </Card>
+                    ))}
+                    {knowledge.length === 0 && <div className="p-12 text-center text-slate-400 italic">No memory found. AI will learn from agent replies automatically! 🧠</div>}
+                 </div>
+              </div>
+           </div>
+        </TabsContent>
 
         {/* --- RULES TAB --- */}
         <TabsContent value="rules" className="space-y-4">
@@ -530,6 +824,135 @@ export default function BotTrainingPage() {
                     </Card>
                  ))}
               </div>
+           )}
+        </TabsContent>
+
+        {/* --- ANALYTICS TAB --- */}
+        <TabsContent value="analytics" className="space-y-6">
+           {analytics ? (
+             <>
+               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                  <Card className="bg-white shadow-sm border-indigo-50">
+                     <CardHeader className="pb-2">
+                        <CardDescription className="text-xs font-bold uppercase text-indigo-500">Today Cost</CardDescription>
+                        <CardTitle className="text-3xl font-black text-slate-800">
+                          ₹{analytics.costs.today.toFixed(2)}
+                        </CardTitle>
+                     </CardHeader>
+                  </Card>
+                  <Card className="bg-white shadow-sm border-slate-50">
+                     <CardHeader className="pb-2">
+                        <CardDescription className="text-xs font-bold uppercase text-slate-400">Total Match Rate</CardDescription>
+                        <CardTitle className="text-3xl font-black text-slate-800">
+                           {analytics.bot.totalMatchCount} <span className="text-xs text-slate-400 font-normal">Hits</span>
+                        </CardTitle>
+                     </CardHeader>
+                  </Card>
+                  <Card className="bg-white shadow-sm border-emerald-50">
+                     <CardHeader className="pb-2">
+                        <CardDescription className="text-xs font-bold uppercase text-emerald-500">Memory Size</CardDescription>
+                        <CardTitle className="text-3xl font-black text-slate-800">
+                           {analytics.knowledge.learnedCount} <span className="text-xs text-slate-400 font-normal">Learnt</span>
+                        </CardTitle>
+                     </CardHeader>
+                  </Card>
+                  <Card className="bg-white shadow-sm border-rose-50">
+                     <CardHeader className="pb-2">
+                        <CardDescription className="text-xs font-bold uppercase text-rose-500">Missed Intent</CardDescription>
+                        <CardTitle className="text-3xl font-black text-slate-800">
+                           {analytics.knowledge.unmatchedCount} <span className="text-xs text-slate-400 font-normal">Alerts</span>
+                        </CardTitle>
+                     </CardHeader>
+                  </Card>
+               </div>
+
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Cost Breakdown */}
+                  <Card className="shadow-md border-slate-100">
+                     <CardHeader>
+                        <CardTitle className="text-md font-bold">Cost Distribution</CardTitle>
+                        <CardDescription>Breakdown by message session type (₹)</CardDescription>
+                     </CardHeader>
+                     <CardContent className="h-[300px]">
+                        <ResponsiveContainer width="100%" height="100%">
+                           <PieChart>
+                              <Pie
+                                 data={analytics.costs.byType.map(c => ({ name: c._id, value: Math.round(c.total * 100) / 100 }))}
+                                 cx="50%"
+                                 cy="50%"
+                                 innerRadius={60}
+                                 outerRadius={80}
+                                 paddingAngle={5}
+                                 dataKey="value"
+                              >
+                                 {analytics.costs.byType.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={['#6366f1', '#10b981', '#f59e0b', '#ef4444'][index % 4]} />
+                                 ))}
+                              </Pie>
+                              <Tooltip />
+                              <Legend verticalAlign="bottom" wrapperStyle={{ paddingTop: '20px' }} />
+                           </PieChart>
+                        </ResponsiveContainer>
+                     </CardContent>
+                  </Card>
+
+                  {/* Category Performance */}
+                  <Card className="shadow-md border-slate-100">
+                     <CardHeader>
+                        <CardTitle className="text-md font-bold">Efficiency by Category</CardTitle>
+                        <CardDescription>Which bot rules are getting the most hits?</CardDescription>
+                     </CardHeader>
+                     <CardContent className="h-[300px]">
+                        <ResponsiveContainer width="100%" height="100%">
+                           <BarChart data={analytics.bot.categories}>
+                              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                              <XAxis dataKey="name" fontSize={10} axisLine={false} tickLine={false} />
+                              <YAxis fontSize={10} axisLine={false} tickLine={false} />
+                              <Tooltip 
+                                 contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                                 cursor={{ fill: '#f8fafc' }}
+                              />
+                              <Bar dataKey="hits" fill="#6366f1" radius={[4, 4, 0, 0]} barSize={40} />
+                           </BarChart>
+                        </ResponsiveContainer>
+                     </CardContent>
+                  </Card>
+               </div>
+               
+               <Card className="shadow-md border-slate-100">
+                  <CardHeader>
+                     <CardTitle className="text-md flex items-center gap-2 font-black">
+                        <Zap className="w-4 h-4 text-amber-500" />
+                        Top Performing Bot Rules
+                     </CardTitle>
+                     <CardDescription>Rules that handled most customer queries autonomously.</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                     <div className="space-y-3">
+                        {analytics.bot.topRules.map((rule, idx) => (
+                          <div key={idx} className="flex items-center justify-between p-3 bg-slate-50/50 rounded-xl border border-slate-100 transition-hover hover:bg-white hover:shadow-sm">
+                             <div className="flex-1">
+                                <span className="text-[10px] font-black uppercase text-indigo-400 tracking-widest">{rule.category}</span>
+                                <p className="text-sm font-bold text-slate-800 leading-tight truncate max-w-[400px]">"{rule.reply}"</p>
+                                <div className="flex gap-1 mt-1">
+                                   {Array.isArray(rule.keywords) ? rule.keywords.slice(0, 3).map(k => <span key={k} className="text-[8px] bg-slate-200 text-slate-500 px-1 rounded-sm">#{k}</span>) : null}
+                                </div>
+                             </div>
+                             <div className="flex flex-col items-end">
+                                <span className="text-xl font-black text-indigo-600">{rule.matchCount}</span>
+                                <span className="text-[8px] uppercase font-bold text-slate-400">Total Hits</span>
+                             </div>
+                          </div>
+                        ))}
+                     </div>
+                  </CardContent>
+               </Card>
+             </>
+           ) : (
+             <div className="h-[400px] flex flex-col items-center justify-center space-y-4">
+                <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+                <p className="text-slate-400 font-medium italic">Calculating your CRM efficiency...</p>
+             </div>
            )}
         </TabsContent>
       </Tabs>

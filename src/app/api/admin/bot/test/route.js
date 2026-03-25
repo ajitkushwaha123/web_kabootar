@@ -39,7 +39,7 @@ export async function POST(req) {
 
     // 2. AI Brain check (RAG + Intent)
     console.log("🧪 [BOT-TEST] Brain processing...");
-    const { reply: aiReply, intent, usedKnowledge } = await processMessage(
+    const { reply: aiReply, intent, usedKnowledge, source: aiSource } = await processMessage(
       message, 
       "test-convo-id", 
       orgId, 
@@ -48,10 +48,10 @@ export async function POST(req) {
     );
 
     if (aiReply) {
-       console.log("🧪 [BOT-TEST] AI Reply generated!");
+       console.log(`🧪 [BOT-TEST] ${aiSource} Reply generated!`);
        return NextResponse.json({ 
          reply: aiReply, 
-         source: "ai", 
+         source: aiSource || "ai", 
          intent, 
          usedKnowledge 
        });

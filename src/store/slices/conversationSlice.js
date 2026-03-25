@@ -12,10 +12,10 @@ const initialState = {
 
 export const fetchConversations = createAsyncThunk(
   "conversation/fetchConversations",
-  async (_, { rejectWithValue }) => {
+  async (tag, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        "/api/organization/inbox/conversation/list"
+        `/api/organization/inbox/conversation/list${tag ? `?tag=${tag}` : ""}`
       );
       return response.data.conversations;
     } catch (err) {

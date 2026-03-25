@@ -27,11 +27,16 @@ export async function getAuthContext() {
     });
   }
 
+  // 3. Find current user's membership details to get permissions
+  const currentUserMember = organization ? organization.members.find(m => m.user_id === user.id) : null;
+  const permissions = currentUserMember ? currentUserMember.permissions : (organization ? ["inbox"] : []); // Fallback
+
   return {
     userId: user.id,
     user: user,
     orgId: organization ? organization.org_id : null,
     org: organization,
+    permissions: permissions,
   };
 }
 

@@ -53,15 +53,32 @@ const organizationSchema = new mongoose.Schema(
           enum: ["ADMIN", "MEMBER"],
           default: "MEMBER",
         },
+        permissions: {
+           type: [String],
+           default: ["inbox", "analytics", "bot", "team"],
+        },
       },
     ],
     autoAiReply: {
       type: Boolean,
       default: false,
     },
+    autoReplyMode: {
+      type: String,
+      enum: ["OFF", "BOT_ONLY", "AI_ONLY", "HYBRID"],
+      default: "HYBRID",
+    },
     aiCapabilities: {
       type: [String],
       default: ["reply_suggestion"],
+    },
+    autoLearn: {
+      type: Boolean,
+      default: true,
+    },
+    aiConfidenceThreshold: {
+      type: Number,
+      default: 0.85,
     },
     leadDistributionSettings: {
       rule: {
